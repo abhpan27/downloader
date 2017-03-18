@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IDMParentViewController" customModule="iDownloader" customModuleProvider="target">
+            <connections>
+                <outlet property="filtersContainer" destination="cc2-HQ-h8P" id="Zb0-Os-UHt"/>
+                <outlet property="listOfDownloadContainer" destination="KaZ-6O-jom" id="QKb-Zp-iWU"/>
+                <outlet property="sideBarContainer" destination="Yje-JT-zXo" id="fov-JZ-DsB"/>
+                <outlet property="topBarContainer" destination="chO-N6-veQ" id="6gF-vR-1vh"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="870" height="675"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="cc2-HQ-h8P">
+                    <rect key="frame" x="70" y="0.0" width="0.0" height="673"/>
+                    <constraints>
+                        <constraint firstAttribute="width" id="R0Q-4n-Mem"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Yje-JT-zXo">
+                    <rect key="frame" x="0.0" y="0.0" width="70" height="675"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="xPB-WC-vIc"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="chO-N6-veQ">
+                    <rect key="frame" x="70" y="600" width="800" height="75"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="75" id="oAS-DN-1Nx"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="KaZ-6O-jom">
+                    <rect key="frame" x="70" y="0.0" width="800" height="600"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="IG8-T9-ZSQ"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="500" id="xwV-61-XAS"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Yje-JT-zXo" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="0ro-gd-ulw"/>
+                <constraint firstItem="chO-N6-veQ" firstAttribute="leading" secondItem="cc2-HQ-h8P" secondAttribute="trailing" id="3OP-HK-Ytt"/>
+                <constraint firstItem="KaZ-6O-jom" firstAttribute="leading" secondItem="cc2-HQ-h8P" secondAttribute="trailing" id="BBY-7B-fNe"/>
+                <constraint firstItem="chO-N6-veQ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="MHU-kx-2UA"/>
+                <constraint firstItem="cc2-HQ-h8P" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="2" id="O9y-l6-QGT"/>
+                <constraint firstItem="Yje-JT-zXo" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="S3h-QE-Am4"/>
+                <constraint firstAttribute="bottom" secondItem="Yje-JT-zXo" secondAttribute="bottom" id="YMe-hF-PK4"/>
+                <constraint firstItem="cc2-HQ-h8P" firstAttribute="leading" secondItem="Yje-JT-zXo" secondAttribute="trailing" id="Yix-ew-FIr"/>
+                <constraint firstAttribute="bottom" secondItem="KaZ-6O-jom" secondAttribute="bottom" id="abg-Eb-kwv"/>
+                <constraint firstAttribute="trailing" secondItem="KaZ-6O-jom" secondAttribute="trailing" id="dA5-Ti-7vN"/>
+                <constraint firstItem="KaZ-6O-jom" firstAttribute="leading" secondItem="cc2-HQ-h8P" secondAttribute="trailing" id="dJ8-5S-glT"/>
+                <constraint firstAttribute="bottom" secondItem="cc2-HQ-h8P" secondAttribute="bottom" id="fex-HJ-ynh"/>
+                <constraint firstItem="KaZ-6O-jom" firstAttribute="top" secondItem="chO-N6-veQ" secondAttribute="bottom" id="gLS-3y-L54"/>
+                <constraint firstAttribute="trailing" secondItem="chO-N6-veQ" secondAttribute="trailing" id="poF-96-las"/>
+            </constraints>
+        </customView>
+    </objects>
+</document>

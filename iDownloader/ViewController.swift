@@ -7,8 +7,8 @@
 //
 
 import Cocoa
-
-class ViewController: NSViewController {
+//leave this class as it is. We will add our own controller once launched
+class IDMLaunchedViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
