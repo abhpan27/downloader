@@ -30,6 +30,7 @@
 		8CDB78D01E7D51D200314F52 /* IDMMouseTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDB78CF1E7D51D200314F52 /* IDMMouseTrackingButton.swift */; };
 		8CDB78D21E7D544000314F52 /* IDMCustomGreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDB78D11E7D544000314F52 /* IDMCustomGreenButton.swift */; };
 		8CDB78D41E7D549600314F52 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDB78D31E7D549600314F52 /* FoundationExtension.swift */; };
+		8CDB78D61E7D5CAB00314F52 /* IDMSideBarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDB78D51E7D5CAB00314F52 /* IDMSideBarRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		8CDB78CF1E7D51D200314F52 /* IDMMouseTrackingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMMouseTrackingButton.swift; sourceTree = "<group>"; };
 		8CDB78D11E7D544000314F52 /* IDMCustomGreenButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMCustomGreenButton.swift; sourceTree = "<group>"; };
 		8CDB78D31E7D549600314F52 /* FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
+		8CDB78D51E7D5CAB00314F52 /* IDMSideBarRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSideBarRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 				8CA0C7021E7D3CAA002EA6D6 /* IDMSideBarController.xib */,
 				8CA0C7051E7D3CFA002EA6D6 /* IDMDownloadListController.swift */,
 				8CA0C7061E7D3CFA002EA6D6 /* IDMDownloadListController.xib */,
+				8CDB78D51E7D5CAB00314F52 /* IDMSideBarRow.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				8CDB78D21E7D544000314F52 /* IDMCustomGreenButton.swift in Sources */,
 				8CA0C6FF1E7D3C72002EA6D6 /* IDMHeaderViewController.swift in Sources */,
 				8CA0C7071E7D3CFA002EA6D6 /* IDMDownloadListController.swift in Sources */,
+				8CDB78D61E7D5CAB00314F52 /* IDMSideBarRow.swift in Sources */,
 				8C67544C1E7CFC390044FFA5 /* AppDelegate.swift in Sources */,
 				8CA0C70F1E7D427E002EA6D6 /* NSViewExtension.swift in Sources */,
 				8C6754511E7CFC390044FFA5 /* iDownloader.xcdatamodeld in Sources */,

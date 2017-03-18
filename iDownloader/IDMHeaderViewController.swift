@@ -10,7 +10,6 @@ import Cocoa
 
 class IDMHeaderViewController: NSViewController {
 
-   
     @IBOutlet weak var addDownloadContainer: NSView!
     @IBOutlet weak var addButton: NSButton!
     
