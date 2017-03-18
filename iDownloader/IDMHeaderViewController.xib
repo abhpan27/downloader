@@ -3,33 +3,112 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IDMHeaderViewController" customModule="iDownloader" customModuleProvider="target">
             <connections>
+                <outlet property="addButton" destination="S4A-ot-xN1" id="AcT-r6-e8P"/>
+                <outlet property="addDownloadContainer" destination="f3k-JC-V2l" id="uds-fb-vtk"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="87"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="f3k-JC-V2l">
+                    <rect key="frame" x="20" y="24" width="320" height="35"/>
+                    <subviews>
+                        <box boxType="custom" borderType="none" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="EgK-6Z-ogj">
+                            <rect key="frame" x="286" y="0.0" width="1" height="35"/>
+                            <view key="contentView" id="ETh-ue-T4N">
+                                <rect key="frame" x="0.0" y="0.0" width="1" height="35"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="EF8-eu-DUb"/>
+                            </constraints>
+                            <color key="fillColor" red="0.69803921568627447" green="0.64313725490196072" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
+                        </box>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S4A-ot-xN1" customClass="IDMAddDownloadButton" customModule="iDownloader" customModuleProvider="target">
+                            <rect key="frame" x="287" y="0.0" width="33" height="35"/>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Zar-mm-9ui">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-o4-b5K">
+                            <rect key="frame" x="11" y="8" width="271" height="19"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="Add download link here" id="6hs-kb-lnv">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Ofm-o4-b5K" firstAttribute="top" secondItem="f3k-JC-V2l" secondAttribute="top" constant="8" id="0Ws-gZ-ppb"/>
+                        <constraint firstAttribute="trailing" secondItem="S4A-ot-xN1" secondAttribute="trailing" id="4di-Gs-Mfg"/>
+                        <constraint firstItem="S4A-ot-xN1" firstAttribute="top" secondItem="f3k-JC-V2l" secondAttribute="top" id="51c-jT-VoK"/>
+                        <constraint firstItem="S4A-ot-xN1" firstAttribute="leading" secondItem="EgK-6Z-ogj" secondAttribute="trailing" id="5ZP-me-0si"/>
+                        <constraint firstAttribute="bottom" secondItem="EgK-6Z-ogj" secondAttribute="bottom" id="5dr-Ct-3It"/>
+                        <constraint firstItem="EgK-6Z-ogj" firstAttribute="top" secondItem="f3k-JC-V2l" secondAttribute="top" id="F7s-DV-iPr"/>
+                        <constraint firstAttribute="trailing" secondItem="EgK-6Z-ogj" secondAttribute="trailing" constant="33" id="HSS-Ds-MdB"/>
+                        <constraint firstItem="EgK-6Z-ogj" firstAttribute="leading" secondItem="Ofm-o4-b5K" secondAttribute="trailing" constant="6" id="cil-Tg-cmr"/>
+                        <constraint firstAttribute="bottom" secondItem="Ofm-o4-b5K" secondAttribute="bottom" constant="8" id="jfX-hF-bEa"/>
+                        <constraint firstAttribute="height" constant="35" id="kyI-wy-gu0"/>
+                        <constraint firstItem="Ofm-o4-b5K" firstAttribute="leading" secondItem="f3k-JC-V2l" secondAttribute="leading" constant="13" id="of2-Yb-NoE"/>
+                        <constraint firstAttribute="bottom" secondItem="S4A-ot-xN1" secondAttribute="bottom" id="vBc-3v-4o0"/>
+                    </constraints>
+                </customView>
+                <box boxType="custom" borderType="none" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="o35-SN-lYv">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="1"/>
+                    <view key="contentView" id="1eU-xR-HjT">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="1"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="0Kg-u1-9I4"/>
+                    </constraints>
+                    <color key="borderColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="0.33000000000000002" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="0.33000000000000002" colorSpace="calibratedRGB"/>
+                </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NH-dY-FVv">
-                    <rect key="frame" x="222" y="245" width="37" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="zON-Ip-5X6">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                    <rect key="frame" x="198" y="66" width="84" height="16"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="All Downloads" id="zON-Ip-5X6">
+                        <font key="font" metaFont="system" size="12"/>
+                        <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mwX-gP-UgR" customClass="IDMCustomGreenButton" customModule="iDownloader" customModuleProvider="target">
+                    <rect key="frame" x="385" y="24" width="75" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="bUV-rU-R9z"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" title="Disable ads" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="T96-3K-yOQ">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
             </subviews>
             <constraints>
+                <constraint firstItem="o35-SN-lYv" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="0mb-0Y-UmI"/>
+                <constraint firstItem="mwX-gP-UgR" firstAttribute="leading" secondItem="f3k-JC-V2l" secondAttribute="trailing" priority="999" constant="45" id="5zg-mC-tTf"/>
+                <constraint firstAttribute="bottom" secondItem="o35-SN-lYv" secondAttribute="bottom" id="7d6-Tb-lGs"/>
+                <constraint firstItem="f3k-JC-V2l" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="A0L-ab-eOo"/>
+                <constraint firstItem="f3k-JC-V2l" firstAttribute="top" secondItem="5NH-dY-FVv" secondAttribute="bottom" constant="7" id="LA2-g9-WLp"/>
                 <constraint firstItem="5NH-dY-FVv" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Wfu-2X-PR6"/>
-                <constraint firstItem="5NH-dY-FVv" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="10" id="bid-UU-t2O"/>
+                <constraint firstItem="5NH-dY-FVv" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="5" id="bid-UU-t2O"/>
+                <constraint firstItem="mwX-gP-UgR" firstAttribute="centerY" secondItem="f3k-JC-V2l" secondAttribute="centerY" id="fs4-wZ-SpV"/>
+                <constraint firstAttribute="trailing" secondItem="mwX-gP-UgR" secondAttribute="trailing" constant="20" id="jrQ-jG-iO1"/>
+                <constraint firstAttribute="trailing" secondItem="o35-SN-lYv" secondAttribute="trailing" id="vKM-8C-PM5"/>
             </constraints>
+            <point key="canvasLocation" x="138" y="50.5"/>
         </customView>
     </objects>
 </document>

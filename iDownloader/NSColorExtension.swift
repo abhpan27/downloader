@@ -8,9 +8,9 @@
 
 import Cocoa
 
-extension NSObject {
+extension NSColor {
     
-    func RGB(r:CGFloat, g:CGFloat, b:CGFloat, alpha:CGFloat? = 1) -> NSColor {
-        return NSColor(red: r/255, green: g/255, blue: b/255, alpha: alpha!)
+    convenience init(IDMr:CGFloat, g:CGFloat, b:CGFloat, alpha:CGFloat? = 1) {
+         self.init(red: IDMr/255, green: g/255, blue: b/255, alpha: alpha!)
     }
 }

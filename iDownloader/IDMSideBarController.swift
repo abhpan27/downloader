@@ -13,7 +13,7 @@ class IDMSideBarController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = RGB(r: 74, g: 74, b: 74).cgColor
+        self.view.layer?.backgroundColor = NSColor(IDMr: 74, g: 74, b: 74).cgColor
     }
     
 }
