@@ -8,10 +8,26 @@
 
 import Cocoa
 
-class IDMHeaderViewController: NSViewController {
+protocol HeaderActionDelegate:class{
+    func didSelectedStartDownload(downloadUrl:String)
+}
 
+class IDMHeaderViewController: NSViewController, NSTextFieldDelegate{
+
+    @IBOutlet weak var downloadLinkTextField: NSTextField!
     @IBOutlet weak var addDownloadContainer: NSView!
     @IBOutlet weak var addButton: NSButton!
+    weak var headerActionDelgate:HeaderActionDelegate?
+    var lastDownloadUrlString = ""
+    
+    init(headerDelegate:HeaderActionDelegate){
+        self.headerActionDelgate = headerDelegate
+        super.init(nibName: "IDMHeaderViewController", bundle: nil)!
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +37,37 @@ class IDMHeaderViewController: NSViewController {
         addDownloadContainer?.layer?.borderWidth = 1.0
         addDownloadContainer.layer?.cornerRadius =  5
         addDownloadContainer?.layer?.borderColor = NSColor(IDMr: 178, g: 164, b: 164).cgColor
+    }
+    
+    @IBAction func didSelectedAddDowload(_ sender: Any) {
+        checkAndStartDownload()
+    }
+    
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        checkAndStartDownload()
+    }
+    
+    private func checkAndStartDownload() {
+        guard !self.downloadLinkTextField.stringValue.isEmpty, self.downloadLinkTextField.stringValue != lastDownloadUrlString
+            else {
+                return
+        }
+        
+        guard  self.downloadLinkTextField.stringValue.isValidUrl
+            else{
+                showErorr(title: "invalid Url", message: "Download link is not valid, please enter valid download link and try again")
+                return
+        }
+        
+        self.lastDownloadUrlString = self.downloadLinkTextField.stringValue
+        self.headerActionDelgate?.didSelectedStartDownload(downloadUrl: self.downloadLinkTextField.stringValue)
+    }
+    
+    private func showErorr(title:String, message:String) {
+        let alert =  NSAlert()
+        alert.messageText = title
+        alert.informativeText = message
+        alert.runModal()
     }
     
 }

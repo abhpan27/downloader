@@ -8,20 +8,26 @@
 
 import Cocoa
 
-class IDMParentViewController: NSViewController {
+class IDMParentViewController: NSViewController, HeaderActionDelegate {
 
     @IBOutlet weak var filtersContainer: NSView!
     @IBOutlet weak var sideBarContainer: NSView!
     @IBOutlet weak var topBarContainer: NSView!
     @IBOutlet weak var listOfDownloadContainer: NSView!
-    let headerController:IDMHeaderViewController
-    let sideBarController:IDMSideBarController
-    let downloadListController:IDMDownloadListController
+    @IBOutlet weak var fileTypeLabel: NSTextField!
+    @IBOutlet weak var downloadFolderTextField: NSTextField!
+    @IBOutlet weak var fileNameTextField: NSTextField!
+    @IBOutlet weak var threadsTextField: NSTextField!
+    @IBOutlet weak var addDownloadPopUpView: IDMMouseEventBlockingView!
+    @IBOutlet var addDownloadContainer: IDMMouseEventBlockingView!
+    
+    
+    
+    var headerController:IDMHeaderViewController!
+    var sideBarController:IDMSideBarController!
+    var downloadListController:IDMDownloadListController!
     
     init() {
-        headerController = IDMHeaderViewController()
-        sideBarController = IDMSideBarController()
-        downloadListController = IDMDownloadListController()
         super.init(nibName: "IDMParentViewController", bundle: nil)!
     }
     
@@ -32,9 +38,51 @@ class IDMParentViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        headerController = IDMHeaderViewController(headerDelegate:self)
+        sideBarController = IDMSideBarController()
+        downloadListController = IDMDownloadListController()
         self.topBarContainer.addFittingSubView(subView: headerController.view)
         self.sideBarContainer.addFittingSubView(subView: sideBarController.view)
         self.listOfDownloadContainer.addFittingSubView(subView: downloadListController.view)
     }
     
+    //MARK:Download starting point
+    private func startDownload(downloadUrl: String) {
+        guard let urlFromString = URL(string: downloadUrl)
+            else {
+                return
+        }
+        
+        let fileNameAndExtesion = urlFromString.lastPathComponent.components(separatedBy: ".")
+        guard  fileNameAndExtesion.count == 2
+            else{
+                return
+        }
+        
+        let fileName = fileNameAndExtesion[0]
+        let fileExtension = fileNameAndExtesion[1]
+        let fileType = IDMFileTypeHelper().getFileType(fileExtension: fileExtension)
+       //show popup
+        setUpUIandAddDownloadPopUp()
+    }
+   
+    
+    //MARK:HeaderActionDelegate
+    func didSelectedStartDownload(downloadUrl: String) {
+        startDownload(downloadUrl:downloadUrl)
+    }
+    
+}
+
+//MARK: Add download UI
+extension IDMParentViewController: MouseDownDelgate {
+    final func setUpUIandAddDownloadPopUp() {
+        self.view.addFittingSubView(subView: addDownloadContainer)
+        addDownloadContainer.delegate = self
+    }
+    
+    func didMouseDown() {
+        addDownloadContainer.delegate = nil
+        addDownloadContainer.removeFromSuperview()
+    }
 }

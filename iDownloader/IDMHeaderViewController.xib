@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="addButton" destination="S4A-ot-xN1" id="AcT-r6-e8P"/>
                 <outlet property="addDownloadContainer" destination="f3k-JC-V2l" id="uds-fb-vtk"/>
+                <outlet property="downloadLinkTextField" destination="Ofm-o4-b5K" id="JeA-qP-0Gb"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -40,6 +41,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="didSelectedAddDowload:" target="-2" id="Lnl-ff-aIM"/>
+                            </connections>
                         </button>
                         <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-o4-b5K">
                             <rect key="frame" x="11" y="8" width="271" height="19"/>
@@ -48,6 +52,9 @@
                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="A8B-xZ-Zst"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <constraints>
