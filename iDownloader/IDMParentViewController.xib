@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IDMParentViewController" customModule="iDownloader" customModuleProvider="target">
@@ -74,33 +75,33 @@
             <rect key="frame" x="0.0" y="0.0" width="640" height="426"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Bw1-nj-w1B" customClass="IDMPopupView" customModule="iDownloader" customModuleProvider="target">
-                    <rect key="frame" x="70" y="88" width="500" height="250"/>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Bw1-nj-w1B" customClass="IDMAddDownloadPopUP" customModule="iDownloader" customModuleProvider="target">
+                    <rect key="frame" x="70" y="91" width="500" height="250"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ci9-ia-9X3">
-                            <rect key="frame" x="204" y="225" width="92" height="17"/>
+                            <rect key="frame" x="194" y="221" width="112" height="19"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add Download" id="V6j-4U-oKA">
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="systemMedium" size="16"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fN-mi-zUu">
-                            <rect key="frame" x="221" y="206" width="59" height="17"/>
+                            <rect key="frame" x="221" y="202" width="59" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File Type" id="8Nv-Ui-92e">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" red="0.29019607843137252" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <box horizontalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="yig-eT-g3A">
+                        <box hidden="YES" horizontalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="yig-eT-g3A">
                             <rect key="frame" x="148" y="0.0" width="5" height="180"/>
                         </box>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wu-OC-MNT">
-                            <rect key="frame" x="34" y="121" width="110" height="17"/>
+                            <rect key="frame" x="34" y="111" width="110" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Download Folder:" id="B6R-ux-pq3">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
@@ -108,30 +109,30 @@
                             <rect key="frame" x="159" y="152" width="311" height="29"/>
                             <subviews>
                                 <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjJ-Du-QBk">
-                                    <rect key="frame" x="10" y="3" width="291" height="23"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" drawsBackground="YES" id="GxM-6E-OLc">
+                                    <rect key="frame" x="10" y="3" width="291" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="File name" drawsBackground="YES" id="GxM-6E-OLc">
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="height" constant="29" id="1OU-xw-ced"/>
-                                <constraint firstItem="yjJ-Du-QBk" firstAttribute="top" secondItem="JpQ-SA-Tix" secondAttribute="top" constant="3" id="EDO-51-Ooy"/>
+                                <constraint firstItem="yjJ-Du-QBk" firstAttribute="top" secondItem="JpQ-SA-Tix" secondAttribute="top" constant="5" id="EDO-51-Ooy"/>
                                 <constraint firstAttribute="bottom" secondItem="yjJ-Du-QBk" secondAttribute="bottom" constant="3" id="FNY-G9-SFg"/>
                                 <constraint firstAttribute="trailing" secondItem="yjJ-Du-QBk" secondAttribute="trailing" constant="10" id="VeF-v5-U4O"/>
                                 <constraint firstItem="yjJ-Du-QBk" firstAttribute="leading" secondItem="JpQ-SA-Tix" secondAttribute="leading" constant="10" id="cw2-Uo-3Bb"/>
                             </constraints>
                         </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="rIP-h5-Xyt" customClass="IDMTextFieldContainer" customModule="iDownloader" customModuleProvider="target">
-                            <rect key="frame" x="159" y="115" width="267" height="29"/>
+                            <rect key="frame" x="159" y="105" width="267" height="29"/>
                             <subviews>
                                 <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ns-yw-Opu">
-                                    <rect key="frame" x="10" y="3" width="247" height="23"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" drawsBackground="YES" id="x4r-Bi-wah">
+                                    <rect key="frame" x="10" y="3" width="247" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="Download folder" drawsBackground="YES" id="x4r-Bi-wah">
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
@@ -139,26 +140,26 @@
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="8ns-yw-Opu" secondAttribute="trailing" constant="10" id="SAD-2q-enN"/>
                                 <constraint firstAttribute="height" constant="29" id="U5e-Ya-Pib"/>
-                                <constraint firstItem="8ns-yw-Opu" firstAttribute="top" secondItem="rIP-h5-Xyt" secondAttribute="top" constant="3" id="Yld-nK-YWc"/>
+                                <constraint firstItem="8ns-yw-Opu" firstAttribute="top" secondItem="rIP-h5-Xyt" secondAttribute="top" constant="5" id="Yld-nK-YWc"/>
                                 <constraint firstAttribute="bottom" secondItem="8ns-yw-Opu" secondAttribute="bottom" constant="3" id="iYp-g9-4lM"/>
                                 <constraint firstItem="8ns-yw-Opu" firstAttribute="leading" secondItem="rIP-h5-Xyt" secondAttribute="leading" constant="10" id="rKQ-KY-xWa"/>
                             </constraints>
                         </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="VW4-1v-WVr" customClass="IDMTextFieldContainer" customModule="iDownloader" customModuleProvider="target">
-                            <rect key="frame" x="161" y="73" width="35" height="29"/>
+                            <rect key="frame" x="161" y="58" width="35" height="29"/>
                             <subviews>
                                 <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Mr-hA-V9t">
-                                    <rect key="frame" x="5" y="3" width="25" height="23"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" drawsBackground="YES" id="ahz-pa-1qY">
+                                    <rect key="frame" x="5" y="3" width="25" height="21"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="8" drawsBackground="YES" id="ahz-pa-1qY">
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="7Mr-hA-V9t" secondAttribute="trailing" constant="5" id="86I-7o-5cc"/>
-                                <constraint firstItem="7Mr-hA-V9t" firstAttribute="top" secondItem="VW4-1v-WVr" secondAttribute="top" constant="3" id="Ey0-Id-dT5"/>
+                                <constraint firstItem="7Mr-hA-V9t" firstAttribute="top" secondItem="VW4-1v-WVr" secondAttribute="top" constant="5" id="Ey0-Id-dT5"/>
                                 <constraint firstAttribute="height" constant="29" id="Hwp-ZC-R87"/>
                                 <constraint firstAttribute="width" constant="35" id="IN5-XE-uYv"/>
                                 <constraint firstAttribute="bottom" secondItem="7Mr-hA-V9t" secondAttribute="bottom" constant="3" id="cIP-rC-8jo"/>
@@ -166,15 +167,15 @@
                             </constraints>
                         </customView>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKl-Yc-9h1">
-                            <rect key="frame" x="86" y="84" width="58" height="17"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Threads:" id="f0x-ux-SEO">
+                            <rect key="frame" x="94" y="64" width="50" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Split in:" id="f0x-ux-SEO">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k14-FD-LVr" customClass="IDMHighligtingButton" customModule="iDownloader" customModuleProvider="target">
-                            <rect key="frame" x="434" y="115" width="30" height="30"/>
+                            <rect key="frame" x="434" y="105" width="30" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="30" id="5Ha-h5-XgR"/>
                                 <constraint firstAttribute="height" constant="30" id="h3e-zb-GFS"/>
@@ -183,44 +184,47 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
-                        </button>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hOM-yj-zVd" customClass="IDMHighligtingButton" customModule="iDownloader" customModuleProvider="target">
-                            <rect key="frame" x="204" y="73" width="30" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="30" id="DZo-9c-xqh"/>
-                                <constraint firstAttribute="height" constant="30" id="sUb-5T-aMF"/>
-                            </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Segments" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="lwH-er-tAx">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
+                            <connections>
+                                <action selector="didSelectedChooseDownloadLocation:" target="-2" id="kFZ-p1-oMF"/>
+                            </connections>
                         </button>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDE-gH-FgO">
                             <rect key="frame" x="76" y="158" width="68" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File Name:" id="eB7-4M-ZYQ">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Bj-sf-Iqr" customClass="IDMCustomGreenButton" customModule="iDownloader" customModuleProvider="target">
-                            <rect key="frame" x="366" y="20" width="98" height="21"/>
+                            <rect key="frame" x="366" y="20" width="98" height="35"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="21" id="buZ-7A-79x"/>
+                                <constraint firstAttribute="height" constant="35" id="buZ-7A-79x"/>
                             </constraints>
                             <buttonCell key="cell" type="bevel" title="Start Download" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Gyx-Ot-w3h">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="didSelectedStartDownload:" target="-2" id="NYw-Ej-yEL"/>
+                            </connections>
                         </button>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3l-55-Icp">
+                            <rect key="frame" x="198" y="64" width="51" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="threads" id="qoU-hq-rNQ">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="height" constant="250" id="1g7-7v-GUq"/>
                         <constraint firstItem="yig-eT-g3A" firstAttribute="leading" secondItem="SKl-Yc-9h1" secondAttribute="trailing" constant="8" id="6WC-WQ-zNx"/>
                         <constraint firstItem="yig-eT-g3A" firstAttribute="leading" secondItem="WDE-gH-FgO" secondAttribute="trailing" constant="8" id="70z-QI-xk7"/>
                         <constraint firstAttribute="trailing" secondItem="JpQ-SA-Tix" secondAttribute="trailing" constant="30" id="8d2-MD-vgC"/>
+                        <constraint firstItem="VW4-1v-WVr" firstAttribute="centerY" secondItem="SKl-Yc-9h1" secondAttribute="centerY" id="8kF-um-i1c"/>
                         <constraint firstItem="k14-FD-LVr" firstAttribute="centerY" secondItem="rIP-h5-Xyt" secondAttribute="centerY" id="9PD-O2-fvI"/>
-                        <constraint firstItem="hOM-yj-zVd" firstAttribute="centerY" secondItem="VW4-1v-WVr" secondAttribute="centerY" id="Gs3-Cq-Qbb"/>
                         <constraint firstAttribute="width" constant="500" id="K1C-w6-zoE"/>
                         <constraint firstAttribute="bottom" secondItem="yig-eT-g3A" secondAttribute="bottom" id="KYm-GO-Xy2"/>
                         <constraint firstItem="rIP-h5-Xyt" firstAttribute="leading" secondItem="yig-eT-g3A" secondAttribute="trailing" constant="8" id="Lh5-fo-rj3"/>
@@ -228,34 +232,39 @@
                         <constraint firstItem="k14-FD-LVr" firstAttribute="leading" secondItem="rIP-h5-Xyt" secondAttribute="trailing" constant="8" id="TiU-n2-ypY"/>
                         <constraint firstItem="rIP-h5-Xyt" firstAttribute="centerY" secondItem="4wu-OC-MNT" secondAttribute="centerY" id="UoL-GH-fob"/>
                         <constraint firstItem="4fN-mi-zUu" firstAttribute="top" secondItem="Ci9-ia-9X3" secondAttribute="bottom" constant="2" id="WWM-u6-LXR"/>
-                        <constraint firstItem="Ci9-ia-9X3" firstAttribute="top" secondItem="Bw1-nj-w1B" secondAttribute="top" constant="8" id="Z3x-4v-1Bx"/>
+                        <constraint firstItem="Ci9-ia-9X3" firstAttribute="top" secondItem="Bw1-nj-w1B" secondAttribute="top" constant="10" id="Z3x-4v-1Bx"/>
                         <constraint firstAttribute="trailing" secondItem="k14-FD-LVr" secondAttribute="trailing" constant="36" id="Za4-xe-zBZ"/>
                         <constraint firstItem="Ci9-ia-9X3" firstAttribute="centerX" secondItem="Bw1-nj-w1B" secondAttribute="centerX" id="aZr-yM-cuF"/>
-                        <constraint firstItem="VW4-1v-WVr" firstAttribute="top" secondItem="rIP-h5-Xyt" secondAttribute="bottom" constant="13" id="ams-aM-kHX"/>
                         <constraint firstItem="JpQ-SA-Tix" firstAttribute="centerY" secondItem="WDE-gH-FgO" secondAttribute="centerY" id="evk-91-9OM"/>
-                        <constraint firstItem="SKl-Yc-9h1" firstAttribute="top" secondItem="4wu-OC-MNT" secondAttribute="bottom" constant="20" id="f5g-WL-EgI"/>
+                        <constraint firstItem="SKl-Yc-9h1" firstAttribute="top" secondItem="4wu-OC-MNT" secondAttribute="bottom" constant="30" id="f5g-WL-EgI"/>
                         <constraint firstItem="JpQ-SA-Tix" firstAttribute="leading" secondItem="yig-eT-g3A" secondAttribute="trailing" constant="8" id="g8z-6u-fME"/>
-                        <constraint firstItem="4wu-OC-MNT" firstAttribute="top" secondItem="WDE-gH-FgO" secondAttribute="bottom" constant="20" id="hbG-XR-sQe"/>
+                        <constraint firstItem="4wu-OC-MNT" firstAttribute="top" secondItem="WDE-gH-FgO" secondAttribute="bottom" constant="30" id="hbG-XR-sQe"/>
                         <constraint firstAttribute="bottom" secondItem="7Bj-sf-Iqr" secondAttribute="bottom" constant="20" id="kcx-Of-xee"/>
                         <constraint firstItem="VW4-1v-WVr" firstAttribute="leading" secondItem="yig-eT-g3A" secondAttribute="trailing" constant="10" id="lXx-jM-qXy"/>
                         <constraint firstItem="yig-eT-g3A" firstAttribute="leading" secondItem="4wu-OC-MNT" secondAttribute="trailing" constant="8" id="mj0-VQ-aLg"/>
                         <constraint firstItem="WDE-gH-FgO" firstAttribute="top" secondItem="Bw1-nj-w1B" secondAttribute="top" constant="75" id="qvS-mo-cQy"/>
+                        <constraint firstItem="k3l-55-Icp" firstAttribute="leading" secondItem="VW4-1v-WVr" secondAttribute="trailing" constant="4" id="sSL-Oj-uz1"/>
                         <constraint firstItem="yig-eT-g3A" firstAttribute="top" secondItem="Bw1-nj-w1B" secondAttribute="top" constant="70" id="tNT-ET-SOm"/>
+                        <constraint firstItem="k3l-55-Icp" firstAttribute="centerY" secondItem="SKl-Yc-9h1" secondAttribute="centerY" id="v2p-Nu-gWy"/>
                         <constraint firstAttribute="trailing" secondItem="7Bj-sf-Iqr" secondAttribute="trailing" constant="36" id="xaZ-ve-qD1"/>
-                        <constraint firstItem="hOM-yj-zVd" firstAttribute="leading" secondItem="VW4-1v-WVr" secondAttribute="trailing" constant="8" id="yyB-Xo-0eA"/>
                         <constraint firstItem="4fN-mi-zUu" firstAttribute="centerX" secondItem="Bw1-nj-w1B" secondAttribute="centerX" id="zo1-Wr-QEg"/>
                     </constraints>
+                    <connections>
+                        <outlet property="downloadLocationTextField" destination="8ns-yw-Opu" id="joZ-Hp-aKT"/>
+                        <outlet property="fileNameTextField" destination="yjJ-Du-QBk" id="PYz-Su-ivw"/>
+                        <outlet property="fileTypeLabel" destination="4fN-mi-zUu" id="EVC-9K-QCp"/>
+                        <outlet property="noOfThreadsTextField" destination="7Mr-hA-V9t" id="oxi-Gw-WBG"/>
+                    </connections>
                 </customView>
             </subviews>
             <constraints>
                 <constraint firstItem="Bw1-nj-w1B" firstAttribute="centerX" secondItem="Sc4-Vz-4hI" secondAttribute="centerX" id="Zek-oA-epk"/>
-                <constraint firstItem="Bw1-nj-w1B" firstAttribute="centerY" secondItem="Sc4-Vz-4hI" secondAttribute="centerY" id="d7U-rw-YcX"/>
+                <constraint firstItem="Bw1-nj-w1B" firstAttribute="top" secondItem="Sc4-Vz-4hI" secondAttribute="top" constant="85" id="plD-Yb-2sG"/>
             </constraints>
             <point key="canvasLocation" x="221" y="808"/>
         </customView>
     </objects>
     <resources>
-        <image name="Segments" width="25" height="25"/>
         <image name="folder-open" width="25" height="18"/>
     </resources>
 </document>

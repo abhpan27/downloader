@@ -9,7 +9,7 @@
 import Cocoa
 
 protocol HeaderActionDelegate:class{
-    func didSelectedStartDownload(downloadUrl:String)
+    func didSelectedStartDownloadFromHeader(downloadUrl:String)
 }
 
 class IDMHeaderViewController: NSViewController, NSTextFieldDelegate{
@@ -18,7 +18,6 @@ class IDMHeaderViewController: NSViewController, NSTextFieldDelegate{
     @IBOutlet weak var addDownloadContainer: NSView!
     @IBOutlet weak var addButton: NSButton!
     weak var headerActionDelgate:HeaderActionDelegate?
-    var lastDownloadUrlString = ""
     
     init(headerDelegate:HeaderActionDelegate){
         self.headerActionDelgate = headerDelegate
@@ -48,7 +47,7 @@ class IDMHeaderViewController: NSViewController, NSTextFieldDelegate{
     }
     
     private func checkAndStartDownload() {
-        guard !self.downloadLinkTextField.stringValue.isEmpty, self.downloadLinkTextField.stringValue != lastDownloadUrlString
+        guard !self.downloadLinkTextField.stringValue.isEmpty
             else {
                 return
         }
@@ -59,8 +58,7 @@ class IDMHeaderViewController: NSViewController, NSTextFieldDelegate{
                 return
         }
         
-        self.lastDownloadUrlString = self.downloadLinkTextField.stringValue
-        self.headerActionDelgate?.didSelectedStartDownload(downloadUrl: self.downloadLinkTextField.stringValue)
+        self.headerActionDelgate?.didSelectedStartDownloadFromHeader(downloadUrl: self.downloadLinkTextField.stringValue)
     }
     
     private func showErorr(title:String, message:String) {

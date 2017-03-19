@@ -16,6 +16,23 @@ internal enum fileTypes{
     compressed,
     other
     
+    var nameForType:String {
+        switch self {
+        case .video:
+            return "Video"
+        case .document:
+            return "Document"
+        case .picture:
+            return "Image"
+        case .application:
+            return "Executable"
+        case .compressed:
+            return "Compressed"
+        case .other:
+            return ""
+        }
+    }
+    
 }
 
 final class IDMFileTypeHelper{

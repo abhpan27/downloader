@@ -15,11 +15,11 @@ class IDMHighligtingButton: IDMMouseTrackingButton {
     }
     
     override func mouseExited(with event: NSEvent) {
-        self.alphaValue = 0.8
+        self.alphaValue = 0.6
     }
     
     override func viewDidMoveToWindow() {
-        self.alphaValue = 0.8
+        self.alphaValue = 0.6
     }
     
 }
