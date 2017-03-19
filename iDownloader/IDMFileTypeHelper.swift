@@ -8,7 +8,7 @@
 
 import Cocoa
 
-internal enum fileTypes{
+internal enum fileTypes:String{
     case video,
     document,
     picture,

@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FileDownloadData" representedClassName=".FileDownloadData" syncable="YES" codeGenerationType="class">
+        <attribute name="diskDownloadBookMark" attributeType="Binary" syncable="YES"/>
+        <attribute name="diskDownloadURL" attributeType="String" syncable="YES"/>
+        <attribute name="downloadEndTime" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="downloadStartTime" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fileDownloadID" attributeType="String" syncable="YES"/>
+        <attribute name="fileDownloadURL" attributeType="String" syncable="YES"/>
+        <attribute name="fileName" attributeType="String" syncable="YES"/>
+        <attribute name="fileType" attributeType="String" syncable="YES"/>
+        <attribute name="isResumable" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="runningStatus" attributeType="String" syncable="YES"/>
+        <attribute name="totalDownloaded" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalSize" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="segments" toMany="YES" deletionRule="Cascade" destinationEntity="SegmentDownloadData" inverseName="fileDownload" inverseEntity="SegmentDownloadData" syncable="YES"/>
+    </entity>
+    <entity name="SegmentDownloadData" representedClassName=".SegmentDownloadData" syncable="YES" codeGenerationType="class">
+        <attribute name="endByte" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="resumeData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="segmentID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startByte" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalDownloaded" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="fileDownload" maxCount="1" deletionRule="Cascade" destinationEntity="FileDownloadData" inverseName="segments" inverseEntity="FileDownloadData" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FileDownloadData" positionX="-63" positionY="-18" width="128" height="240"/>
+        <element name="SegmentDownloadData" positionX="-54" positionY="81" width="128" height="135"/>
+    </elements>
 </model>
