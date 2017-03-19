@@ -32,6 +32,7 @@ struct FileDownloadDataInfo{
 
 protocol FileDownloaderDelegate:class {
     func newFileDataCreationFalied()
+    func newFileDownloadCreationSuccess()
     
 }
 
@@ -48,8 +49,8 @@ final class IDMFileDownloadDataHelper:SegmentDownloaderDelegate{
     final func startDownloading() {
         if self.fileDownloadData.isNewDownload {
             intiateNewDownload()
-        }else {
-            
+        }else if self.fileDownloadData.runningStatus == .running{
+            createDonwloadChunksAndStartFetchingData()
         }
     }
     

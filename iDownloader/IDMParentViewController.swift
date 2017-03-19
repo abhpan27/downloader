@@ -79,7 +79,7 @@ extension IDMParentViewController: MouseDownDelgate {
         addDownloadContainer.delegate = self
         let defaultDownloadLocation = IDMFileManager.shared.defaultDownloadURL.path
         let defaultNoOfThreads = "10"
-        addDownloadPopUpView.updateDateUI(fileType: forFileType.nameForType, fileName: fileName, downloadLocation: defaultDownloadLocation, noOfThreads: defaultNoOfThreads, downloadURL:downloadURL)
+        addDownloadPopUpView.updateDateUI(fileType: forFileType, fileName: fileName, downloadLocation: defaultDownloadLocation, noOfThreads: defaultNoOfThreads, downloadURL:downloadURL)
     }
     
     func didMouseDown() {
@@ -131,7 +131,7 @@ extension IDMParentViewController: MouseDownDelgate {
                 return
         }
         
-        self.downloadListController.startNewDownload(fileName: self.addDownloadPopUpView.fileNameTextField.stringValue, downloadURL: self.addDownloadPopUpView.downloadURL!, downloadLocation: self.addDownloadPopUpView.downloadLocationTextField.stringValue, downloadLocationBookMark: self.addDownloadPopUpView.outOfSandBoxDirectoryURLData, noOfThreads: threadCount)
+        self.downloadListController.startNewDownload(fileName: self.addDownloadPopUpView.fileNameTextField.stringValue, downloadURL: self.addDownloadPopUpView.downloadURL!, downloadLocation: self.addDownloadPopUpView.downloadLocationTextField.stringValue, downloadLocationBookMark: self.addDownloadPopUpView.outOfSandBoxDirectoryURLData, noOfThreads: threadCount, fileType:self.addDownloadPopUpView.fileType!)
         
     }
     

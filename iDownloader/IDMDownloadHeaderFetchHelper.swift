@@ -52,7 +52,12 @@ final class IDMDownloadHeaderFetchHelper{
     private func parseHeaderFieldFromIntialPoll(headerField:[String:Any], completion:@escaping ((_ error:NSError?, _ canBreakIntoSegments:Bool, _ contentLenght:Int) -> Void)){
         Swift.print(headerField)
         let canBreakIntoSegments = isSegmentedDownloadSupported(probeHeader: headerField)
-        guard let contentLength = headerField["Content-Length"] as? Int
+        guard let contentLengthString = headerField["Content-Length"] as? String
+            else{
+                completion(DownloadProbeError.contentLengthNotFound, false, 0)
+                return
+        }
+        guard let contentLength = Int(contentLengthString)
             else{
                 completion(DownloadProbeError.contentLengthNotFound, false, 0)
                 return

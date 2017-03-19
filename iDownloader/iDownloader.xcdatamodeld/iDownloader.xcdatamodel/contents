@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FileDownloadData" representedClassName=".FileDownloadData" syncable="YES" codeGenerationType="class">
-        <attribute name="diskDownloadBookMark" attributeType="Binary" syncable="YES"/>
+        <attribute name="diskDownloadBookMark" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="diskDownloadURL" attributeType="String" syncable="YES"/>
         <attribute name="downloadEndTime" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="downloadStartTime" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>

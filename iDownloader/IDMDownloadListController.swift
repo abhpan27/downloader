@@ -8,17 +8,17 @@
 
 import Cocoa
 
-class IDMDownloadListController: NSViewController {
+class IDMDownloadListController: NSViewController, FileDownloadControllerDelegate {
     
     let IDMIntialDownloadProbeHelper = IDMDownloadHeaderFetchHelper()
-
+    var fileDownloaders = [IDMFileDownloadController]()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
     }
     
     
-    final func startNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int){
+    final func startNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int, fileType:fileTypes){
         IDMIntialDownloadProbeHelper.fetchHeaderDataForDownloadURL(downloadLink: downloadURL){
             [weak self]
             (error, canBreakIntoSegments, contentLenght)
@@ -33,6 +33,9 @@ class IDMDownloadListController: NSViewController {
                 }
                 return
             }
+            
+            let fileDownloadinfo = blockSelf.fileDownloadInfoForNewDownload(fileName: fileName, downloadURL: downloadURL, downloadLocation: downloadLocation, downloadLocationBookMark: downloadLocationBookMark, noOfThreads: noOfThreads, canBreakIntoSegments: canBreakIntoSegments, contentLength: contentLenght, fileType: fileType)
+            blockSelf.addFileDownloader(fileDownloadInfo: fileDownloadinfo)
             
         }
     }
@@ -66,7 +69,45 @@ class IDMDownloadListController: NSViewController {
 
 //MARK: IDMFileDownloadController
 extension IDMDownloadListController {
-    final func addFileDownloader() {
+    
+    fileprivate func fileDownloadInfoForNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int,  canBreakIntoSegments:Bool, contentLength:Int, fileType:fileTypes) -> FileDownloadDataInfo
+    {
+        let fileDownloadUniqueID = UUID().uuidString
+        let currentTimeStamp = Date().timeIntervalSince1970
+        let endTimeStamp = Date().addingTimeInterval(TimeInterval.greatestFiniteMagnitude).timeIntervalSince1970
         
+        //create chunks data 
+        var chunks = [ChunkDownloadData]()
+        let noOfChunks = noOfThreads
+        let extraNumberOfBytesForLastDownload = (contentLength % noOfChunks)
+        let contentDownloadablePerSession = ((contentLength - extraNumberOfBytesForLastDownload)/noOfChunks)
+        var startByteForChunk = 0
+        var endByteForChunk = (contentDownloadablePerSession - 1)
+        
+        for index in 0..<noOfChunks{
+            
+            let chunckDownloadUniqueID = UUID().uuidString
+            let chunkDownloadData = ChunkDownloadData(uniqueID: chunckDownloadUniqueID, startByte: startByteForChunk, endByte: endByteForChunk, totalDownloaded: 0, resumeData: nil, downloadURL: downloadURL)
+            chunks.append(chunkDownloadData)
+            startByteForChunk = endByteForChunk + 1
+            if index < noOfChunks-2 {
+                endByteForChunk = (startByteForChunk + contentDownloadablePerSession - 1)
+            }else {
+                endByteForChunk = (startByteForChunk + contentDownloadablePerSession + extraNumberOfBytesForLastDownload)
+            }
+        }
+        
+       let fileDownloadinfo = FileDownloadDataInfo(uniqueID: fileDownloadUniqueID, name: fileName, downloadURL: downloadURL, isResumeSupported: canBreakIntoSegments, type: fileType, startTimeStamp: currentTimeStamp, endTimeStamp: endTimeStamp, diskDownloadLocation: downloadLocation, diskDownloadBookmarkData: downloadLocationBookMark, runningStatus: downloadRunningStatus.running, totalSize: contentLength, chuckDownloadData: chunks, totalDownloaded: 0, currentSpeed: 0, isNewDownload: true)
+        
+        return fileDownloadinfo
     }
+    
+    final func addFileDownloader(fileDownloadInfo:FileDownloadDataInfo) {
+        let fileDownloader = IDMFileDownloadController(delegate:self)
+        fileDownloader.createFileDataHelperAndBeginDownload(fileDownloadInfo: fileDownloadInfo)
+        self.fileDownloaders.append(fileDownloader)
+    }
+    
+    //MARK:FileDownloadControllerDelegate
+    
 }

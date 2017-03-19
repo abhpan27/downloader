@@ -31,6 +31,6 @@ final class IDMSegmentDownloader {
     }
     
     final func start() {
-        
+        Swift.print("start download for url :\(donwloadData.downloadURL) from :\(donwloadData.startByte) to \(donwloadData.endByte)")
     }
 }

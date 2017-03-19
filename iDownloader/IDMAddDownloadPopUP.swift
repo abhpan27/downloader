@@ -15,10 +15,12 @@ class IDMAddDownloadPopUP: IDMPopupView {
     @IBOutlet weak var downloadLocationTextField: NSTextField!
     @IBOutlet weak var noOfThreadsTextField: NSTextField!
     var outOfSandBoxDirectoryURLData:Data?
+    var fileType:fileTypes?
     var downloadURL:String?
     
-    final func updateDateUI(fileType:String, fileName:String, downloadLocation:String, noOfThreads:String, downloadURL:String) {
-        self.fileTypeLabel.stringValue = fileType
+    final func updateDateUI(fileType:fileTypes, fileName:String, downloadLocation:String, noOfThreads:String, downloadURL:String) {
+        self.fileType = fileType
+        self.fileTypeLabel.stringValue = fileType.nameForType
         self.fileNameTextField.stringValue = fileName
         self.downloadLocationTextField.stringValue = downloadLocation
         self.noOfThreadsTextField.stringValue = noOfThreads
