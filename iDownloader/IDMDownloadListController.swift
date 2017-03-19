@@ -63,3 +63,10 @@ class IDMDownloadListController: NSViewController {
     }
     
 }
+
+//MARK: IDMFileDownloadController
+extension IDMDownloadListController {
+    final func addFileDownloader() {
+        
+    }
+}

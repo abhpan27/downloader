@@ -30,16 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let appSupportURL = urls[urls.count - 1]
         return appSupportURL.appendingPathComponent("com.apple.toolsQA.CocoaApp_CD")
     }()
-    
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "iDownloader")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
 
     
 }

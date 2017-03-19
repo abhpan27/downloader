@@ -6,8 +6,13 @@
 //  Copyright © 2017 Abhishek Pandey. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
-final class IDMDownloadController {
+class IDMFileDownloadController: NSViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do view setup here.
+    }
     
 }

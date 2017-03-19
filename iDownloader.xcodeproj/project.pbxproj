@@ -14,7 +14,6 @@
 		8C6754561E7CFC390044FFA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6754541E7CFC390044FFA5 /* Main.storyboard */; };
 		8C6754611E7CFC390044FFA5 /* iDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6754601E7CFC390044FFA5 /* iDownloaderTests.swift */; };
 		8C67546C1E7CFC390044FFA5 /* iDownloaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C67546B1E7CFC390044FFA5 /* iDownloaderUITests.swift */; };
-		8C89AF391E7E59B200215038 /* IDMFileDownloadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C89AF381E7E59B200215038 /* IDMFileDownloadController.swift */; };
 		8CA0C6F61E7D397F002EA6D6 /* IDMAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA0C6F51E7D397F002EA6D6 /* IDMAppController.swift */; };
 		8CA0C6FB1E7D3B20002EA6D6 /* IDMParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA0C6F91E7D3B20002EA6D6 /* IDMParentViewController.swift */; };
 		8CA0C6FC1E7D3B20002EA6D6 /* IDMParentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CA0C6FA1E7D3B20002EA6D6 /* IDMParentViewController.xib */; };
@@ -44,6 +43,11 @@
 		8CE9F7821E7E69AF005034A3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE9F7811E7E69AF005034A3 /* Reachability.m */; };
 		8CE9F7851E7E6A23005034A3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE9F7841E7E6A23005034A3 /* SystemConfiguration.framework */; };
 		8CE9F7871E7E6A5A005034A3 /* IDMReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE9F7861E7E6A5A005034A3 /* IDMReachability.swift */; };
+		8CE9F7891E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE9F7881E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift */; };
+		8CE9F78B1E7E70B0005034A3 /* IDMFileDownloadUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE9F78A1E7E70B0005034A3 /* IDMFileDownloadUIHelper.swift */; };
+		8CE9F78E1E7E76AF005034A3 /* IDMFileDownloadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE9F78C1E7E76AF005034A3 /* IDMFileDownloadController.swift */; };
+		8CE9F78F1E7E76AF005034A3 /* IDMFileDownloadController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE9F78D1E7E76AF005034A3 /* IDMFileDownloadController.xib */; };
+		8CE9F7921E7E81D2005034A3 /* IDMCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE9F7911E7E81D2005034A3 /* IDMCoreDataHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +81,6 @@
 		8C6754671E7CFC390044FFA5 /* iDownloaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iDownloaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C67546B1E7CFC390044FFA5 /* iDownloaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iDownloaderUITests.swift; sourceTree = "<group>"; };
 		8C67546D1E7CFC390044FFA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8C89AF381E7E59B200215038 /* IDMFileDownloadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMFileDownloadController.swift; sourceTree = "<group>"; };
 		8CA0C6F51E7D397F002EA6D6 /* IDMAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMAppController.swift; sourceTree = "<group>"; };
 		8CA0C6F91E7D3B20002EA6D6 /* IDMParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMParentViewController.swift; sourceTree = "<group>"; };
 		8CA0C6FA1E7D3B20002EA6D6 /* IDMParentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMParentViewController.xib; sourceTree = "<group>"; };
@@ -110,6 +113,11 @@
 		8CE9F7811E7E69AF005034A3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../../../Downloads/Reachability/Reachability/Reachability.m; sourceTree = "<group>"; };
 		8CE9F7841E7E6A23005034A3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8CE9F7861E7E6A5A005034A3 /* IDMReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMReachability.swift; sourceTree = "<group>"; };
+		8CE9F7881E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMFileDownloadDataHelper.swift; sourceTree = "<group>"; };
+		8CE9F78A1E7E70B0005034A3 /* IDMFileDownloadUIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMFileDownloadUIHelper.swift; sourceTree = "<group>"; };
+		8CE9F78C1E7E76AF005034A3 /* IDMFileDownloadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMFileDownloadController.swift; sourceTree = "<group>"; };
+		8CE9F78D1E7E76AF005034A3 /* IDMFileDownloadController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMFileDownloadController.xib; sourceTree = "<group>"; };
+		8CE9F7911E7E81D2005034A3 /* IDMCoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMCoreDataHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +170,7 @@
 		8C67544A1E7CFC390044FFA5 /* iDownloader */ = {
 			isa = PBXGroup;
 			children = (
+				8CE9F7901E7E816F005034A3 /* Core data */,
 				8CE9F77E1E7E699A005034A3 /* Rechability */,
 				8CE9F77B1E7E5C80005034A3 /* Download Api helper */,
 				8C89AF371E7E599E00215038 /* Download Controller */,
@@ -235,7 +244,10 @@
 		8C89AF371E7E599E00215038 /* Download Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8C89AF381E7E59B200215038 /* IDMFileDownloadController.swift */,
+				8CE9F7881E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift */,
+				8CE9F78A1E7E70B0005034A3 /* IDMFileDownloadUIHelper.swift */,
+				8CE9F78C1E7E76AF005034A3 /* IDMFileDownloadController.swift */,
+				8CE9F78D1E7E76AF005034A3 /* IDMFileDownloadController.xib */,
 			);
 			name = "Download Controller";
 			sourceTree = "<group>";
@@ -349,6 +361,14 @@
 				8CE9F7841E7E6A23005034A3 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8CE9F7901E7E816F005034A3 /* Core data */ = {
+			isa = PBXGroup;
+			children = (
+				8CE9F7911E7E81D2005034A3 /* IDMCoreDataHelper.swift */,
+			);
+			name = "Core data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -473,6 +493,7 @@
 				8C6754561E7CFC390044FFA5 /* Main.storyboard in Resources */,
 				8CA0C7001E7D3C72002EA6D6 /* IDMHeaderViewController.xib in Resources */,
 				8CA0C6FC1E7D3B20002EA6D6 /* IDMParentViewController.xib in Resources */,
+				8CE9F78F1E7E76AF005034A3 /* IDMFileDownloadController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,16 +522,18 @@
 				8CDB78CB1E7D466D00314F52 /* NSColorExtension.swift in Sources */,
 				8CDB78D01E7D51D200314F52 /* IDMMouseTrackingButton.swift in Sources */,
 				8CA0C7031E7D3CAA002EA6D6 /* IDMSideBarController.swift in Sources */,
-				8C89AF391E7E59B200215038 /* IDMFileDownloadController.swift in Sources */,
 				8CA0C70A1E7D3D5A002EA6D6 /* IDMMailWindowController.swift in Sources */,
 				8CDB78E11E7DAC2500314F52 /* IDMHighligtingButton.swift in Sources */,
 				8CDB78E51E7DB91800314F52 /* IDMPopupView.swift in Sources */,
+				8CE9F78B1E7E70B0005034A3 /* IDMFileDownloadUIHelper.swift in Sources */,
 				8CDB78CE1E7D4F8500314F52 /* IDMAddDownloadButton.swift in Sources */,
+				8CE9F7921E7E81D2005034A3 /* IDMCoreDataHelper.swift in Sources */,
 				8C67544E1E7CFC390044FFA5 /* ViewController.swift in Sources */,
 				8CDB78D81E7D972E00314F52 /* IDMStringExtension.swift in Sources */,
 				8CE9F7871E7E6A5A005034A3 /* IDMReachability.swift in Sources */,
 				8CDB78D21E7D544000314F52 /* IDMCustomGreenButton.swift in Sources */,
 				8CDB78DD1E7D9B6E00314F52 /* IDMFileTypeHelper.swift in Sources */,
+				8CE9F78E1E7E76AF005034A3 /* IDMFileDownloadController.swift in Sources */,
 				8CDB78EA1E7E412400314F52 /* IDMFileManager.swift in Sources */,
 				8CA0C6FF1E7D3C72002EA6D6 /* IDMHeaderViewController.swift in Sources */,
 				8CA0C7071E7D3CFA002EA6D6 /* IDMDownloadListController.swift in Sources */,
@@ -523,6 +546,7 @@
 				8C6754511E7CFC390044FFA5 /* iDownloader.xcdatamodeld in Sources */,
 				8CDB78D41E7D549600314F52 /* FoundationExtension.swift in Sources */,
 				8CA0C6FB1E7D3B20002EA6D6 /* IDMParentViewController.swift in Sources */,
+				8CE9F7891E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift in Sources */,
 				8CE9F7821E7E69AF005034A3 /* Reachability.m in Sources */,
 				8CDB78E71E7E3EC900314F52 /* IDMAddDownloadPopUP.swift in Sources */,
 			);
