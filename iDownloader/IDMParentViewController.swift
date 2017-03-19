@@ -131,7 +131,7 @@ extension IDMParentViewController: MouseDownDelgate {
                 return
         }
         
-        startNewDownload(fileName: self.addDownloadPopUpView.fileNameTextField.stringValue, downloadURL: self.addDownloadPopUpView.downloadURL!, downloadLocation: self.addDownloadPopUpView.downloadLocationTextField.stringValue, downloadLocationBookMark: self.addDownloadPopUpView.outOfSandBoxDirectoryURLData, noOfThreads: threadCount)
+        self.downloadListController.startNewDownload(fileName: self.addDownloadPopUpView.fileNameTextField.stringValue, downloadURL: self.addDownloadPopUpView.downloadURL!, downloadLocation: self.addDownloadPopUpView.downloadLocationTextField.stringValue, downloadLocationBookMark: self.addDownloadPopUpView.outOfSandBoxDirectoryURLData, noOfThreads: threadCount)
         
     }
     
@@ -142,11 +142,8 @@ extension IDMParentViewController: MouseDownDelgate {
     
 }
 
-//MARK:Download start and handling
+//MARK:Download filter handling
 extension IDMParentViewController {
     
-    final func startNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int){
-        
-    }
     
 }
