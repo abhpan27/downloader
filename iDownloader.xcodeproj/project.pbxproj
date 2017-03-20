@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C528B8E1E804AE300076550 /* IDMUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C528B8D1E804AE300076550 /* IDMUtilities.swift */; };
+		8C528B901E804CE100076550 /* IDMFlippedViewOfScollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C528B8F1E804CE100076550 /* IDMFlippedViewOfScollView.swift */; };
 		8C67544C1E7CFC390044FFA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C67544B1E7CFC390044FFA5 /* AppDelegate.swift */; };
 		8C67544E1E7CFC390044FFA5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C67544D1E7CFC390044FFA5 /* ViewController.swift */; };
 		8C6754511E7CFC390044FFA5 /* iDownloader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C67544F1E7CFC390044FFA5 /* iDownloader.xcdatamodeld */; };
@@ -67,15 +69,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8C6754481E7CFC390044FFA5 /* iDownloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = iDownloader.app; path = /Users/abhishekpandey/iDownloader/iDownloader/build/Debug/iDownloader.app; sourceTree = "<absolute>"; };
+		8C528B891E8037ED00076550 /* iDownloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDownloader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C528B8A1E8037ED00076550 /* iDownloaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = iDownloaderTests.xctest; path = /Users/abhishekpandey/iDownloader/iDownloader/build/Debug/iDownloaderTests.xctest; sourceTree = "<absolute>"; };
+		8C528B8B1E8037ED00076550 /* iDownloaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = iDownloaderUITests.xctest; path = /Users/abhishekpandey/iDownloader/iDownloader/build/Debug/iDownloaderUITests.xctest; sourceTree = "<absolute>"; };
+		8C528B8D1E804AE300076550 /* IDMUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMUtilities.swift; sourceTree = "<group>"; };
+		8C528B8F1E804CE100076550 /* IDMFlippedViewOfScollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMFlippedViewOfScollView.swift; sourceTree = "<group>"; };
 		8C67544B1E7CFC390044FFA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = iDownloader/AppDelegate.swift; sourceTree = "<group>"; };
 		8C67544D1E7CFC390044FFA5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8C6754501E7CFC390044FFA5 /* iDownloader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iDownloader.xcdatamodel; sourceTree = "<group>"; };
 		8C6754521E7CFC390044FFA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C6754551E7CFC390044FFA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8C6754571E7CFC390044FFA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8C67545C1E7CFC390044FFA5 /* iDownloaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = iDownloaderTests.xctest; path = /Users/abhishekpandey/iDownloader/iDownloader/build/Debug/iDownloaderTests.xctest; sourceTree = "<absolute>"; };
-		8C6754671E7CFC390044FFA5 /* iDownloaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = iDownloaderUITests.xctest; path = /Users/abhishekpandey/iDownloader/iDownloader/build/Debug/iDownloaderUITests.xctest; sourceTree = "<absolute>"; };
 		8CA0C6F51E7D397F002EA6D6 /* IDMAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMAppController.swift; sourceTree = "<group>"; };
 		8CA0C6F91E7D3B20002EA6D6 /* IDMParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMParentViewController.swift; sourceTree = "<group>"; };
 		8CA0C6FA1E7D3B20002EA6D6 /* IDMParentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMParentViewController.xib; sourceTree = "<group>"; };
@@ -142,17 +146,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C528B8C1E804ABB00076550 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8C528B8D1E804AE300076550 /* IDMUtilities.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		8C67543F1E7CFC390044FFA5 = {
 			isa = PBXGroup;
 			children = (
 				8C67544A1E7CFC390044FFA5 /* iDownloader */,
 				8CE9F7831E7E6A23005034A3 /* Frameworks */,
+				8C528B891E8037ED00076550 /* iDownloader.app */,
 			);
 			sourceTree = "<group>";
 		};
 		8C67544A1E7CFC390044FFA5 /* iDownloader */ = {
 			isa = PBXGroup;
 			children = (
+				8C528B8C1E804ABB00076550 /* Utilities */,
 				8CE9F7901E7E816F005034A3 /* Core data */,
 				8CE9F77E1E7E699A005034A3 /* Rechability */,
 				8CE9F77B1E7E5C80005034A3 /* Download Api helper */,
@@ -282,6 +296,7 @@
 				8CDB78DE1E7DABA000314F52 /* IDMTextFieldContainer.swift */,
 				8CDB78E01E7DAC2500314F52 /* IDMHighligtingButton.swift */,
 				8CDB78E41E7DB91800314F52 /* IDMPopupView.swift */,
+				8C528B8F1E804CE100076550 /* IDMFlippedViewOfScollView.swift */,
 			);
 			name = "Custom UI Elements";
 			sourceTree = "<group>";
@@ -354,7 +369,7 @@
 			);
 			name = iDownloader;
 			productName = iDownloader;
-			productReference = 8C6754481E7CFC390044FFA5 /* iDownloader.app */;
+			productReference = 8C528B891E8037ED00076550 /* iDownloader.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8C67545B1E7CFC390044FFA5 /* iDownloaderTests */ = {
@@ -372,7 +387,7 @@
 			);
 			name = iDownloaderTests;
 			productName = iDownloaderTests;
-			productReference = 8C67545C1E7CFC390044FFA5 /* iDownloaderTests.xctest */;
+			productReference = 8C528B8A1E8037ED00076550 /* iDownloaderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		8C6754661E7CFC390044FFA5 /* iDownloaderUITests */ = {
@@ -390,7 +405,7 @@
 			);
 			name = iDownloaderUITests;
 			productName = iDownloaderUITests;
-			productReference = 8C6754671E7CFC390044FFA5 /* iDownloaderUITests.xctest */;
+			productReference = 8C528B8B1E8037ED00076550 /* iDownloaderUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -492,6 +507,7 @@
 				8CDB78E11E7DAC2500314F52 /* IDMHighligtingButton.swift in Sources */,
 				8CDB78E51E7DB91800314F52 /* IDMPopupView.swift in Sources */,
 				8CE9F78B1E7E70B0005034A3 /* IDMFileDownloadUIHelper.swift in Sources */,
+				8C528B901E804CE100076550 /* IDMFlippedViewOfScollView.swift in Sources */,
 				8CDB78CE1E7D4F8500314F52 /* IDMAddDownloadButton.swift in Sources */,
 				8CE9F7921E7E81D2005034A3 /* IDMCoreDataHelper.swift in Sources */,
 				8C67544E1E7CFC390044FFA5 /* ViewController.swift in Sources */,
@@ -515,6 +531,7 @@
 				8CA0C6FB1E7D3B20002EA6D6 /* IDMParentViewController.swift in Sources */,
 				8CE9F7891E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift in Sources */,
 				8CE9F7821E7E69AF005034A3 /* Reachability.m in Sources */,
+				8C528B8E1E804AE300076550 /* IDMUtilities.swift in Sources */,
 				8CDB78E71E7E3EC900314F52 /* IDMAddDownloadPopUP.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

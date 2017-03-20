@@ -132,6 +132,7 @@ extension IDMParentViewController: MouseDownDelgate {
         }
         
         self.downloadListController.startNewDownload(fileName: self.addDownloadPopUpView.fileNameTextField.stringValue, downloadURL: self.addDownloadPopUpView.downloadURL!, downloadLocation: self.addDownloadPopUpView.downloadLocationTextField.stringValue, downloadLocationBookMark: self.addDownloadPopUpView.outOfSandBoxDirectoryURLData, noOfThreads: threadCount, fileType:self.addDownloadPopUpView.fileType!)
+        self.addDownloadContainer.removeFromSuperview()
         
     }
     

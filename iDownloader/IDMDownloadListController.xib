@@ -1,11 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="IDMDownloadListController" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="IDMDownloadListController" customModule="iDownloader" customModuleProvider="target">
             <connections>
+                <outlet property="loader" destination="Oti-Tg-3F0" id="Mhd-dP-e7I"/>
+                <outlet property="stackView" destination="OHs-cj-Z2s" id="ZEf-nG-R2G"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -14,6 +19,55 @@
         <customView id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFU-bw-1Kx">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="BQL-Zp-xB4">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view translatesAutoresizingMaskIntoConstraints="NO" id="pfo-nv-xlc" customClass="IDMFlippedViewOfScollView" customModule="iDownloader" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="272" width="480" height="0.0"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OHs-cj-Z2s">
+                                        <rect key="frame" x="0.0" y="0.0" width="478" height="267"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="OHs-cj-Z2s" secondAttribute="trailing" id="BnA-qG-bq1"/>
+                                    <constraint firstAttribute="bottom" secondItem="OHs-cj-Z2s" secondAttribute="bottom" id="aCH-Jc-RY0"/>
+                                    <constraint firstItem="OHs-cj-Z2s" firstAttribute="top" secondItem="pfo-nv-xlc" secondAttribute="top" id="oAH-UR-knH"/>
+                                    <constraint firstItem="OHs-cj-Z2s" firstAttribute="leading" secondItem="pfo-nv-xlc" secondAttribute="leading" id="zSG-nW-MyK"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="pfo-nv-xlc" firstAttribute="top" secondItem="BQL-Zp-xB4" secondAttribute="top" id="kgn-Ep-WbP"/>
+                            <constraint firstAttribute="trailing" secondItem="pfo-nv-xlc" secondAttribute="trailing" id="qJw-Tt-vHf"/>
+                            <constraint firstItem="pfo-nv-xlc" firstAttribute="leading" secondItem="BQL-Zp-xB4" secondAttribute="leading" id="xqC-P1-iHN"/>
+                        </constraints>
+                    </clipView>
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="x9J-ac-lug">
+                        <rect key="frame" x="0.0" y="256" width="480" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="REM-KR-b1i">
+                        <rect key="frame" x="464" y="0.0" width="16" height="272"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Oti-Tg-3F0">
+                    <rect key="frame" x="224" y="120" width="32" height="32"/>
+                </progressIndicator>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="aFU-bw-1Kx" secondAttribute="bottom" id="7Qs-zc-5ha"/>
+                <constraint firstItem="Oti-Tg-3F0" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="9Hr-Mr-alZ"/>
+                <constraint firstAttribute="trailing" secondItem="aFU-bw-1Kx" secondAttribute="trailing" id="gAP-cY-O6Z"/>
+                <constraint firstItem="Oti-Tg-3F0" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="nuA-TC-Phy"/>
+                <constraint firstItem="aFU-bw-1Kx" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="q6l-he-pEn"/>
+                <constraint firstItem="aFU-bw-1Kx" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="ztH-Cl-kaV"/>
+            </constraints>
         </customView>
     </objects>
 </document>

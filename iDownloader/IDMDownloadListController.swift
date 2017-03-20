@@ -10,6 +10,8 @@ import Cocoa
 
 class IDMDownloadListController: NSViewController, FileDownloadControllerDelegate {
     
+    @IBOutlet weak var loader: NSProgressIndicator!
+    @IBOutlet weak var stackView: NSStackView!
     let IDMIntialDownloadProbeHelper = IDMDownloadHeaderFetchHelper()
     var fileDownloaders = [IDMFileDownloadController]()
     override func viewDidLoad() {
@@ -19,6 +21,7 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
     
     
     final func startNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int, fileType:fileTypes){
+        self.startLoader()
         IDMIntialDownloadProbeHelper.fetchHeaderDataForDownloadURL(downloadLink: downloadURL){
             [weak self]
             (error, canBreakIntoSegments, contentLenght)
@@ -32,6 +35,10 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
                     blockSelf.showError(error: error!)
                 }
                 return
+            }
+            
+            runInMainThread {
+                blockSelf.stopLoader()
             }
             
             let fileDownloadinfo = blockSelf.fileDownloadInfoForNewDownload(fileName: fileName, downloadURL: downloadURL, downloadLocation: downloadLocation, downloadLocationBookMark: downloadLocationBookMark, noOfThreads: noOfThreads, canBreakIntoSegments: canBreakIntoSegments, contentLength: contentLenght, fileType: fileType)
@@ -104,10 +111,24 @@ extension IDMDownloadListController {
     
     final func addFileDownloader(fileDownloadInfo:FileDownloadDataInfo) {
         let fileDownloader = IDMFileDownloadController(delegate:self)
-        fileDownloader.createFileDataHelperAndBeginDownload(fileDownloadInfo: fileDownloadInfo)
         self.fileDownloaders.append(fileDownloader)
+        fileDownloader.createFileDataHelperAndBeginDownload(fileDownloadInfo: fileDownloadInfo)
     }
     
     //MARK:FileDownloadControllerDelegate
+    
+    func insertNewDownloadRow(row: NSView) {
+        self.stackView.addView(row, in: NSStackViewGravity.top)
+    }
+    
+    func startLoader(){
+        self.loader.isHidden = false
+        self.loader.startAnimation(self)
+    }
+    
+    func stopLoader(){
+        self.loader.isHidden = true
+        self.loader.stopAnimation(self)
+    }
     
 }

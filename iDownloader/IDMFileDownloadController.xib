@@ -1,19 +1,81 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="IDMFileDownloadController" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="IDMFileDownloadController" customModule="iDownloader" customModuleProvider="target">
             <connections>
+                <outlet property="downloadedLabel" destination="KGS-pV-QqW" id="xfa-7m-aNM"/>
+                <outlet property="fileNameLabel" destination="MaB-sX-JGC" id="Cj7-cc-uxN"/>
+                <outlet property="percentLabel" destination="Zw7-ob-aDd" id="HTa-oI-teu"/>
+                <outlet property="speedLabel" destination="CNW-A3-wqv" id="SM8-qy-5aN"/>
+                <outlet property="timeRemainingLabel" destination="GES-Vy-rG4" id="2VN-LR-5Rd"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="184"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaB-sX-JGC">
+                    <rect key="frame" x="209" y="147" width="62" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File name" id="C1n-Rh-AJQ">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zw7-ob-aDd">
+                    <rect key="frame" x="215" y="116" width="51" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Percent" id="F8y-1D-Md2">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNW-A3-wqv">
+                    <rect key="frame" x="219" y="81" width="43" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Speed" id="YtH-FW-aiZ">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GES-Vy-rG4">
+                    <rect key="frame" x="192" y="49" width="97" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Time remaining" id="o63-sv-A3b">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGS-pV-QqW">
+                    <rect key="frame" x="200" y="16" width="80" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Downloaded" id="tSr-MI-bFj">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="MaB-sX-JGC" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="2K5-EB-Kg1"/>
+                <constraint firstItem="MaB-sX-JGC" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="2af-aU-Ytd"/>
+                <constraint firstItem="GES-Vy-rG4" firstAttribute="top" secondItem="CNW-A3-wqv" secondAttribute="bottom" constant="15" id="83R-v8-s25"/>
+                <constraint firstItem="Zw7-ob-aDd" firstAttribute="top" secondItem="MaB-sX-JGC" secondAttribute="bottom" constant="14" id="FLW-ev-qTv"/>
+                <constraint firstItem="KGS-pV-QqW" firstAttribute="top" secondItem="GES-Vy-rG4" secondAttribute="bottom" constant="16" id="INp-VU-1oI"/>
+                <constraint firstItem="GES-Vy-rG4" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="ShR-ty-a9l"/>
+                <constraint firstItem="CNW-A3-wqv" firstAttribute="top" secondItem="Zw7-ob-aDd" secondAttribute="bottom" constant="18" id="Xsl-jb-n3E"/>
+                <constraint firstItem="Zw7-ob-aDd" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="YAM-03-Ao5"/>
+                <constraint firstAttribute="bottom" secondItem="KGS-pV-QqW" secondAttribute="bottom" constant="16" id="ZNP-pV-5hH"/>
+                <constraint firstItem="KGS-pV-QqW" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="agu-1t-Zct"/>
+                <constraint firstItem="CNW-A3-wqv" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="f6G-by-Jfn"/>
+            </constraints>
         </customView>
     </objects>
 </document>
