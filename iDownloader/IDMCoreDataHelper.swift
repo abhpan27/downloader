@@ -8,6 +8,11 @@
 
 import Cocoa
 
+struct CoreDataErrors {
+    static let domain = "coreDataErrors"
+    static let nothingFound = 1
+}
+
 final class IDMCoreDataHelper {
     
     static let shared = IDMCoreDataHelper()
@@ -59,6 +64,59 @@ final class IDMCoreDataHelper {
             
         }
        
+    }
+    
+    final func updateDBWithFileDownloadInfo(fileDownloadInfo:FileDownloadDataInfo, completion:@escaping (_ error:Error?)-> ())
+    {
+        persistentContainer.performBackgroundTask { (context) in
+            let existingFileDataFetchRequest: NSFetchRequest<NSFetchRequestResult> = FileDownloadData.fetchRequest()
+            existingFileDataFetchRequest.predicate = NSPredicate(format: "fileDownloadID == %@", fileDownloadInfo.uniqueID)
+            do {
+                let fileDownloadDataArray =  try context.fetch(existingFileDataFetchRequest)
+                guard let fileDownloadData = fileDownloadDataArray.last as? FileDownloadData
+                    else {
+                        
+                        completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil))
+                        return
+                }
+                fileDownloadData.fileDownloadID = fileDownloadInfo.uniqueID
+                fileDownloadData.fileName = fileDownloadInfo.name
+                fileDownloadData.fileDownloadURL = fileDownloadInfo.downloadURL
+                fileDownloadData.totalSize = Int64(fileDownloadInfo.totalSize)
+                fileDownloadData.fileType = fileDownloadInfo.type.rawValue
+                fileDownloadData.totalDownloaded = Int64(fileDownloadInfo.totalDownloaded)
+                fileDownloadData.isResumable = fileDownloadInfo.isResumeSupported
+                fileDownloadData.diskDownloadBookMark = fileDownloadInfo.diskDownloadBookmarkData as NSData?
+                fileDownloadData.diskDownloadURL = fileDownloadInfo.diskDownloadLocation
+                fileDownloadData.runningStatus = fileDownloadInfo.runningStatus.rawValue
+                fileDownloadData.downloadStartTime = fileDownloadInfo.startTimeStamp
+                fileDownloadData.downloadEndTime = fileDownloadInfo.endTimeStamp
+                for segment in fileDownloadData.segments! {
+                    let segmentData = segment as! SegmentDownloadData
+                    if let indexOfChunkInfo = fileDownloadInfo.chuckDownloadData.index(where: { (chunk) -> Bool in
+                        chunk.uniqueID == segmentData.segmentID
+                    }){
+                        let chunkDownloadInfo = fileDownloadInfo.chuckDownloadData[indexOfChunkInfo]
+                        segmentData.startByte = Int64(chunkDownloadInfo.startByte)
+                        segmentData.endByte = Int64(chunkDownloadInfo.endByte)
+                        segmentData.segmentID = chunkDownloadInfo.uniqueID
+                        segmentData.totalDownloaded = Int64(chunkDownloadInfo.totalDownloaded)
+                        segmentData.resumeData = chunkDownloadInfo.resumeData as NSData?
+                    }
+                   
+                }
+                do {
+                    try context.save()
+                    completion(nil)
+                }catch {
+                    Swift.print("saving falied :\(error.localizedDescription)")
+                    completion(error)
+                }
+                            }
+            catch {
+                Swift.print("loggin:error saving state")
+            }
+        }
     }
     
     

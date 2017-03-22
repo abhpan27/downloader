@@ -70,8 +70,6 @@
 
 /* Begin PBXFileReference section */
 		8C528B891E8037ED00076550 /* iDownloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDownloader.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C528B8A1E8037ED00076550 /* iDownloaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = iDownloaderTests.xctest; path = /Users/abhishekpandey/iDownloader/iDownloader/build/Debug/iDownloaderTests.xctest; sourceTree = "<absolute>"; };
-		8C528B8B1E8037ED00076550 /* iDownloaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = iDownloaderUITests.xctest; path = /Users/abhishekpandey/iDownloader/iDownloader/build/Debug/iDownloaderUITests.xctest; sourceTree = "<absolute>"; };
 		8C528B8D1E804AE300076550 /* IDMUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMUtilities.swift; sourceTree = "<group>"; };
 		8C528B8F1E804CE100076550 /* IDMFlippedViewOfScollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMFlippedViewOfScollView.swift; sourceTree = "<group>"; };
 		8C67544B1E7CFC390044FFA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = iDownloader/AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +90,8 @@
 		8CA0C7091E7D3D5A002EA6D6 /* IDMMailWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMMailWindowController.swift; sourceTree = "<group>"; };
 		8CA0C70E1E7D427E002EA6D6 /* NSViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSViewExtension.swift; sourceTree = "<group>"; };
 		8CA83AEC1E7EF0F000E030EB /* IDMSegmentDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSegmentDownloader.swift; sourceTree = "<group>"; };
+		8CC96DBE1E82C3B6001392A8 /* iDownloaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iDownloaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CC96DBF1E82C3B6001392A8 /* iDownloaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iDownloaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CDB78CA1E7D466D00314F52 /* NSColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColorExtension.swift; sourceTree = "<group>"; };
 		8CDB78CD1E7D4F8500314F52 /* IDMAddDownloadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMAddDownloadButton.swift; sourceTree = "<group>"; };
 		8CDB78CF1E7D51D200314F52 /* IDMMouseTrackingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMMouseTrackingButton.swift; sourceTree = "<group>"; };
@@ -160,6 +160,8 @@
 				8C67544A1E7CFC390044FFA5 /* iDownloader */,
 				8CE9F7831E7E6A23005034A3 /* Frameworks */,
 				8C528B891E8037ED00076550 /* iDownloader.app */,
+				8CC96DBE1E82C3B6001392A8 /* iDownloaderTests.xctest */,
+				8CC96DBF1E82C3B6001392A8 /* iDownloaderUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -387,7 +389,7 @@
 			);
 			name = iDownloaderTests;
 			productName = iDownloaderTests;
-			productReference = 8C528B8A1E8037ED00076550 /* iDownloaderTests.xctest */;
+			productReference = 8CC96DBE1E82C3B6001392A8 /* iDownloaderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		8C6754661E7CFC390044FFA5 /* iDownloaderUITests */ = {
@@ -405,7 +407,7 @@
 			);
 			name = iDownloaderUITests;
 			productName = iDownloaderUITests;
-			productReference = 8C528B8B1E8037ED00076550 /* iDownloaderUITests.xctest */;
+			productReference = 8CC96DBF1E82C3B6001392A8 /* iDownloaderUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */

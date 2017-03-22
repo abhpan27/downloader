@@ -6,7 +6,7 @@
 //  Copyright © 2017 Abhishek Pandey. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 enum downloadRunningStatus:String{
     case running = "running", paused = "paused"
@@ -24,7 +24,7 @@ struct FileDownloadDataInfo{
     let diskDownloadBookmarkData:Data?
     let runningStatus:downloadRunningStatus
     let totalSize:Int
-    let chuckDownloadData:[ChunkDownloadData]
+    var chuckDownloadData:[ChunkDownloadData]
     var totalDownloaded:Int
     var currentSpeed:Int
     var isNewDownload:Bool
@@ -83,7 +83,60 @@ final class IDMFileDownloadDataHelper{
             self.segmentDownloaders.append(segmentDownloader)
             segmentDownloader.start()
         }
+        
         self.delegate?.newFileDownloadCreationSuccess()
+        
+        if self.fileDownloadData.isResumeSupported {
+            scheduleDBSaveTimer()
+        }
+    }
+    
+    private func scheduleDBSaveTimer() {
+        //start save current state DB, on each 2 sec we will save current state so that we can start later
+        runInMainThread {
+            [weak self]
+            in
+            if let blockSelf = self {
+                Timer.scheduledTimer(timeInterval: 5, target: blockSelf, selector: #selector(IDMFileDownloadDataHelper.saveCurrentStateInDB), userInfo: nil, repeats: true)
+            }
+        }
+    }
+
+    
+    @objc func saveCurrentStateInDB() {
+        saveStateOfChunks(chunkIndex: 0)
+    }
+    
+    //start recursive save
+    private func saveStateOfChunks(chunkIndex:Int) {
+        if chunkIndex >= self.segmentDownloaders.count {
+            self.saveFileDownloadInfoInDB()
+            return
+        }
+        
+        self.segmentDownloaders[chunkIndex].saveSegmentResumeData { 
+            [weak self]
+            in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            Swift.print("saved state of chunk :\(chunkIndex)")
+            blockSelf.saveStateOfChunks(chunkIndex: chunkIndex + 1)
+        }
+    }
+    
+    private func saveFileDownloadInfoInDB() {
+        IDMCoreDataHelper.shared.updateDBWithFileDownloadInfo(fileDownloadInfo: self.fileDownloadData) { [weak self]
+            (error) in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            if error != nil {
+                Swift.print("error Logging: \(error)")
+            }
+        }
     }
     
 }
@@ -93,7 +146,9 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
     func didWriteData() {
         let currentTotalDownloaded = self.fileDownloadData.totalDownloaded
         var newTotalDownloaded = 0
+        var newChunkData = [ChunkDownloadData]()
         for segmentDownloader in self.segmentDownloaders {
+            newChunkData.append(segmentDownloader.donwloadData)
             newTotalDownloaded = newTotalDownloaded + segmentDownloader.donwloadData.totalDownloaded
         }
         
@@ -102,13 +157,28 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
             return
         }
         
-        let timeSinceLastDownload = Date().timeIntervalSince(lastDownloadSpeedCheckTime!) > 1 ? Date().timeIntervalSince(lastDownloadSpeedCheckTime!) : 1
+        guard newTotalDownloaded > currentTotalDownloaded else {
+            return
+        }
+        
+        guard Date().timeIntervalSince(lastDownloadSpeedCheckTime!) > 1
+            else {
+                return
+        }
+        
+        let timeSinceLastDownload = Date().timeIntervalSince(lastDownloadSpeedCheckTime!)
         lastDownloadSpeedCheckTime = Date()
-        let currentSpeed = (newTotalDownloaded - currentTotalDownloaded)/Int(timeSinceLastDownload) //bytes per second
+        let currentSpeed = Double(newTotalDownloaded - currentTotalDownloaded)/Double(timeSinceLastDownload) //bytes per second
         self.fileDownloadData.totalDownloaded = newTotalDownloaded
-        let timeRemaining = (self.fileDownloadData.totalSize - self.fileDownloadData.totalDownloaded)/currentSpeed
+        var timeRemaining = Int.max
+        if (currentSpeed != 0){
+            timeRemaining = (self.fileDownloadData.totalSize - self.fileDownloadData.totalDownloaded)/Int(currentSpeed)
+        }
         
         self.currentUIData = UIData(totalDownloaded: self.fileDownloadData.totalDownloaded,speed: currentSpeed,timeRemaining: timeRemaining)
+        
+        //update chunk data also
+        self.fileDownloadData.chuckDownloadData = newChunkData
     }
     
     func isResumeSupported() -> Bool {

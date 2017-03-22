@@ -27,6 +27,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
     var donwloadData:ChunkDownloadData
     weak var delegate:SegmentDownloaderDelegate?
     var session:URLSession?
+    var downloadTask:URLSessionDownloadTask?
     
     init(data:ChunkDownloadData, delegate:SegmentDownloaderDelegate){
         self.donwloadData = data
@@ -34,7 +35,6 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
     }
     
     final func start() {
-        Swift.print("start download for url :\(donwloadData.downloadURL) from :\(donwloadData.startByte) to \(donwloadData.endByte)")
         let urlConfigurationForDownload = URLSessionConfiguration.default
         urlConfigurationForDownload.httpMaximumConnectionsPerHost = 15
         session = URLSession(configuration: urlConfigurationForDownload, delegate: self, delegateQueue: OperationQueue.main)
@@ -42,8 +42,24 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
         if self.delegate!.isResumeSupported() {
             urlRequestForChunkDownload.addValue("bytes=\(self.donwloadData.startByte)-\(self.donwloadData.endByte)", forHTTPHeaderField: "Range")
         }
-        let downloadTask = session!.downloadTask(with: urlRequestForChunkDownload)
-        downloadTask.resume()
+        downloadTask = session!.downloadTask(with: urlRequestForChunkDownload)
+        downloadTask!.resume()
+    }
+    
+    final func saveSegmentResumeData(completion:@escaping () -> ()){
+        self.downloadTask?.cancel(byProducingResumeData: { [weak self]
+            (data) in
+            guard let blockSelf = self
+                else {
+                    return
+            }
+            if (data != nil){
+                blockSelf.donwloadData.resumeData = data
+                blockSelf.downloadTask = blockSelf.session?.downloadTask(withResumeData: data!)
+                blockSelf.downloadTask!.resume()
+            }
+            completion()
+        })
     }
     
     
@@ -60,7 +76,8 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
         if let data = (error as? NSError)?.userInfo[NSURLSessionDownloadTaskResumeData] as? Data{
             self.donwloadData.resumeData = data
-            self.session?.downloadTask(withResumeData: data).resume()
+            self.downloadTask = self.session?.downloadTask(withResumeData: data)
+            self.downloadTask!.resume()
         }
     }
 

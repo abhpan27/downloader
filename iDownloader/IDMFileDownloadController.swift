@@ -16,7 +16,7 @@ protocol FileDownloadControllerDelegate:class {
 
 struct UIData{
     let totalDownloaded:Int
-    let speed:Int
+    let speed:Double
     let timeRemaining:Int
 }
 
@@ -70,7 +70,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
             }
             //blockSelf.updateUIWithUIData()
             blockSelf.delegate?.insertNewDownloadRow(row: blockSelf.view)
-            Timer.scheduledTimer(timeInterval: 0.3, target: blockSelf, selector: #selector(IDMFileDownloadController.updateUIWithUIData), userInfo: nil, repeats: true)
+            Timer.scheduledTimer(timeInterval: 0.2, target: blockSelf, selector: #selector(IDMFileDownloadController.updateUIWithUIData), userInfo: nil, repeats: true)
         }
        
     }
@@ -90,10 +90,11 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     func updateUIWithUIData(){
         let uiData = self.fileDownloadHelper!.currentUIData
         self.fileNameLabel.stringValue = self.fileDownloadHelper!.fileDownloadData.name
-        self.downloadedLabel.stringValue = "\(uiData.totalDownloaded)bytes of \(self.fileDownloadHelper!.fileDownloadData.totalSize)bytes"
+        self.downloadedLabel.stringValue = "\(IDMUtilities.shared.representableStringForBytes(bytes: uiData.totalDownloaded)) of \(IDMUtilities.shared.representableStringForBytes(bytes: self.fileDownloadHelper!.fileDownloadData.totalSize))"
+        
         self.percentLabel.stringValue = "\((uiData.totalDownloaded * 100)/self.fileDownloadHelper!.fileDownloadData.totalSize)%"
-        self.speedLabel.stringValue = "\(uiData.speed) bytes/Seconds"
-        self.timeRemainingLabel.stringValue = "\(uiData.timeRemaining) Seconds"
+        self.speedLabel.stringValue = "\(IDMUtilities.shared.representableStringForSpeed(speed: uiData.speed))"
+        self.timeRemainingLabel.stringValue = "\(IDMUtilities.shared.representableStringForTime(seconds:  uiData.timeRemaining))"
         
     }
     
