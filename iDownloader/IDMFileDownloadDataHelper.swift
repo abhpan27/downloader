@@ -9,7 +9,7 @@
 import Cocoa
 
 enum downloadRunningStatus:String{
-    case running = "running", paused = "paused"
+    case running = "running", paused = "paused", failed = "failed", completed = "completed"
 }
 
 struct FileDownloadDataInfo{
@@ -121,7 +121,6 @@ final class IDMFileDownloadDataHelper{
                 else{
                     return
             }
-            Swift.print("saved state of chunk :\(chunkIndex)")
             blockSelf.saveStateOfChunks(chunkIndex: chunkIndex + 1)
         }
     }

@@ -14,6 +14,10 @@
 		8C6754511E7CFC390044FFA5 /* iDownloader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C67544F1E7CFC390044FFA5 /* iDownloader.xcdatamodeld */; };
 		8C6754531E7CFC390044FFA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C6754521E7CFC390044FFA5 /* Assets.xcassets */; };
 		8C6754561E7CFC390044FFA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6754541E7CFC390044FFA5 /* Main.storyboard */; };
+		8C7F44CA1E842157008E7060 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C61E842157008E7060 /* BaseView.swift */; };
+		8C7F44CB1E842157008E7060 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C71E842157008E7060 /* CircularProgressView.swift */; };
+		8C7F44CC1E842157008E7060 /* DeterminateAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C81E842157008E7060 /* DeterminateAnimation.swift */; };
+		8C7F44CD1E842157008E7060 /* ProgressUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C91E842157008E7060 /* ProgressUtils.swift */; };
 		8CA0C6F61E7D397F002EA6D6 /* IDMAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA0C6F51E7D397F002EA6D6 /* IDMAppController.swift */; };
 		8CA0C6FB1E7D3B20002EA6D6 /* IDMParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA0C6F91E7D3B20002EA6D6 /* IDMParentViewController.swift */; };
 		8CA0C6FC1E7D3B20002EA6D6 /* IDMParentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CA0C6FA1E7D3B20002EA6D6 /* IDMParentViewController.xib */; };
@@ -78,6 +82,10 @@
 		8C6754521E7CFC390044FFA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C6754551E7CFC390044FFA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8C6754571E7CFC390044FFA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C7F44C61E842157008E7060 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		8C7F44C71E842157008E7060 /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		8C7F44C81E842157008E7060 /* DeterminateAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeterminateAnimation.swift; sourceTree = "<group>"; };
+		8C7F44C91E842157008E7060 /* ProgressUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressUtils.swift; sourceTree = "<group>"; };
 		8CA0C6F51E7D397F002EA6D6 /* IDMAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMAppController.swift; sourceTree = "<group>"; };
 		8CA0C6F91E7D3B20002EA6D6 /* IDMParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMParentViewController.swift; sourceTree = "<group>"; };
 		8CA0C6FA1E7D3B20002EA6D6 /* IDMParentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMParentViewController.xib; sourceTree = "<group>"; };
@@ -292,6 +300,10 @@
 			isa = PBXGroup;
 			children = (
 				8CDB78CD1E7D4F8500314F52 /* IDMAddDownloadButton.swift */,
+				8C7F44C61E842157008E7060 /* BaseView.swift */,
+				8C7F44C71E842157008E7060 /* CircularProgressView.swift */,
+				8C7F44C81E842157008E7060 /* DeterminateAnimation.swift */,
+				8C7F44C91E842157008E7060 /* ProgressUtils.swift */,
 				8CDB78CF1E7D51D200314F52 /* IDMMouseTrackingButton.swift */,
 				8CDB78D11E7D544000314F52 /* IDMCustomGreenButton.swift */,
 				8CDB78D91E7D9AB900314F52 /* IDMMouseEventBlockingView.swift */,
@@ -511,6 +523,7 @@
 				8CE9F78B1E7E70B0005034A3 /* IDMFileDownloadUIHelper.swift in Sources */,
 				8C528B901E804CE100076550 /* IDMFlippedViewOfScollView.swift in Sources */,
 				8CDB78CE1E7D4F8500314F52 /* IDMAddDownloadButton.swift in Sources */,
+				8C7F44CB1E842157008E7060 /* CircularProgressView.swift in Sources */,
 				8CE9F7921E7E81D2005034A3 /* IDMCoreDataHelper.swift in Sources */,
 				8C67544E1E7CFC390044FFA5 /* ViewController.swift in Sources */,
 				8CDB78D81E7D972E00314F52 /* IDMStringExtension.swift in Sources */,
@@ -524,6 +537,7 @@
 				8CA0C7071E7D3CFA002EA6D6 /* IDMDownloadListController.swift in Sources */,
 				8CDB78DF1E7DABA000314F52 /* IDMTextFieldContainer.swift in Sources */,
 				8CDB78DA1E7D9AB900314F52 /* IDMMouseEventBlockingView.swift in Sources */,
+				8C7F44CC1E842157008E7060 /* DeterminateAnimation.swift in Sources */,
 				8CE9F77D1E7E5CAD005034A3 /* IDMDownloadHeaderFetchHelper.swift in Sources */,
 				8CDB78D61E7D5CAB00314F52 /* IDMSideBarRow.swift in Sources */,
 				8C67544C1E7CFC390044FFA5 /* AppDelegate.swift in Sources */,
@@ -531,8 +545,10 @@
 				8C6754511E7CFC390044FFA5 /* iDownloader.xcdatamodeld in Sources */,
 				8CDB78D41E7D549600314F52 /* FoundationExtension.swift in Sources */,
 				8CA0C6FB1E7D3B20002EA6D6 /* IDMParentViewController.swift in Sources */,
+				8C7F44CD1E842157008E7060 /* ProgressUtils.swift in Sources */,
 				8CE9F7891E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift in Sources */,
 				8CE9F7821E7E69AF005034A3 /* Reachability.m in Sources */,
+				8C7F44CA1E842157008E7060 /* BaseView.swift in Sources */,
 				8C528B8E1E804AE300076550 /* IDMUtilities.swift in Sources */,
 				8CDB78E71E7E3EC900314F52 /* IDMAddDownloadPopUP.swift in Sources */,
 			);

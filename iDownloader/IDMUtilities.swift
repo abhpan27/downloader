@@ -19,6 +19,10 @@ final class IDMUtilities {
     }
     
     func representableStringForBytes(bytes:Int) -> String{
+        if bytes == Int.max {
+            return "calculating..."
+        }
+        
         if bytes < 1024 {
             return "\(bytes) bytes"
         }
@@ -35,22 +39,28 @@ final class IDMUtilities {
     }
     
     func representableStringForSpeed(speed:Double) -> String {
+        if speed == 0 {
+            return "calculating..."
+        }
         if speed < 1024 {
-           return String(format:"%.1f bytes/seconds", speed)
+           return String(format:"%.1f bytes/S", speed)
         }
         
         if speed > 1024 && speed < (1024 * 1024) {
-            return  String(format:"%.1f KB/seconds", speed / 1024)
+            return  String(format:"%.1f KB/S", speed / 1024)
         }
         
         if speed > (1024 * 1024) && speed < (1024 * 1024 * 1924) {
-            return String(format:"%.1f MB/seconds", speed / (1024 * 1024))
+            return String(format:"%.1f MB/S", speed / (1024 * 1024))
         }
         
-        return String(format:"%.1f GB/seconds", speed / (1024 * 1024 * 1024))
+        return String(format:"%.1f GB/S", speed / (1024 * 1024 * 1024))
     }
     
     func representableStringForTime(seconds:Int) -> String{
+        if seconds == Int.max {
+            return "Calculating..."
+        }
         if seconds < 60 {
             return "\(seconds) Seconds"
         }
