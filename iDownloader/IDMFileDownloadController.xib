@@ -12,8 +12,10 @@
                 <outlet property="container" destination="mJQ-KJ-q7s" id="N2A-mH-NHX"/>
                 <outlet property="downloadedLabel" destination="F1E-MX-017" id="6p6-kU-xeR"/>
                 <outlet property="fileNameLabel" destination="hfq-AO-yLp" id="f8S-ib-6qL"/>
+                <outlet property="firstButton" destination="XZr-cA-Eui" id="APD-oK-Nh7"/>
                 <outlet property="percentDownloadedlabel" destination="3Mx-RC-HVh" id="m19-JI-Aym"/>
                 <outlet property="progressView" destination="Qoz-4R-EOj" id="B4z-uk-jPn"/>
+                <outlet property="secondButton" destination="PKm-u5-Rig" id="KDj-c9-A3P"/>
                 <outlet property="speedLabel" destination="xsr-Sc-XW8" id="Odv-rC-H3n"/>
                 <outlet property="timeRemainingLabel" destination="nSW-CY-Sf1" id="hwu-Dy-MzV"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -88,22 +90,68 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                        <box horizontalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="QXc-ua-EY7">
+                            <rect key="frame" x="457" y="2" width="5" height="96"/>
+                        </box>
+                        <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="oWd-GY-kTQ">
+                            <rect key="frame" x="460" y="47" width="40" height="5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Acd-fE-5CG"/>
+                            </constraints>
+                        </box>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XZr-cA-Eui" customClass="IDMHighligtingButton" customModule="iDownloader" customModuleProvider="target">
+                            <rect key="frame" x="460" y="47" width="40" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="rGG-LP-TAJ"/>
+                                <constraint firstAttribute="width" constant="40" id="teW-QZ-RGD"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="CpZ-3A-aHf">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="didSelectedFirstButton:" target="-2" id="bi8-9D-AoT"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PKm-u5-Rig" customClass="IDMHighligtingButton" customModule="iDownloader" customModuleProvider="target">
+                            <rect key="frame" x="460" y="0.0" width="40" height="47"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="E4i-Hc-GOa"/>
+                                <constraint firstAttribute="height" constant="47" id="OFG-38-Bj1"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="rowDelete" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="9yO-y3-6Nn">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="didSelectedSecondButton:" target="-2" id="AbR-6t-GvD"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
                         <constraint firstItem="hfq-AO-yLp" firstAttribute="top" secondItem="Qoz-4R-EOj" secondAttribute="top" constant="17" id="1Ft-cr-502"/>
+                        <constraint firstAttribute="trailing" secondItem="QXc-ua-EY7" secondAttribute="trailing" constant="40" id="26O-a7-ERT"/>
                         <constraint firstItem="nSW-CY-Sf1" firstAttribute="leading" secondItem="xsr-Sc-XW8" secondAttribute="trailing" constant="30" id="A7C-EF-rNX"/>
                         <constraint firstItem="Qoz-4R-EOj" firstAttribute="centerY" secondItem="mJQ-KJ-q7s" secondAttribute="centerY" id="D28-ZN-7m7"/>
                         <constraint firstItem="hfq-AO-yLp" firstAttribute="leading" secondItem="Qoz-4R-EOj" secondAttribute="trailing" constant="15" id="I0O-EZ-3YR"/>
                         <constraint firstItem="F1E-MX-017" firstAttribute="leading" secondItem="xsr-Sc-XW8" secondAttribute="leading" id="I2I-Un-heH"/>
+                        <constraint firstAttribute="trailing" secondItem="oWd-GY-kTQ" secondAttribute="trailing" id="IVu-NI-FG2"/>
                         <constraint firstAttribute="height" constant="100" id="Km7-DK-HVb"/>
+                        <constraint firstAttribute="bottom" secondItem="PKm-u5-Rig" secondAttribute="bottom" id="LI9-xc-0U5"/>
                         <constraint firstItem="Qoz-4R-EOj" firstAttribute="leading" secondItem="mJQ-KJ-q7s" secondAttribute="leading" constant="9" id="Loz-q9-qyo"/>
                         <constraint firstItem="xsr-Sc-XW8" firstAttribute="leading" secondItem="hfq-AO-yLp" secondAttribute="leading" id="MPF-0v-DMb"/>
+                        <constraint firstAttribute="bottom" secondItem="QXc-ua-EY7" secondAttribute="bottom" constant="2" id="MbC-1N-8Yk"/>
                         <constraint firstItem="3Mx-RC-HVh" firstAttribute="centerX" secondItem="Qoz-4R-EOj" secondAttribute="centerX" id="Rvs-H8-Hnh"/>
+                        <constraint firstItem="oWd-GY-kTQ" firstAttribute="centerY" secondItem="mJQ-KJ-q7s" secondAttribute="centerY" id="X7K-8v-d5a"/>
                         <constraint firstItem="xsr-Sc-XW8" firstAttribute="top" secondItem="hfq-AO-yLp" secondAttribute="bottom" constant="8" id="YNZ-zt-pdM"/>
+                        <constraint firstAttribute="trailing" secondItem="XZr-cA-Eui" secondAttribute="trailing" id="dp6-Dn-1ge"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="500" id="hin-ny-RP9"/>
                         <constraint firstItem="F1E-MX-017" firstAttribute="top" secondItem="xsr-Sc-XW8" secondAttribute="bottom" constant="5" id="jJ3-oC-O4x"/>
                         <constraint firstItem="3Mx-RC-HVh" firstAttribute="centerY" secondItem="Qoz-4R-EOj" secondAttribute="centerY" id="mKY-CD-nAj"/>
+                        <constraint firstAttribute="trailing" secondItem="PKm-u5-Rig" secondAttribute="trailing" id="o7Y-dj-FvJ"/>
+                        <constraint firstItem="QXc-ua-EY7" firstAttribute="top" secondItem="mJQ-KJ-q7s" secondAttribute="top" constant="2" id="s0b-tA-BfC"/>
                         <constraint firstItem="nSW-CY-Sf1" firstAttribute="centerY" secondItem="xsr-Sc-XW8" secondAttribute="centerY" id="try-bK-Opr"/>
+                        <constraint firstItem="XZr-cA-Eui" firstAttribute="top" secondItem="mJQ-KJ-q7s" secondAttribute="top" constant="3" id="zvh-SY-52b"/>
                     </constraints>
                 </customView>
             </subviews>
@@ -113,7 +161,10 @@
                 <constraint firstItem="mJQ-KJ-q7s" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="15" id="a4o-jS-BDe"/>
                 <constraint firstItem="mJQ-KJ-q7s" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="cHp-9c-1Om"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="167.5"/>
+            <point key="canvasLocation" x="139" y="167"/>
         </customView>
     </objects>
+    <resources>
+        <image name="rowDelete" width="23" height="23"/>
+    </resources>
 </document>

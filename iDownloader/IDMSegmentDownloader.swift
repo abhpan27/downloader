@@ -28,6 +28,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
     weak var delegate:SegmentDownloaderDelegate?
     var session:URLSession?
     var downloadTask:URLSessionDownloadTask?
+    var shouldResumeDownloadOnError:Bool = true
     
     init(data:ChunkDownloadData, delegate:SegmentDownloaderDelegate){
         self.donwloadData = data
@@ -55,11 +56,21 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
             }
             if (data != nil){
                 blockSelf.donwloadData.resumeData = data
-                blockSelf.downloadTask = blockSelf.session?.downloadTask(withResumeData: data!)
-                blockSelf.downloadTask!.resume()
+                Swift.print("paused download")
+                blockSelf.shouldResumeDownloadOnError = false
             }
             completion()
         })
+    }
+    
+    final func resumeDownload(completion:@escaping () -> ()) {
+        if let data = self.donwloadData.resumeData{
+            self.shouldResumeDownloadOnError = false
+            self.downloadTask = self.session?.downloadTask(withResumeData: data)
+            self.downloadTask!.resume()
+            Swift.print("resumed download")
+        }
+        completion()
     }
     
     
@@ -74,11 +85,10 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
-        if let data = (error as? NSError)?.userInfo[NSURLSessionDownloadTaskResumeData] as? Data{
+        if shouldResumeDownloadOnError, let data = (error as? NSError)?.userInfo[NSURLSessionDownloadTaskResumeData] as? Data{
             self.donwloadData.resumeData = data
             self.downloadTask = self.session?.downloadTask(withResumeData: data)
             self.downloadTask!.resume()
         }
     }
-
 }

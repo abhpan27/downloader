@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/IDMFileDownloadDataHelper.swift"
-            timestampString = "511974070.037897"
+            timestampString = "511983262.196251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "saveFileDownloadInfoInDB()"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "saveFileDownloadInfoInDB(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDownloader/IDMFileDownloadController.swift"
-            timestampString = "511973463.537725"
+            filePath = "../../Downloads/ProgressKit-master/Determinate/CircularProgressView.swift"
+            timestampString = "511972597.980094"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "updateUIWithUIData()"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "configureLayers()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -121,13 +121,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Downloads/ProgressKit-master/Determinate/CircularProgressView.swift"
-            timestampString = "511972597.980094"
+            filePath = "iDownloader/IDMFileDownloadController.swift"
+            timestampString = "511983262.196251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "configureLayers()"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "pauseDownload()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -22,7 +22,7 @@ struct FileDownloadDataInfo{
     let endTimeStamp:Double
     let diskDownloadLocation:String
     let diskDownloadBookmarkData:Data?
-    let runningStatus:downloadRunningStatus
+    var runningStatus:downloadRunningStatus
     let totalSize:Int
     var chuckDownloadData:[ChunkDownloadData]
     var totalDownloaded:Int
@@ -85,32 +85,19 @@ final class IDMFileDownloadDataHelper{
         }
         
         self.delegate?.newFileDownloadCreationSuccess()
-        
-        if self.fileDownloadData.isResumeSupported {
-            scheduleDBSaveTimer()
-        }
     }
     
-    private func scheduleDBSaveTimer() {
-        //start save current state DB, on each 2 sec we will save current state so that we can start later
-        runInMainThread {
-            [weak self]
-            in
-            if let blockSelf = self {
-                Timer.scheduledTimer(timeInterval: 5, target: blockSelf, selector: #selector(IDMFileDownloadDataHelper.saveCurrentStateInDB), userInfo: nil, repeats: true)
-            }
-        }
-    }
 
     
-    @objc func saveCurrentStateInDB() {
-        saveStateOfChunks(chunkIndex: 0)
+    @objc func pauseDownload(completion:@escaping (_ error:NSError?) -> ()) {
+        saveStateOfChunks(chunkIndex: 0, completion: completion)
     }
     
     //start recursive save
-    private func saveStateOfChunks(chunkIndex:Int) {
+    private func saveStateOfChunks(chunkIndex:Int, completion:@escaping (_ error:NSError?) -> ()) {
         if chunkIndex >= self.segmentDownloaders.count {
-            self.saveFileDownloadInfoInDB()
+            self.fileDownloadData.runningStatus = .paused
+            self.saveFileDownloadInfoInDB(completion: completion)
             return
         }
         
@@ -121,23 +108,49 @@ final class IDMFileDownloadDataHelper{
                 else{
                     return
             }
-            blockSelf.saveStateOfChunks(chunkIndex: chunkIndex + 1)
+            blockSelf.saveStateOfChunks(chunkIndex: chunkIndex + 1, completion: completion)
         }
     }
     
-    private func saveFileDownloadInfoInDB() {
+    private func saveFileDownloadInfoInDB(completion:@escaping (_ error:NSError?) -> ()) {
         IDMCoreDataHelper.shared.updateDBWithFileDownloadInfo(fileDownloadInfo: self.fileDownloadData) { [weak self]
             (error) in
+            guard let _ = self
+                else{
+                    return
+            }
+            
+            if error != nil {
+                completion(error! as NSError)
+            }
+            runInMainThread {
+                completion(nil)
+            }
+        }
+    }
+    
+    final func resumeDownload(completion:@escaping (_ error:NSError?) -> ()) {
+        resumeDownloadForChunk(chunkIndex: 0, completion: completion)
+    }
+    
+    private func resumeDownloadForChunk(chunkIndex:Int,completion:@escaping (_ error:NSError?) -> ()){
+        if chunkIndex >= self.segmentDownloaders.count {
+            self.fileDownloadData.runningStatus = .running
+            self.saveFileDownloadInfoInDB(completion: completion)
+            return
+        }
+        
+        self.segmentDownloaders[chunkIndex].resumeDownload {
+            [weak self]
+            in
             guard let blockSelf = self
                 else{
                     return
             }
-            if error != nil {
-                Swift.print("error Logging: \(error)")
-            }
+            blockSelf.resumeDownloadForChunk(chunkIndex: chunkIndex + 1, completion: completion)
         }
+        
     }
-    
 }
 
 extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {

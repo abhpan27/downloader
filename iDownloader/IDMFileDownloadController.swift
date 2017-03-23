@@ -23,6 +23,8 @@ struct UIData{
 class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
 
     
+    @IBOutlet weak var secondButton: NSButton!
+    @IBOutlet weak var firstButton: NSButton!
     @IBOutlet weak var container: NSView!
     @IBOutlet weak var progressView: CircularProgressView!
     @IBOutlet weak var fileNameLabel: NSTextField!
@@ -64,21 +66,72 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     private func setUpContentView() {
         self.container.alphaValue = 1.0
         var color = NSColor.clear
+        var imageForFirstButton = NSImage(named: "RowPause")!
         if self.fileDownloadHelper!.fileDownloadData.runningStatus == .running {
             color = NSColor(IDMr: 65, g: 117, b: 5)
             progressView.foreground = NSColor(IDMr: 65, g: 117, b: 5)
         }else if fileDownloadHelper!.fileDownloadData.runningStatus == .paused {
             color = NSColor(IDMr: 74, g: 144, b: 226)
+            imageForFirstButton = NSImage(named: "rowResume")!
             
         }else if fileDownloadHelper!.fileDownloadData.runningStatus == .failed {
             color = NSColor(IDMr: 208, g: 2, b: 27)
+            imageForFirstButton = NSImage(named: "rowRetry")!
             
         }else {
             
         }
-        
         progressView.foreground = color
         percentDownloadedlabel.textColor = color
+        firstButton.image = imageForFirstButton
+    }
+    
+    @IBAction func didSelectedFirstButton(_ sender: Any) {
+        if self.fileDownloadHelper!.fileDownloadData.runningStatus == .running {
+            pauseDownload()
+        }else if self.fileDownloadHelper!.fileDownloadData.runningStatus == .failed {
+            retryDownload()
+        }else if self.fileDownloadHelper!.fileDownloadData.runningStatus == .paused {
+            resumeDownload()
+        }
+    }
+    
+    @IBAction func didSelectedSecondButton(_ sender: Any) {
+        
+    }
+    
+    private func retryDownload() {
+        
+    }
+    
+    private func resumeDownload() {
+        self.fileDownloadHelper?.resumeDownload(completion: { [weak self]
+            (error)
+            in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            
+            if error == nil {
+                blockSelf.updateUIWithUIData()
+            }
+        })
+    }
+    
+    private func pauseDownload() {
+        self.fileDownloadHelper?.pauseDownload(completion: { [weak self]
+            (error)
+            in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            
+            if error == nil {
+               blockSelf.updateUIWithUIData()
+            }
+        })
     }
     
     //MARK:FileDownloaderDelegate
