@@ -14,7 +14,7 @@ enum downloadRunningStatus:String{
 
 struct FileDownloadDataInfo{
     let uniqueID:String
-    let name:String
+    var name:String
     let downloadURL:String
     let isResumeSupported:Bool
     let type:fileTypes
@@ -34,7 +34,11 @@ protocol FileDownloaderDelegate:class {
     func showLoader()
     func hideLoader()
     func newFileDataCreationFalied()
+    func newTempFileCreationFailed()
     func newFileDownloadCreationSuccess()
+    func downloadCompleted()
+    func notAbleToWriteToDownloadFile()
+    func pauseFailed()
 }
 
 final class IDMFileDownloadDataHelper{
@@ -43,6 +47,7 @@ final class IDMFileDownloadDataHelper{
     var fileDownloadData:FileDownloadDataInfo
     var currentUIData:UIData
     var segmentDownloaders = [IDMSegmentDownloader]()
+    let fileHandler = IDMFileHandler()
     var lastDownloadSpeedCheckTime:Date?
     init(delegate:FileDownloaderDelegate, fileDownloadInfo:FileDownloadDataInfo) {
         self.delegate = delegate
@@ -53,7 +58,7 @@ final class IDMFileDownloadDataHelper{
     final func startDownloading() {
         if self.fileDownloadData.isNewDownload {
             intiateNewDownload()
-        }else if self.fileDownloadData.runningStatus == .running{
+        }else if self.fileDownloadData.runningStatus == .paused{
             createDonwloadChunksAndStartFetchingData()
         }
     }
@@ -67,13 +72,51 @@ final class IDMFileDownloadDataHelper{
                 else{
                     return
             }
-            blockSelf.delegate?.hideLoader()
             if error != nil {
+                blockSelf.delegate?.hideLoader()
                 blockSelf.delegate?.newFileDataCreationFalied()
                 return
             }
-            blockSelf.createDonwloadChunksAndStartFetchingData()
+            blockSelf.createTempFileForDownload()
         }
+    }
+    
+    private func createTempFileForDownload() {
+        fileHandler.createTempFileAtLoaction(fileName: self.fileDownloadData.name, directoryLocation: self.fileDownloadData.diskDownloadLocation, fileBookMark: self.fileDownloadData.diskDownloadBookmarkData) {
+            [weak self]
+            (fileNameOfCreatedTempFile, error)
+            in
+            guard let blockSelf = self
+                else {
+                    return
+            }
+            blockSelf.delegate?.hideLoader()
+            if error != nil {
+                blockSelf.deleteCurrentInsertedData()
+                blockSelf.delegate?.newTempFileCreationFailed()
+                return
+            }
+            if fileNameOfCreatedTempFile != blockSelf.fileDownloadData.name {
+                blockSelf.fileDownloadData.name = fileNameOfCreatedTempFile
+                blockSelf.saveFileDownloadInfoInDB(completion: { [weak self]
+                    (error) in
+                    guard let blockSelf = self
+                        else{
+                            return
+                    }
+                    if error == nil {
+                        blockSelf.createDonwloadChunksAndStartFetchingData()
+                    }
+                })
+                return
+            }
+             blockSelf.createDonwloadChunksAndStartFetchingData()
+            
+        }
+    }
+    
+    private func deleteCurrentInsertedData() {
+        IDMCoreDataHelper.shared.deleteFileData(fileData: self.fileDownloadData)
     }
     
     private func createDonwloadChunksAndStartFetchingData() {
@@ -86,8 +129,6 @@ final class IDMFileDownloadDataHelper{
         
         self.delegate?.newFileDownloadCreationSuccess()
     }
-    
-
     
     @objc func pauseDownload(completion:@escaping (_ error:NSError?) -> ()) {
         saveStateOfChunks(chunkIndex: 0, completion: completion)
@@ -103,16 +144,24 @@ final class IDMFileDownloadDataHelper{
         
         self.segmentDownloaders[chunkIndex].saveSegmentResumeData { 
             [weak self]
+            (error)
             in
             guard let blockSelf = self
                 else{
                     return
             }
-            blockSelf.saveStateOfChunks(chunkIndex: chunkIndex + 1, completion: completion)
+            if (error == nil){
+                blockSelf.saveStateOfChunks(chunkIndex: chunkIndex + 1, completion: completion)
+            }else {
+                blockSelf.fileDownloadData.runningStatus = .failed
+                blockSelf.saveFileDownloadInfoInDB(completion: { (error) in
+                    //
+                })
+            }
         }
     }
     
-    private func saveFileDownloadInfoInDB(completion:@escaping (_ error:NSError?) -> ()) {
+    func saveFileDownloadInfoInDB(completion:@escaping (_ error:NSError?) -> ()) {
         IDMCoreDataHelper.shared.updateDBWithFileDownloadInfo(fileDownloadInfo: self.fileDownloadData) { [weak self]
             (error) in
             guard let _ = self
@@ -122,10 +171,9 @@ final class IDMFileDownloadDataHelper{
             
             if error != nil {
                 completion(error! as NSError)
+                return
             }
-            runInMainThread {
-                completion(nil)
-            }
+            completion(nil)
         }
     }
     
@@ -150,6 +198,13 @@ final class IDMFileDownloadDataHelper{
             blockSelf.resumeDownloadForChunk(chunkIndex: chunkIndex + 1, completion: completion)
         }
         
+    }
+    
+    final func markDownloadFailed() {
+        self.fileDownloadData.runningStatus = .failed
+        self.saveFileDownloadInfoInDB { (error) in
+            //do nothing with error
+        }
     }
 }
 
@@ -191,6 +246,50 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
         
         //update chunk data also
         self.fileDownloadData.chuckDownloadData = newChunkData
+    }
+    
+    func didCompletedDownload(tempFileURL:URL, offset:Int){
+        let success = fileHandler.writeDownloadedDataToFile(sourceTempFile: tempFileURL, downloadFileName: self.fileDownloadData.name, directoryLocation: self.fileDownloadData.diskDownloadLocation, fileBookMark: self.fileDownloadData.diskDownloadBookmarkData, atOffset: UInt64(offset))
+        if !success {
+            //error case should be handled here
+            self.fileDownloadData.runningStatus = .failed
+            self.saveFileDownloadInfoInDB(completion:  { [weak self]
+                (error)
+                in
+                guard let blockSelf = self
+                    else{
+                        return
+                }
+                if error != nil {
+                    blockSelf.markDownloadFailed()
+                    blockSelf.delegate?.notAbleToWriteToDownloadFile()
+                }
+            })
+            return
+        }
+        
+        var isAllSegmentsCompletedDownload = true
+        for segments in self.segmentDownloaders {
+            if !segments.donwloadData.isCompleted {
+                isAllSegmentsCompletedDownload = false
+                break
+            }
+        }
+        
+        if isAllSegmentsCompletedDownload {
+            self.fileDownloadData.runningStatus = .completed
+            self.saveFileDownloadInfoInDB(completion: { [weak self]
+                (error)
+                in
+                guard let blockSelf = self
+                    else{
+                        return
+                }
+                if error != nil {
+                    blockSelf.delegate?.downloadCompleted()
+                }
+            })
+        }
     }
     
     func isResumeSupported() -> Bool {

@@ -17,4 +17,11 @@ extension String {
         }
         return false
     }
+    
+    var stringForFilePath: String {
+        //taken from here - https://kb.acronis.com/content/39790
+        let characterSet = NSCharacterSet(charactersIn: "\"\\/?<>:*|") as CharacterSet
+        
+        return components(separatedBy: characterSet).joined(separator: "-")
+    }
 }

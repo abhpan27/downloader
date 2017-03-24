@@ -18,6 +18,7 @@
 		8C7F44CB1E842157008E7060 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C71E842157008E7060 /* CircularProgressView.swift */; };
 		8C7F44CC1E842157008E7060 /* DeterminateAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C81E842157008E7060 /* DeterminateAnimation.swift */; };
 		8C7F44CD1E842157008E7060 /* ProgressUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C91E842157008E7060 /* ProgressUtils.swift */; };
+		8C7F44CF1E844496008E7060 /* IDMFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44CE1E844496008E7060 /* IDMFileHandler.swift */; };
 		8CA0C6F61E7D397F002EA6D6 /* IDMAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA0C6F51E7D397F002EA6D6 /* IDMAppController.swift */; };
 		8CA0C6FB1E7D3B20002EA6D6 /* IDMParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA0C6F91E7D3B20002EA6D6 /* IDMParentViewController.swift */; };
 		8CA0C6FC1E7D3B20002EA6D6 /* IDMParentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CA0C6FA1E7D3B20002EA6D6 /* IDMParentViewController.xib */; };
@@ -86,6 +87,7 @@
 		8C7F44C71E842157008E7060 /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8C7F44C81E842157008E7060 /* DeterminateAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeterminateAnimation.swift; sourceTree = "<group>"; };
 		8C7F44C91E842157008E7060 /* ProgressUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressUtils.swift; sourceTree = "<group>"; };
+		8C7F44CE1E844496008E7060 /* IDMFileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMFileHandler.swift; sourceTree = "<group>"; };
 		8CA0C6F51E7D397F002EA6D6 /* IDMAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMAppController.swift; sourceTree = "<group>"; };
 		8CA0C6F91E7D3B20002EA6D6 /* IDMParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMParentViewController.swift; sourceTree = "<group>"; };
 		8CA0C6FA1E7D3B20002EA6D6 /* IDMParentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMParentViewController.xib; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				8C528B8D1E804AE300076550 /* IDMUtilities.swift */,
+				8C7F44CE1E844496008E7060 /* IDMFileHandler.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CA0C6F61E7D397F002EA6D6 /* IDMAppController.swift in Sources */,
+				8C7F44CF1E844496008E7060 /* IDMFileHandler.swift in Sources */,
 				8CDB78CB1E7D466D00314F52 /* NSColorExtension.swift in Sources */,
 				8CDB78D01E7D51D200314F52 /* IDMMouseTrackingButton.swift in Sources */,
 				8CA0C7031E7D3CAA002EA6D6 /* IDMSideBarController.swift in Sources */,

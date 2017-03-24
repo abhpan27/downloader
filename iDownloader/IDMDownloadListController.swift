@@ -30,15 +30,15 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
                 else{
                     return
             }
+            
+            runInMainThread {
+                blockSelf.stopLoader()
+            }
             if error != nil {
                 runInMainThread {
                     blockSelf.showError(error: error!)
                 }
                 return
-            }
-            
-            runInMainThread {
-                blockSelf.stopLoader()
             }
             
             let fileDownloadinfo = blockSelf.fileDownloadInfoForNewDownload(fileName: fileName, downloadURL: downloadURL, downloadLocation: downloadLocation, downloadLocationBookMark: downloadLocationBookMark, noOfThreads: noOfThreads, canBreakIntoSegments: canBreakIntoSegments, contentLength: contentLenght, fileType: fileType)
@@ -94,7 +94,7 @@ extension IDMDownloadListController {
         for index in 0..<noOfChunks{
             
             let chunckDownloadUniqueID = UUID().uuidString
-            let chunkDownloadData = ChunkDownloadData(uniqueID: chunckDownloadUniqueID, startByte: startByteForChunk, endByte: endByteForChunk, totalDownloaded: 0, resumeData: nil, downloadURL: downloadURL)
+            let chunkDownloadData = ChunkDownloadData(uniqueID: chunckDownloadUniqueID, startByte: startByteForChunk, endByte: endByteForChunk, totalDownloaded: 0, resumeData: nil, downloadURL: downloadURL, isCompleted:false)
             chunks.append(chunkDownloadData)
             startByteForChunk = endByteForChunk + 1
             if index < noOfChunks-2 {

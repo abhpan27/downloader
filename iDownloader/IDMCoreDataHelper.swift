@@ -119,5 +119,27 @@ final class IDMCoreDataHelper {
         }
     }
     
+    final func deleteFileData(fileData:FileDownloadDataInfo){
+        let uniqueIDToDelete = fileData.uniqueID
+        
+        persistentContainer.performBackgroundTask { (context) in
+            let existingFileDataFetchRequest: NSFetchRequest<NSFetchRequestResult> = FileDownloadData.fetchRequest()
+            existingFileDataFetchRequest.predicate = NSPredicate(format: "fileDownloadID == %@", uniqueIDToDelete)
+            do {
+                let fileDownloadDataArray =  try context.fetch(existingFileDataFetchRequest)
+                guard let fileDownloadData = fileDownloadDataArray.last as? FileDownloadData
+                    else {
+                        Swift.print("there is no item to delete")
+                        return
+                }
+                context.delete(fileDownloadData)
+                try context.save()
+            }catch {
+                Swift.print("delete error")
+            }
+            
+        }
+    }
+    
     
 }

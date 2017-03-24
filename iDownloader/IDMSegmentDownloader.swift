@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct ChunkDownloadError {
+    static let errorDomain = "ChunkDownloadError"
+    static let pauseFailed = 1
+}
 struct ChunkDownloadData {
     let uniqueID:String
     let startByte:Int
@@ -15,11 +19,13 @@ struct ChunkDownloadData {
     var totalDownloaded:Int
     var resumeData:Data?
     let downloadURL:String
+    var isCompleted:Bool
 }
 
 protocol SegmentDownloaderDelegate:class {
     func isResumeSupported() -> Bool
     func didWriteData()
+    func didCompletedDownload(tempFileURL:URL, offset:Int)
 }
 
 final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
@@ -43,11 +49,12 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
         if self.delegate!.isResumeSupported() {
             urlRequestForChunkDownload.addValue("bytes=\(self.donwloadData.startByte)-\(self.donwloadData.endByte)", forHTTPHeaderField: "Range")
         }
+        Swift.print("starting donwload from \(self.donwloadData.startByte) to \(self.donwloadData.endByte) with totalSize: \(self.donwloadData.endByte - self.donwloadData.startByte + 1)")
         downloadTask = session!.downloadTask(with: urlRequestForChunkDownload)
         downloadTask!.resume()
     }
     
-    final func saveSegmentResumeData(completion:@escaping () -> ()){
+    final func saveSegmentResumeData(completion:@escaping (_ error:NSError?) -> ()){
         self.downloadTask?.cancel(byProducingResumeData: { [weak self]
             (data) in
             guard let blockSelf = self
@@ -58,8 +65,10 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
                 blockSelf.donwloadData.resumeData = data
                 Swift.print("paused download")
                 blockSelf.shouldResumeDownloadOnError = false
+                completion(nil)
+                return
             }
-            completion()
+            completion(NSError(domain: ChunkDownloadError.errorDomain, code: ChunkDownloadError.pauseFailed, userInfo: nil))
         })
     }
     
@@ -75,7 +84,8 @@ final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
     
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL){
-        
+        self.donwloadData.isCompleted = true
+        delegate?.didCompletedDownload(tempFileURL: location, offset: self.donwloadData.startByte)
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64){
