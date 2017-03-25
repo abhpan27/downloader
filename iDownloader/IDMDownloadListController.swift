@@ -85,7 +85,7 @@ extension IDMDownloadListController {
         
         //create chunks data 
         var chunks = [ChunkDownloadData]()
-        let noOfChunks = noOfThreads
+        let noOfChunks = canBreakIntoSegments ? noOfThreads : 1
         let extraNumberOfBytesForLastDownload = (contentLength % noOfChunks)
         let contentDownloadablePerSession = ((contentLength - extraNumberOfBytesForLastDownload)/noOfChunks)
         var startByteForChunk = 0

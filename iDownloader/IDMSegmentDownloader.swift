@@ -28,6 +28,7 @@ protocol SegmentDownloaderDelegate:class {
     func updateDBWithChunkDownloadData(data:ChunkDownloadData, compeletion:@escaping (_ error:Error?)-> ())
     func writeDataToOffset(data:Data, offset:Int) -> Bool
     func isRetrying()
+    func downloadFailedForNonResumableChunk()
 }
 
 final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
@@ -65,11 +66,8 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     
     private func getURLRequestForDownloadTask() -> URLRequest {
         var urlRequestForChunkDownload = URLRequest(url: URL(string: downloadData.downloadURL)!)
-        if self.delegate!.isResumeSupported() {
-
-            urlRequestForChunkDownload.addValue("bytes=\(getStartByteRange())-\(self.downloadData.endByte)", forHTTPHeaderField: "Range")
-            Swift.print("starting download from bytes=\(getStartByteRange())-\(self.downloadData.endByte)")
-        }
+        urlRequestForChunkDownload.addValue("bytes=\(getStartByteRange())-\(self.downloadData.endByte)", forHTTPHeaderField: "Range")
+        Swift.print("starting download from bytes=\(getStartByteRange())-\(self.downloadData.endByte)")
         return urlRequestForChunkDownload
     }
     
@@ -113,6 +111,14 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         guard (!isRetryingDownloadStart && shouldResumeDownloadOnError) else {
             return
         }
+        
+        guard delegate!.isResumeSupported() else {
+            self.downloadTask?.cancel()
+            self.session?.invalidateAndCancel()
+            self.delegate!.downloadFailedForNonResumableChunk()
+            return
+        }
+        
         self.isRetryingDownloadStart = true
         self.delegate?.updateDBWithChunkDownloadData(data: self.downloadData, compeletion: {[weak self]
             (error)

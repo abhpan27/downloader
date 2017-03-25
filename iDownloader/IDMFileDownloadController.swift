@@ -109,6 +109,17 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
             showRetryingText()
             self.firstButton.isEnabled = false
         }
+        
+        if !fileDownloadHelper!.fileDownloadData.isResumeSupported && fileDownloadHelper!.fileDownloadData.runningStatus != .failed {
+            self.firstButton.isEnabled = false
+        }
+        
+        if fileDownloadHelper!.fileDownloadData.runningStatus == .failed{
+            self.firstButton.isEnabled = true
+            self.timeRemainingLabel.isHidden = true
+            self.speedLabel.stringValue = "Download failed"
+        }
+        
     }
     
     private func showRetryingText() {
@@ -275,6 +286,12 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     func pauseFailed() {
         runInMainThread {
             IDMUtilities.shared.showError(title: "Oops!", information: "Pause falied")
+        }
+    }
+    
+    func nonResumableDownloadFailed(){
+        runInMainThread {
+            IDMUtilities.shared.showError(title: "Download Failed", information: "Downloading file \(self.fileDownloadHelper!.fileDownloadData.name) falied. Server don't support resume for this file download. Please try downloading it on good internet connection")
         }
     }
     

@@ -39,6 +39,7 @@ protocol FileDownloaderDelegate:class {
     func downloadCompleted()
     func notAbleToWriteToDownloadFile()
     func pauseFailed()
+    func nonResumableDownloadFailed()
 }
 
 final class IDMFileDownloadDataHelper{
@@ -314,5 +315,10 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
     
     func isRetrying(){
         self.currentUIData.isRetyringOnError = true
+    }
+    
+    func downloadFailedForNonResumableChunk() {
+        self.markDownloadFailed()
+        self.delegate?.nonResumableDownloadFailed()
     }
 }
