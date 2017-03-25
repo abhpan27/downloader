@@ -68,30 +68,37 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         self.fileCompletionImageContainer.layer?.borderColor = NSColor(IDMr: 155, g: 155, b: 155).cgColor
     }
     
-    final func createFileDataHelperAndBeginDownload(fileDownloadInfo:FileDownloadDataInfo){
+    final func createFileDataHelperAndBeginDownload(fileDownloadInfo:FileDownloadDataInfo, shouldForceStartPauseDownload:Bool){
         self.fileDownloadHelper = IDMFileDownloadDataHelper(delegate: self, fileDownloadInfo: fileDownloadInfo)
         if fileDownloadInfo.runningStatus == .running {
-            self.fileDownloadHelper?.startDownloading()
+            self.fileDownloadHelper?.startDownloading(shouldForceStartPauseDownload: shouldForceStartPauseDownload)
         }else {
-            runInMainThread {
+            delegate?.startLoader()
+            self.addControllerInList()
+            delay(0.5, closure: {
                 self.updateUIWithUIData()
-            }
+                self.delegate?.stopLoader()
+            })
+            
         }
-        
     }
     
     private func setUpContentView() {
         self.container.alphaValue = 1.0
         var color = NSColor.clear
         self.firstButton.isEnabled = true
+        self.timeRemainingLabel.isHidden = false
         var imageForFirstButton = NSImage(named: "RowPause")!
+        
         if self.fileDownloadHelper!.fileDownloadData.runningStatus == .running {
             color = NSColor(IDMr: 65, g: 117, b: 5)
             progressView.foreground = NSColor(IDMr: 65, g: 117, b: 5)
+            
+            
         }else if fileDownloadHelper!.fileDownloadData.runningStatus == .paused {
             color = NSColor(IDMr: 74, g: 144, b: 226)
             imageForFirstButton = NSImage(named: "rowResume")!
-            
+                        
         }else if fileDownloadHelper!.fileDownloadData.runningStatus == .failed {
             color = NSColor(IDMr: 208, g: 2, b: 27)
             imageForFirstButton = NSImage(named: "rowRetry")!
@@ -118,6 +125,11 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
             self.firstButton.isEnabled = true
             self.timeRemainingLabel.isHidden = true
             self.speedLabel.stringValue = "Download failed"
+        }
+        
+        if fileDownloadHelper!.fileDownloadData.runningStatus == .paused {
+            self.timeRemainingLabel.isHidden = true
+            self.speedLabel.stringValue = "Paused currently"
         }
         
     }
@@ -169,7 +181,6 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
                 else{
                     return
             }
-            blockSelf.delegate?.insertNewDownloadRow(row: blockSelf.view)
             blockSelf.uiUpdateTimer?.invalidate()
             blockSelf.uiUpdateTimer =  Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] (timer) in
                 guard let blockSelf = self
@@ -178,6 +189,12 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
                 }
                 blockSelf.updateUIWithUIData()
             })
+        }
+    }
+    
+    fileprivate func addControllerInList()  {
+        runInMainThread {
+            self.delegate?.insertNewDownloadRow(row: self.view)
         }
     }
     
@@ -219,6 +236,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
             
             if error == nil {
                 runInMainThread {
+                    blockSelf.uiUpdateTimer?.invalidate()
                     blockSelf.updateUIWithUIData()
                 }
             }
@@ -230,11 +248,13 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     func newFileDataCreationFalied(){
         runInMainThread {
             IDMUtilities.shared.showError(title: "Oops!", information: "Something went wrong in starting download. Please try again")
+            self.uiUpdateTimer?.invalidate()
         }
     }
     
-    func newFileDownloadCreationSuccess(){
-        startUiUpdateTimer()
+    func downloadStarted() {
+        self.addControllerInList()
+        self.startUiUpdateTimer()
     }
     
     func showLoader() {
@@ -252,6 +272,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     func newTempFileCreationFailed(){
         runInMainThread {
            IDMUtilities.shared.showError(title: "Oops!", information: "Not able to create download file at \(self.fileDownloadHelper!.fileDownloadData.diskDownloadLocation), Please try again")
+            self.uiUpdateTimer?.invalidate()
         }
     }
     
@@ -259,6 +280,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         runInMainThread {
             Swift.print("completed download")
             self.updateUIWithUIData()
+            self.uiUpdateTimer?.invalidate()
         }
     }
     
@@ -266,22 +288,17 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         runInMainThread {
             IDMUtilities.shared.showError(title: "Oops!", information: "Not able to write download file at \(self.fileDownloadHelper!.fileDownloadData.diskDownloadLocation), Please try again")
             self.updateUIWithUIData()
+            self.uiUpdateTimer?.invalidate()
         }
     }
     
     func updateUIWithUIData(){
-        self.setUpContentView()
         
         guard !fileDownloadHelper!.currentUIData.isRetyringOnError
             else {
             return
         }
         
-        guard self.fileDownloadHelper!.fileDownloadData.runningStatus == .running
-            else{
-                self.uiUpdateTimer!.invalidate()
-                return
-        }
         let uiData = self.fileDownloadHelper!.currentUIData
         self.fileNameLabel.stringValue = self.fileDownloadHelper!.fileDownloadData.name
         self.downloadedLabel.stringValue = "Total downloaded - \(IDMUtilities.shared.representableStringForBytes(bytes: uiData.totalDownloaded)) of \(IDMUtilities.shared.representableStringForBytes(bytes: self.fileDownloadHelper!.fileDownloadData.totalSize))"
@@ -290,6 +307,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         self.percentDownloadedlabel.stringValue = String(format: "%.1f", downloadedRatio * 100) + "%"
         self.speedLabel.stringValue = "Download speed - \(IDMUtilities.shared.representableStringForSpeed(speed: uiData.speed))"
         self.timeRemainingLabel.stringValue = "Time remaining - \(IDMUtilities.shared.representableStringForTime(seconds:  uiData.timeRemaining))"
+        self.setUpContentView()
     }
     
     

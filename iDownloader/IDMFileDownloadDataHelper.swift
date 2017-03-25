@@ -35,7 +35,7 @@ protocol FileDownloaderDelegate:class {
     func hideLoader()
     func newFileDataCreationFalied()
     func newTempFileCreationFailed()
-    func newFileDownloadCreationSuccess()
+    func downloadStarted()
     func downloadCompleted()
     func notAbleToWriteToDownloadFile()
     func pauseFailed()
@@ -54,13 +54,16 @@ final class IDMFileDownloadDataHelper{
         self.delegate = delegate
         self.fileDownloadData = fileDownloadInfo
         self.currentUIData = UIData(totalDownloaded: fileDownloadInfo.totalDownloaded, speed: 0, timeRemaining: Int.max,isRetyringOnError: false )
+        self.createDonwloadChunks()
     }
     
-    final func startDownloading() {
+    final func startDownloading(shouldForceStartPauseDownload:Bool) {
         if self.fileDownloadData.isNewDownload {
             intiateNewDownload()
-        }else if self.fileDownloadData.runningStatus == .paused{
-            createDonwloadChunksAndStartFetchingData()
+        }else if self.fileDownloadData.runningStatus == .paused && shouldForceStartPauseDownload{
+            startSegmentDownloads()
+        }else if self.fileDownloadData.runningStatus == .running {
+            self.startSegmentDownloads()
         }
     }
     
@@ -106,12 +109,12 @@ final class IDMFileDownloadDataHelper{
                             return
                     }
                     if error == nil {
-                        blockSelf.createDonwloadChunksAndStartFetchingData()
+                        blockSelf.startSegmentDownloads()
                     }
                 })
                 return
             }
-             blockSelf.createDonwloadChunksAndStartFetchingData()
+             blockSelf.startSegmentDownloads()
             
         }
     }
@@ -120,15 +123,24 @@ final class IDMFileDownloadDataHelper{
         IDMCoreDataHelper.shared.deleteFileData(fileData: self.fileDownloadData)
     }
     
-    private func createDonwloadChunksAndStartFetchingData() {
-        lastDownloadSpeedCheckTime = Date()
+    private func createChunksAndStartDownload() {
+        createDonwloadChunks()
+        startSegmentDownloads()
+    }
+    
+    private func createDonwloadChunks() {
         for segment in self.fileDownloadData.chuckDownloadData {
             let segmentDownloader = IDMSegmentDownloader(data: segment, delegate: self)
             self.segmentDownloaders.append(segmentDownloader)
+        }
+    }
+    
+    private func startSegmentDownloads() {
+        lastDownloadSpeedCheckTime = Date()
+        for segmentDownloader in segmentDownloaders {
             segmentDownloader.start()
         }
-        
-        self.delegate?.newFileDownloadCreationSuccess()
+          self.delegate?.downloadStarted()
     }
     
     @objc func pauseDownload(completion:@escaping (_ error:NSError?) -> ()) {
@@ -178,6 +190,7 @@ final class IDMFileDownloadDataHelper{
     }
     
     final func resumeDownload(completion:@escaping (_ error:NSError?) -> ()) {
+        lastDownloadSpeedCheckTime = Date()
         resumeDownloadForChunk(chunkIndex: 0, completion: completion)
     }
     

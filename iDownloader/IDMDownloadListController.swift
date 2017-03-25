@@ -17,6 +17,7 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        getAllFileDownloadInfoFromDBAndIntializeUI()
     }
     
     
@@ -116,6 +117,31 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
         }
     }
     
+    private func getAllFileDownloadInfoFromDBAndIntializeUI() {
+        IDMCoreDataHelper.shared.getAllTheFileDownloadInfoFromDB {[weak self]
+            (error, fileInfoArray)
+            in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            if fileInfoArray.count > 0{
+                 blockSelf.createControllersAndStartDownloading(fileInfoArray: fileInfoArray)
+            }
+        }
+    }
+    
+    private func createControllersAndStartDownloading(fileInfoArray:[FileDownloadDataInfo]) {
+        let shouldResumeAllDownload = false
+        
+        for fileInfo in fileInfoArray {
+            let fileDownloadController = IDMFileDownloadController(delegate: self)
+            self.fileDownloaders.append(fileDownloadController)
+            fileDownloadController.createFileDataHelperAndBeginDownload(fileDownloadInfo: fileInfo, shouldForceStartPauseDownload:shouldResumeAllDownload)
+            
+        }
+    }
+    
 }
 
 //MARK: IDMFileDownloadController
@@ -156,7 +182,7 @@ extension IDMDownloadListController {
     final func addFileDownloader(fileDownloadInfo:FileDownloadDataInfo) {
         let fileDownloader = IDMFileDownloadController(delegate:self)
         self.fileDownloaders.append(fileDownloader)
-        fileDownloader.createFileDataHelperAndBeginDownload(fileDownloadInfo: fileDownloadInfo)
+        fileDownloader.createFileDataHelperAndBeginDownload(fileDownloadInfo: fileDownloadInfo, shouldForceStartPauseDownload: false)
     }
     
     //MARK:FileDownloadControllerDelegate

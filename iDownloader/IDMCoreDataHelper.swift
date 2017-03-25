@@ -172,5 +172,50 @@ final class IDMCoreDataHelper {
         }
     }
     
+    final func getAllTheFileDownloadInfoFromDB(completion:@escaping ((_ error:NSError?, _ fileDownloadInfoArray:[FileDownloadDataInfo]) -> ()))
+    {
+        var fileDownloadInfoArray = [FileDownloadDataInfo]()
+        persistentContainer.performBackgroundTask { (context) in
+            let existingFileDataFetchRequest: NSFetchRequest<NSFetchRequestResult> = FileDownloadData.fetchRequest()
+            do {
+                let fileDownloadDataArray =  try context.fetch(existingFileDataFetchRequest)
+                guard  fileDownloadDataArray.count > 0
+                    else {
+                        
+                        completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil), fileDownloadInfoArray)
+                        return
+                }
+                for fileDownloadObject in fileDownloadDataArray {
+                    guard let fileDownloadData =  fileDownloadObject as? FileDownloadData
+                        else{
+                            continue
+                    }
+              
+                    //create segment array
+                     var segmentArray = [ChunkDownloadData]()
+                    if let segmensts = fileDownloadData.segments as? Set<SegmentDownloadData>{
+                        for segment in segmensts{
+                            let isSegmentCompleted = segment.totalDownloaded <= (segment.endByte - segment.startByte)
+                            let chunkData = ChunkDownloadData(uniqueID: segment.segmentID! , startByte: Int(segment.startByte), endByte: Int(segment.endByte), totalDownloaded: Int(segment.totalDownloaded), downloadURL: fileDownloadData.fileDownloadURL!, isCompleted: isSegmentCompleted)
+                            segmentArray.append(chunkData)
+                        }
+                    }
+                    
+                   let fileDownloadInfo =  FileDownloadDataInfo(uniqueID: fileDownloadData.fileDownloadID! , name: fileDownloadData.fileName!, downloadURL: fileDownloadData.fileDownloadURL!, isResumeSupported: fileDownloadData.isResumable, type: fileTypes(rawValue: fileDownloadData.fileType!)!, startTimeStamp: fileDownloadData.downloadStartTime, endTimeStamp: fileDownloadData.downloadEndTime, diskDownloadLocation: fileDownloadData.diskDownloadURL!, diskDownloadBookmarkData: fileDownloadData.diskDownloadBookMark as Data?, runningStatus: downloadRunningStatus(rawValue:fileDownloadData.runningStatus!)! , totalSize: Int(fileDownloadData.totalSize), chuckDownloadData: segmentArray, totalDownloaded: Int(fileDownloadData.totalDownloaded), currentSpeed: 0, isNewDownload: false)
+                    fileDownloadInfoArray.append(fileDownloadInfo)
+                }
+                runInMainThread {
+                    completion(nil, fileDownloadInfoArray)
+                }
+            }
+            catch {
+                runInMainThread {
+                     completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil), fileDownloadInfoArray)
+                }
+                Swift.print("loggin: coundn't get data from DB")
+            }
+        }
+    }
+    
     
 }
