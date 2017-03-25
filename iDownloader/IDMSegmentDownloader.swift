@@ -156,8 +156,8 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
             isRetryingDownloadStart = false
             return
         }
-        let exponentialDelay = 5
-        runAfterDelay(delay: Double(exponentialDelay)) { 
+        let retryInterval = 3
+        runAfterDelay(delay: Double(retryInterval)) {
             self.retryDownloading()
         }
     }

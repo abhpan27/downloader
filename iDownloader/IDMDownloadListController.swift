@@ -72,6 +72,50 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
         alert.runModal()
     }
     
+    //pause all download one by one
+    final func pauseAllDownloads(completion:@escaping () -> ()) {
+        pauseAllRecursively(index: 0, completion: completion)
+    }
+    
+    //resume all download one by one
+    
+    final func resumeAllDownloads(completion:@escaping () -> ()){
+        resumeAllRescusively(index: 0, completion: completion)
+    }
+    
+    private func pauseAllRecursively(index:Int, completion:@escaping () -> ()) {
+        if index >= self.fileDownloaders.count {
+            completion()
+            return
+        }
+        
+        fileDownloaders[index].pauseDownload {
+            [weak self]
+            in
+            guard let blockSelf = self
+                else {
+                    return
+            }
+            blockSelf.pauseAllRecursively(index: index + 1, completion: completion)
+        }
+    }
+    private func resumeAllRescusively(index:Int, completion:@escaping () -> ()) {
+        if index >= self.fileDownloaders.count {
+            completion()
+            return
+        }
+        
+        fileDownloaders[index].resumeDownload {
+            [weak self]
+            in
+            guard let blockSelf = self
+                else {
+                    return
+            }
+            blockSelf.resumeAllRescusively(index: index + 1, completion: completion)
+        }
+    }
+    
 }
 
 //MARK: IDMFileDownloadController

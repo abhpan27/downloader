@@ -12,7 +12,7 @@ protocol HeaderActionDelegate:class{
     func didSelectedStartDownloadFromHeader(downloadUrl:String)
 }
 
-class IDMHeaderViewController: NSViewController, NSTextFieldDelegate{
+class IDMHeaderViewController: NSViewController{
 
     @IBOutlet weak var downloadLinkTextField: NSTextField!
     @IBOutlet weak var addDownloadContainer: NSView!
@@ -39,10 +39,6 @@ class IDMHeaderViewController: NSViewController, NSTextFieldDelegate{
     }
     
     @IBAction func didSelectedAddDowload(_ sender: Any) {
-        checkAndStartDownload()
-    }
-    
-    override func controlTextDidEndEditing(_ obj: Notification) {
         checkAndStartDownload()
     }
     

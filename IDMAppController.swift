@@ -23,4 +23,10 @@ final class IDMAppController {
         //mainWindow?.setFrame(screenRect, display: true)
         mainWindow?.contentViewController = parentController
     }
+    
+    func doPauseAllOnAppQuit() {
+        self.parentController.downloadListController.pauseAllDownloads {
+            NSApplication.shared().reply(toApplicationShouldTerminate: true)
+        }
+    }
 }

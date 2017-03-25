@@ -39,7 +39,7 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
         super.viewDidLoad()
         // Do view setup here.
         headerController = IDMHeaderViewController(headerDelegate:self)
-        sideBarController = IDMSideBarController()
+        sideBarController = IDMSideBarController(delegate:self)
         downloadListController = IDMDownloadListController()
         self.topBarContainer.addFittingSubView(subView: headerController.view)
         self.sideBarContainer.addFittingSubView(subView: sideBarController.view)
@@ -139,8 +139,28 @@ extension IDMParentViewController: MouseDownDelgate {
     
 }
 
-//MARK:Download filter handling
-extension IDMParentViewController {
+//MARK:side bar filter handling
+extension IDMParentViewController:SideBarDelegate {
     
+    func didSelectedPauseAllInSideBar(){
+        self.downloadListController.pauseAllDownloads {
+            //
+        }
+    }
     
+    func didSelectedResumeAllInSideBar(){
+        self.downloadListController.resumeAllDownloads {
+            //
+        }
+    }
+    
+    func didSelectedSettingsInSideBar(){
+    }
+    
+    func didSelectedRateUsInSideBar(){
+    }
+    
+    func didSelectedFilterInSideBar(){
+        
+    }
 }

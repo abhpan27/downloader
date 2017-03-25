@@ -13,10 +13,36 @@ fileprivate struct RowData {
     let actionTitle:String
 }
 
+protocol SideBarDelegate:class {
+    func didSelectedPauseAllInSideBar()
+    func didSelectedResumeAllInSideBar()
+    func didSelectedSettingsInSideBar()
+    func didSelectedRateUsInSideBar()
+    func didSelectedFilterInSideBar()
+}
+
 class IDMSideBarController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
     @IBOutlet weak var sideBarTableView: NSTableView!
     fileprivate let actionData = [RowData(image:NSImage(named: "menu")!, actionTitle:"Filter"),RowData(image:NSImage(named: "media-pause")!, actionTitle:"Pause"),RowData(image:NSImage(named: "ResumeWhite")!, actionTitle:"Resume"),RowData(image:NSImage(named: "SettingsSideBar")!, actionTitle:"Settings"),RowData(image:NSImage(named: "Rate")!, actionTitle:"Rate Us")]
+    
+    weak var delegate:SideBarDelegate?
+    
+    let filterTableIndex = 0
+    let pauseTableIndex = 1
+    let resumeIndex = 2
+    let settingsIndex = 3
+    let rateUsIndex = 4
+    
+    init(delegate:SideBarDelegate){
+        self.delegate = delegate
+        super.init(nibName: "IDMSideBarController", bundle: nil)!
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         sideBarTableView.backgroundColor = NSColor.clear
@@ -38,6 +64,23 @@ class IDMSideBarController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         return 55
+    }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        let selectedRow = sideBarTableView.selectedRow
+        switch selectedRow {
+        case filterTableIndex:
+            delegate?.didSelectedFilterInSideBar()
+        case pauseTableIndex:
+            delegate?.didSelectedPauseAllInSideBar()
+        case resumeIndex:
+            delegate?.didSelectedResumeAllInSideBar()
+        case settingsIndex:
+            delegate?.didSelectedSettingsInSideBar()
+        case rateUsIndex:
+            delegate?.didSelectedRateUsInSideBar()
+        default: break
+        }
     }
     
 }

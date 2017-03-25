@@ -40,6 +40,9 @@
                             <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Zar-mm-9ui">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                             </buttonCell>
                             <connections>
                                 <action selector="didSelectedAddDowload:" target="-2" id="Lnl-ff-aIM"/>
@@ -52,9 +55,6 @@
                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
-                            <connections>
-                                <outlet property="delegate" destination="-2" id="A8B-xZ-Zst"/>
-                            </connections>
                         </textField>
                     </subviews>
                     <constraints>

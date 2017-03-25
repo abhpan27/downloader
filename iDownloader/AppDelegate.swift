@@ -21,15 +21,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
-    // MARK: - Core Data stack
-
-    lazy var applicationDocumentsDirectory: Foundation.URL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.apple.toolsQA.CocoaApp_CD" in the user's Application Support directory.
-        let urls = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)
-        let appSupportURL = urls[urls.count - 1]
-        return appSupportURL.appendingPathComponent("com.apple.toolsQA.CocoaApp_CD")
-    }()
+    
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
+        self.appController.doPauseAllOnAppQuit()
+        return NSApplicationTerminateReply.terminateLater
+    }
+    
 
     
 }

@@ -145,11 +145,11 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     
     @IBAction func didSelectedFirstButton(_ sender: Any) {
         if self.fileDownloadHelper!.fileDownloadData.runningStatus == .running {
-            pauseDownload()
+            pauseDownload(completion: nil)
         }else if self.fileDownloadHelper!.fileDownloadData.runningStatus == .failed {
             retryDownload()
         }else if self.fileDownloadHelper!.fileDownloadData.runningStatus == .paused {
-            resumeDownload()
+            resumeDownload(completion: nil)
         }
     }
     
@@ -181,7 +181,11 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         }
     }
     
-    private func resumeDownload() {
+    final func resumeDownload(completion:(() -> ())?) {
+        if self.fileDownloadHelper!.fileDownloadData.runningStatus != .paused {
+            completion?()
+            return
+        }
         self.startUiUpdateTimer()
         self.fileDownloadHelper?.resumeDownload(completion: { [weak self]
             (error)
@@ -196,10 +200,15 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
                      blockSelf.updateUIWithUIData()
                 }
             }
+            completion?()
         })
     }
     
-    private func pauseDownload() {
+    final func pauseDownload(completion:(() -> ())?) {
+        if self.fileDownloadHelper!.fileDownloadData.runningStatus != .running {
+            completion?()
+            return
+        }
         self.fileDownloadHelper?.pauseDownload(completion: { [weak self]
             (error)
             in
@@ -213,6 +222,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
                     blockSelf.updateUIWithUIData()
                 }
             }
+            completion?()
         })
     }
     
