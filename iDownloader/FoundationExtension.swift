@@ -26,3 +26,12 @@ func runAfterDelay(delay:Double, closure:@escaping ()->()){
     }
 }
 
+extension Date{
+    
+    var representableDate:String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        return dateFormatter.string(from: self)
+    }
+}
+

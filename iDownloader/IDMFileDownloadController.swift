@@ -18,11 +18,16 @@ struct UIData{
     let totalDownloaded:Int
     let speed:Double
     let timeRemaining:Int
+    var isRetyringOnError:Bool
 }
 
 class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
 
     
+    @IBOutlet weak var fileCompletionImage: NSImageView!
+    @IBOutlet weak var fileCompletionImageContainer: NSView!
+    @IBOutlet weak var verticalLine: NSBox!
+    @IBOutlet weak var horizontalLine: NSBox!
     @IBOutlet weak var secondButton: NSButton!
     @IBOutlet weak var firstButton: NSButton!
     @IBOutlet weak var container: NSView!
@@ -56,16 +61,29 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         container.layer?.borderColor = NSColor(IDMr: 178, g: 164, b: 164).cgColor
         container.layer?.backgroundColor = NSColor.white.cgColor
         self.container.alphaValue = 0
+        
+        self.fileCompletionImageContainer.wantsLayer = true
+        self.fileCompletionImageContainer.layer?.backgroundColor = NSColor.clear.cgColor
+        self.fileCompletionImageContainer.layer?.borderWidth = 1.0
+        self.fileCompletionImageContainer.layer?.borderColor = NSColor(IDMr: 155, g: 155, b: 155).cgColor
     }
     
     final func createFileDataHelperAndBeginDownload(fileDownloadInfo:FileDownloadDataInfo){
         self.fileDownloadHelper = IDMFileDownloadDataHelper(delegate: self, fileDownloadInfo: fileDownloadInfo)
-        self.fileDownloadHelper?.startDownloading()
+        if fileDownloadInfo.runningStatus == .running {
+            self.fileDownloadHelper?.startDownloading()
+        }else {
+            runInMainThread {
+                self.updateUIWithUIData()
+            }
+        }
+        
     }
     
     private func setUpContentView() {
         self.container.alphaValue = 1.0
         var color = NSColor.clear
+        self.firstButton.isEnabled = true
         var imageForFirstButton = NSImage(named: "RowPause")!
         if self.fileDownloadHelper!.fileDownloadData.runningStatus == .running {
             color = NSColor(IDMr: 65, g: 117, b: 5)
@@ -78,12 +96,40 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
             color = NSColor(IDMr: 208, g: 2, b: 27)
             imageForFirstButton = NSImage(named: "rowRetry")!
             
-        }else {
-            
+        }else if fileDownloadHelper!.fileDownloadData.runningStatus == .completed {
+            showCompletedUI()
+            return
         }
         progressView.foreground = color
         percentDownloadedlabel.textColor = color
         firstButton.image = imageForFirstButton
+        if fileDownloadHelper!.currentUIData.isRetyringOnError{
+            progressView.foreground = NSColor(IDMr: 245, g: 166, b: 35)
+            percentDownloadedlabel.textColor = NSColor(IDMr: 245, g: 166, b: 35)
+            showRetryingText()
+            self.firstButton.isEnabled = false
+        }
+    }
+    
+    private func showRetryingText() {
+        speedLabel.stringValue = "Speed - Retrying...."
+        timeRemainingLabel.stringValue = "Time Remaining - Calculating..."
+    }
+    
+    private func showCompletedUI() {
+        verticalLine.isHidden = true
+        horizontalLine.isHidden = true
+        secondButton.isHidden = true
+        firstButton.isHidden = true
+        progressView.isHidden = true
+        timeRemainingLabel.isHidden = true
+        percentDownloadedlabel.isHidden = true
+        speedLabel.stringValue =  "Download completed on - " + Date(timeIntervalSince1970: self.fileDownloadHelper!.fileDownloadData.endTimeStamp).representableDate
+        downloadedLabel.stringValue = self.fileDownloadHelper!.fileDownloadData.type.nameForType
+        fileCompletionImageContainer.isHidden = false
+        fileCompletionImage.image = self.fileDownloadHelper!.fileDownloadData.type.imageForFileType
+        fileCompletionImageContainer.layer?.cornerRadius =  fileCompletionImageContainer.frame.height/2
+        fileNameLabel.stringValue = self.fileDownloadHelper!.fileDownloadData.name
     }
     
     @IBAction func didSelectedFirstButton(_ sender: Any) {
@@ -204,6 +250,12 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     
     func updateUIWithUIData(){
         self.setUpContentView()
+        
+        guard !fileDownloadHelper!.currentUIData.isRetyringOnError
+            else {
+            return
+        }
+        
         guard self.fileDownloadHelper!.fileDownloadData.runningStatus == .running
             else{
                 self.uiUpdateTimer!.invalidate()

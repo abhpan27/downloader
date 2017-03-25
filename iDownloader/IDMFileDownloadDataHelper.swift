@@ -18,8 +18,8 @@ struct FileDownloadDataInfo{
     let downloadURL:String
     let isResumeSupported:Bool
     let type:fileTypes
-    let startTimeStamp:Double
-    let endTimeStamp:Double
+    var startTimeStamp:Double
+    var endTimeStamp:Double
     let diskDownloadLocation:String
     let diskDownloadBookmarkData:Data?
     var runningStatus:downloadRunningStatus
@@ -52,7 +52,7 @@ final class IDMFileDownloadDataHelper{
     init(delegate:FileDownloaderDelegate, fileDownloadInfo:FileDownloadDataInfo) {
         self.delegate = delegate
         self.fileDownloadData = fileDownloadInfo
-        self.currentUIData = UIData(totalDownloaded: fileDownloadInfo.totalDownloaded, speed: 0, timeRemaining: Int.max)
+        self.currentUIData = UIData(totalDownloaded: fileDownloadInfo.totalDownloaded, speed: 0, timeRemaining: Int.max,isRetyringOnError: false )
     }
     
     final func startDownloading() {
@@ -206,13 +206,13 @@ final class IDMFileDownloadDataHelper{
         }
     }
     
-    fileprivate func updateFileExtension() {
+    fileprivate func updateFileExtension() -> Bool{
         let fileExtension = URL(string:self.fileDownloadData.downloadURL)!.pathExtension
         if self.fileHandler.setFileExtension(fileName: self.fileDownloadData.name, containingDirectory: self.fileDownloadData.diskDownloadLocation, newExtension: fileExtension, fileBookMarkData: self.fileDownloadData.diskDownloadBookmarkData){
-            self.fileDownloadData.runningStatus = .completed
-            self.delegate?.downloadCompleted()
+            return true
+            
         }else {
-            markDownloadFailed()
+            return false
         }
     }
 }
@@ -222,10 +222,14 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
     func didWriteData() {
         let currentTotalDownloaded = self.fileDownloadData.totalDownloaded
         var newTotalDownloaded = 0
+        var isRetryingOnError = false
         var newChunkData = [ChunkDownloadData]()
         for segmentDownloader in self.segmentDownloaders {
             newChunkData.append(segmentDownloader.downloadData)
             newTotalDownloaded = newTotalDownloaded + segmentDownloader.downloadData.totalDownloaded
+            if segmentDownloader.isRetryingDownloadStart {
+                isRetryingOnError = true
+            }
         }
         
         guard newTotalDownloaded < self.fileDownloadData.totalSize
@@ -252,7 +256,7 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
             timeRemaining = (self.fileDownloadData.totalSize - self.fileDownloadData.totalDownloaded)/Int(currentSpeed)
         }
         
-        self.currentUIData = UIData(totalDownloaded: self.fileDownloadData.totalDownloaded,speed: currentSpeed,timeRemaining: timeRemaining)
+        self.currentUIData = UIData(totalDownloaded: self.fileDownloadData.totalDownloaded,speed: currentSpeed,timeRemaining: timeRemaining, isRetyringOnError:isRetryingOnError)
         
         //update chunk data also
         self.fileDownloadData.chuckDownloadData = newChunkData
@@ -269,17 +273,24 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
         }
         
         if isAllSegmentsCompletedDownload {
-            self.saveFileDownloadInfoInDB(completion: { [weak self]
-                (error)
-                in
-                guard let blockSelf = self
-                    else{
-                        return
-                }
-                if error == nil {
-                    blockSelf.updateFileExtension()
-                }
-            })
+            if self.updateFileExtension() {
+                self.fileDownloadData.runningStatus = .completed
+                self.fileDownloadData.endTimeStamp = Date().timeIntervalSince1970
+                self.saveFileDownloadInfoInDB(completion: { [weak self]
+                    (error)
+                    in
+                    guard let blockSelf = self
+                        else{
+                            return
+                    }
+                    if error == nil {
+                        blockSelf.delegate?.downloadCompleted()
+                    }else {
+                        blockSelf.markDownloadFailed()
+                    }
+                    
+                })
+            }
         }
     }
     
@@ -299,5 +310,9 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
     
     func chunkDownloadFailed() {
         self.markDownloadFailed()
+    }
+    
+    func isRetrying(){
+        self.currentUIData.isRetyringOnError = true
     }
 }

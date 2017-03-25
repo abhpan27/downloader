@@ -53,13 +53,9 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
         }
         
         let fileNameAndExtesion = urlFromString.lastPathComponent.components(separatedBy: ".")
-        guard  fileNameAndExtesion.count > 0
-            else{
-                return
-        }
         
         let fileName = fileNameAndExtesion[0]
-        let fileExtension =  fileNameAndExtesion.count > 1 ? fileNameAndExtesion[1] : ""
+        let fileExtension =  urlFromString.pathExtension
         let fileType = IDMFileTypeHelper().getFileType(fileExtension: fileExtension)
        //show popup
         setUpUIandAddDownloadPopUp(forFileType: fileType, fileName: fileName, downloadURL:downloadUrl)

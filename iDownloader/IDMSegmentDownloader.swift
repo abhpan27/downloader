@@ -27,6 +27,7 @@ protocol SegmentDownloaderDelegate:class {
     func didCompletedDownload()
     func updateDBWithChunkDownloadData(data:ChunkDownloadData, compeletion:@escaping (_ error:Error?)-> ())
     func writeDataToOffset(data:Data, offset:Int) -> Bool
+    func isRetrying()
 }
 
 final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
@@ -36,7 +37,11 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     var session:URLSession?
     var downloadTask:URLSessionDataTask?
     var shouldResumeDownloadOnError:Bool = true
-    var isRetryingDownloadStart = false
+    var isRetryingDownloadStart = false {
+        didSet {
+            delegate?.isRetrying()
+        }
+    }
     
     init(data:ChunkDownloadData, delegate:SegmentDownloaderDelegate){
         self.downloadData = data
@@ -47,6 +52,8 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         self.session?.invalidateAndCancel()
         let urlConfigurationForDownload = URLSessionConfiguration.default
         urlConfigurationForDownload.httpMaximumConnectionsPerHost = 15
+        urlConfigurationForDownload.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        urlConfigurationForDownload.urlCache = nil
         session = URLSession(configuration: urlConfigurationForDownload, delegate: self, delegateQueue: OperationQueue.main)
     }
     
@@ -61,6 +68,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         if self.delegate!.isResumeSupported() {
 
             urlRequestForChunkDownload.addValue("bytes=\(getStartByteRange())-\(self.downloadData.endByte)", forHTTPHeaderField: "Range")
+            Swift.print("starting download from bytes=\(getStartByteRange())-\(self.downloadData.endByte)")
         }
         return urlRequestForChunkDownload
     }
@@ -127,6 +135,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         if delegate!.writeDataToOffset(data: data, offset: offsetToWrite){
             let bytesWritten = (data as NSData).length
             self.downloadData.totalDownloaded = Int(bytesWritten) + self.downloadData.totalDownloaded
+            Swift.print("total donwloaded:\(self.downloadData.totalDownloaded)")
             self.delegate?.didWriteData()
         }
     }
@@ -136,6 +145,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
             return
         }
         if IDMReachability.isConnectedToInternet() {
+            self.setUpSession()
             self.start()
             isRetryingDownloadStart = false
             return

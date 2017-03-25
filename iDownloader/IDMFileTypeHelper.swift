@@ -29,7 +29,24 @@ internal enum fileTypes:String{
         case .compressed:
             return "Compressed"
         case .other:
-            return ""
+            return "Unknown file type"
+        }
+    }
+    
+    var imageForFileType:NSImage{
+        switch self {
+        case .video:
+            return NSImage(named: "videofile")!
+        case .document:
+            return NSImage(named: "documentfile")!
+        case .picture:
+            return NSImage(named: "imagefile")!
+        case .application:
+            return NSImage(named: "executablefile")!
+        case .compressed:
+            return NSImage(named: "compressedfile")!
+        case .other:
+            return NSImage(named: "otherfile")!
         }
     }
     
