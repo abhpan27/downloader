@@ -17,7 +17,6 @@
     </entity>
     <entity name="SegmentDownloadData" representedClassName=".SegmentDownloadData" syncable="YES" codeGenerationType="class">
         <attribute name="endByte" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="resumeData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="segmentID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startByte" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="totalDownloaded" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -25,6 +24,6 @@
     </entity>
     <elements>
         <element name="FileDownloadData" positionX="-63" positionY="-18" width="128" height="240"/>
-        <element name="SegmentDownloadData" positionX="-54" positionY="81" width="128" height="135"/>
+        <element name="SegmentDownloadData" positionX="-54" positionY="81" width="128" height="120"/>
     </elements>
 </model>

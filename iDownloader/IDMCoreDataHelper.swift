@@ -50,7 +50,6 @@ final class IDMCoreDataHelper {
                 segmentData.endByte = Int64(chunkDownloadInfo.endByte)
                 segmentData.segmentID = chunkDownloadInfo.uniqueID
                 segmentData.totalDownloaded = Int64(chunkDownloadInfo.totalDownloaded)
-                segmentData.resumeData = chunkDownloadInfo.resumeData as NSData?
                 segmentsSet.insert(segmentData)
             }
             fileDownloadData.segments = segmentsSet as NSSet
@@ -81,7 +80,6 @@ final class IDMCoreDataHelper {
                 }
                 segmentDownloadData.startByte = Int64(chunkDownloadInfo.startByte)
                 segmentDownloadData.endByte = Int64(chunkDownloadInfo.endByte)
-                segmentDownloadData.resumeData = chunkDownloadInfo.resumeData as NSData?
                 segmentDownloadData.totalDownloaded = Int64(chunkDownloadInfo.totalDownloaded)
                 
                 do {
@@ -134,7 +132,6 @@ final class IDMCoreDataHelper {
                         segmentData.endByte = Int64(chunkDownloadInfo.endByte)
                         segmentData.segmentID = chunkDownloadInfo.uniqueID
                         segmentData.totalDownloaded = Int64(chunkDownloadInfo.totalDownloaded)
-                        segmentData.resumeData = chunkDownloadInfo.resumeData as NSData?
                     }
                    
                 }

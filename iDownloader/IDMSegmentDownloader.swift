@@ -17,7 +17,6 @@ struct ChunkDownloadData {
     let startByte:Int
     let endByte:Int
     var totalDownloaded:Int
-    var resumeData:Data?
     let downloadURL:String
     var isCompleted:Bool
 }
@@ -107,7 +106,15 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
             return
         }
         self.isRetryingDownloadStart = true
-        self.retryDownloading()
+        self.delegate?.updateDBWithChunkDownloadData(data: self.downloadData, compeletion: {[weak self]
+            (error)
+            in
+            guard let blockSelf = self
+                else {
+                    return
+            }
+            blockSelf.retryDownloading()
+        })
 
     }
     

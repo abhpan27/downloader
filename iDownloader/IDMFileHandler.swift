@@ -23,7 +23,7 @@ class IDMFileHandler {
     final func createTempFileAtLoaction(fileName:String, directoryLocation:String, fileBookMark:Data?, completion:((_ finalFileName:String, _ error:NSError?)-> Void)) {
         var fileNameUsed = fileName.stringForFilePath
         var currentPath = directoryLocation + "/\(fileNameUsed).\(tempFileExtension)"
-        var indexSubscriptForFileName = 1
+        var indexSubscriptForFileName = 0
         while FileManager.default.fileExists(atPath: currentPath) {
             indexSubscriptForFileName += 1
             fileNameUsed = fileName + "\((indexSubscriptForFileName))"
@@ -106,10 +106,18 @@ class IDMFileHandler {
     
     final func setFileExtension(fileName:String, containingDirectory:String, newExtension:String, fileBookMarkData:Data?) -> Bool{
         let originalFilePath = containingDirectory + "/\(fileName).\(tempFileExtension)"
-        let finalPath = containingDirectory + "/\(fileName).\(newExtension)"
+        var finalPath = containingDirectory + "/\(fileName).\(newExtension)"
         
         if FileManager.default.isWritableFile(atPath: originalFilePath) {
             do {
+                var index = 0
+                var usedFileName = fileName
+                while FileManager.default.fileExists(atPath: finalPath){
+                    index += 1
+                    usedFileName = usedFileName + "(\(index))"
+                    finalPath = containingDirectory + "/\(usedFileName).\(newExtension)"
+                }
+                
                 try FileManager.default.moveItem(atPath: originalFilePath, toPath: finalPath)
                 return true
             }catch {
