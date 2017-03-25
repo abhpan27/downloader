@@ -100,7 +100,7 @@ extension IDMDownloadListController {
             if index < noOfChunks-2 {
                 endByteForChunk = (startByteForChunk + contentDownloadablePerSession - 1)
             }else {
-                endByteForChunk = (startByteForChunk + contentDownloadablePerSession + extraNumberOfBytesForLastDownload)
+                endByteForChunk = (startByteForChunk + contentDownloadablePerSession + extraNumberOfBytesForLastDownload-1)
             }
         }
         

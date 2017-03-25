@@ -18,6 +18,8 @@ struct FileError {
 class IDMFileHandler {
     
     let tempFileExtension = "RDDownload"
+    
+    
     final func createTempFileAtLoaction(fileName:String, directoryLocation:String, fileBookMark:Data?, completion:((_ finalFileName:String, _ error:NSError?)-> Void)) {
         var fileNameUsed = fileName.stringForFilePath
         var currentPath = directoryLocation + "/\(fileNameUsed).\(tempFileExtension)"
@@ -35,91 +37,106 @@ class IDMFileHandler {
         }
         
         //try to access it with bookmark.
-        if fileBookMark == nil {
-            completion(fileName, NSError(domain: FileError.errorDomain, code: FileError.canNotCreateTempFileError, userInfo: nil))
-            return
+        guard let bookMarkData = fileBookMark
+            else{
+                completion(fileName, NSError(domain: FileError.errorDomain, code: FileError.canNotCreateTempFileError, userInfo: nil))
+                return
         }
-        var isBookMarkDataStale = false
-        do {
-            if let bookmarkFileURL = try URL(resolvingBookmarkData: fileBookMark!, bookmarkDataIsStale: &isBookMarkDataStale){
-                let _ = bookmarkFileURL.startAccessingSecurityScopedResource()
-                if !FileManager.default.createFile(atPath: bookmarkFileURL.path + fileNameUsed, contents: nil, attributes: nil){
-                    bookmarkFileURL.stopAccessingSecurityScopedResource()
-                    completion(fileName,NSError(domain: FileError.errorDomain, code: FileError.canNotCreateTempFileError, userInfo: nil))
-                    return
-                }
-                //sucess case
+
+        if let bookmarkFileURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData) {
+            _ = bookmarkFileURL.startAccessingSecurityScopedResource()
+            if FileManager.default.createFile(atPath: bookmarkFileURL.path + fileNameUsed, contents: nil, attributes: nil){
                 bookmarkFileURL.stopAccessingSecurityScopedResource()
                 completion(fileNameUsed,nil)
-                
-            }else {
-                completion(fileName,NSError(domain: FileError.errorDomain, code: FileError.canNotCreateTempFileError, userInfo: nil))
-            }
-           
-        }catch {
-            Swift.print("error :\(error.localizedDescription)")
-            completion(fileName, error as NSError?)
-        }
-    }
-    
-    final func writeDownloadedDataToFile(sourceTempFile:URL, downloadFileName:String, directoryLocation:String, fileBookMark:Data?, atOffset:UInt64) -> Bool{
-
-         let downloadURLWithoutBookMark = directoryLocation + "/\(downloadFileName).\(tempFileExtension)"
-        Swift.print("offset :\(atOffset)")
-        if let fileHandleWithoutBookMark = FileHandle(forUpdatingAtPath:downloadURLWithoutBookMark) {
-            if let dataOfFile = self.getMemoryMappedNSDataFromFile(tempFileLocation: sourceTempFile) {
-                createAndSaveFileHandleInDifferentThread(fileHandle: fileHandleWithoutBookMark, offset: atOffset, dataOfFile: dataOfFile)
-                return true
             }
         }
         
+          completion(fileName,NSError(domain: FileError.errorDomain, code: FileError.canNotCreateTempFileError, userInfo: nil))
+        
+    }
+    
+    
+    final func writeDownloadedDataToFile(data:Data, downloadFileName:String, directoryLocation:String, fileBookMark:Data?, atOffset:UInt64) -> Bool{
+
+         let downloadURLWithoutBookMark = directoryLocation + "/\(downloadFileName).\(tempFileExtension)"        
+        
+        if let fileHandleWithoutBookMark = FileHandle(forUpdatingAtPath:downloadURLWithoutBookMark) {
+                writeToFile(fileHandle: fileHandleWithoutBookMark, offset: atOffset, dataOfFile: data)
+                return true
+        }
+        
+        //try to get it from bookmark data 
+        guard let bookMarkData = fileBookMark
+            else{
+                return false
+        }
+        
+        if let bookmarkFileURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData) {
+            _ = bookmarkFileURL.startAccessingSecurityScopedResource()
+            if let fileHandleWithBookMark = FileHandle(forUpdatingAtPath:bookmarkFileURL.path) {
+                    writeToFile(fileHandle: fileHandleWithBookMark, offset: atOffset, dataOfFile: data)
+                    bookmarkFileURL.stopAccessingSecurityScopedResource()
+                    return true
+            }
+        }
+        return false
+    }
+    
+    private func writeToFile(fileHandle:FileHandle, offset:UInt64, dataOfFile:Data){
+        fileHandle.seek(toFileOffset: offset)
+        fileHandle.write(dataOfFile)
+        fileHandle.closeFile()
+    }
+    
+    private func getURLFromBookMarkData(bookmarkData:Data) -> URL? {
         do {
             var isBookMarkDataStale = false
-            if let bookmarkFileURL = try URL(resolvingBookmarkData: fileBookMark!, bookmarkDataIsStale: &isBookMarkDataStale){
-                let _ = bookmarkFileURL.startAccessingSecurityScopedResource()
-                if let fileHandleWithBookMark = FileHandle(forUpdatingAtPath:bookmarkFileURL.path) {
-                    if let dataOfFile = self.getMemoryMappedNSDataFromFile(tempFileLocation: sourceTempFile) {
-                        createAndSaveFileHandleInDifferentThread(fileHandle: fileHandleWithBookMark, offset: atOffset, dataOfFile: dataOfFile)
-                        return true
-                    }else{
-                        return false
-                    }
-                  
-                }
-                return false
+            if let bookmarkFileURL = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isBookMarkDataStale){
+                return bookmarkFileURL
                 
             }else {
-                return false
+                return nil
             }
             
         }catch {
             Swift.print("error :\(error.localizedDescription)")
-            return false
-        }
-        
-    }
-    
-    private func getMemoryMappedNSDataFromFile(tempFileLocation:URL) -> Data? {
-        do {
-            let data = try Data.init(contentsOf: tempFileLocation, options: Data.ReadingOptions.alwaysMapped)
-            return data
-        }catch {
             return nil
         }
-        
     }
     
-    private func createAndSaveFileHandleInDifferentThread(fileHandle:FileHandle, offset:UInt64, dataOfFile:Data){
-        fileHandle.seek(toFileOffset: offset)
-        fileHandle.write(dataOfFile)
-        Swift.print((dataOfFile as NSData).length)
-        fileHandle.closeFile()
-//        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-//            fileHandle.seek(toFileOffset: offset)
-//            fileHandle.write(dataOfFile)
-//            Swift.print((dataOfFile as NSData).length)
-//            fileHandle.closeFile()
-//        }
+    final func setFileExtension(fileName:String, containingDirectory:String, newExtension:String, fileBookMarkData:Data?) -> Bool{
+        let originalFilePath = containingDirectory + "/\(fileName).\(tempFileExtension)"
+        let finalPath = containingDirectory + "/\(fileName).\(newExtension)"
+        
+        if FileManager.default.isWritableFile(atPath: originalFilePath) {
+            do {
+                try FileManager.default.moveItem(atPath: originalFilePath, toPath: finalPath)
+                return true
+            }catch {
+                return false
+            }
+        }
+        
+        //try to get it from bookmark data
+        guard let bookMarkData = fileBookMarkData
+            else{
+                return false
+        }
+        
+        if let bookmarkURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData){
+            let finalPathURL =  URL(string:finalPath)!
+            _ = bookmarkURL.startAccessingSecurityScopedResource()
+            do {
+                try FileManager.default.moveItem(at: bookmarkURL, to: finalPathURL)
+                bookmarkURL.stopAccessingSecurityScopedResource()
+                return true
+            }catch {
+                return false
+            }
+        }
+        
+        return false
+        
     }
     
 }

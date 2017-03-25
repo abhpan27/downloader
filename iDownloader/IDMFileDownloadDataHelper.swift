@@ -142,7 +142,7 @@ final class IDMFileDownloadDataHelper{
             return
         }
         
-        self.segmentDownloaders[chunkIndex].saveSegmentResumeData { 
+        self.segmentDownloaders[chunkIndex].saveSegmentResumeData {
             [weak self]
             (error)
             in
@@ -155,7 +155,6 @@ final class IDMFileDownloadDataHelper{
             }else {
                 blockSelf.fileDownloadData.runningStatus = .failed
                 blockSelf.saveFileDownloadInfoInDB(completion: { (error) in
-                    //
                 })
             }
         }
@@ -206,6 +205,16 @@ final class IDMFileDownloadDataHelper{
             //do nothing with error
         }
     }
+    
+    fileprivate func updateFileExtension() {
+        let fileExtension = URL(string:self.fileDownloadData.downloadURL)!.pathExtension
+        if self.fileHandler.setFileExtension(fileName: self.fileDownloadData.name, containingDirectory: self.fileDownloadData.diskDownloadLocation, newExtension: fileExtension, fileBookMarkData: self.fileDownloadData.diskDownloadBookmarkData){
+            self.fileDownloadData.runningStatus = .completed
+            self.delegate?.downloadCompleted()
+        }else {
+            markDownloadFailed()
+        }
+    }
 }
 
 extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
@@ -215,8 +224,8 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
         var newTotalDownloaded = 0
         var newChunkData = [ChunkDownloadData]()
         for segmentDownloader in self.segmentDownloaders {
-            newChunkData.append(segmentDownloader.donwloadData)
-            newTotalDownloaded = newTotalDownloaded + segmentDownloader.donwloadData.totalDownloaded
+            newChunkData.append(segmentDownloader.downloadData)
+            newTotalDownloaded = newTotalDownloaded + segmentDownloader.downloadData.totalDownloaded
         }
         
         guard newTotalDownloaded < self.fileDownloadData.totalSize
@@ -225,6 +234,7 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
         }
         
         guard newTotalDownloaded > currentTotalDownloaded else {
+             Swift.print("new total is less")
             return
         }
         
@@ -248,36 +258,17 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
         self.fileDownloadData.chuckDownloadData = newChunkData
     }
     
-    func didCompletedDownload(tempFileURL:URL, offset:Int){
-        let success = fileHandler.writeDownloadedDataToFile(sourceTempFile: tempFileURL, downloadFileName: self.fileDownloadData.name, directoryLocation: self.fileDownloadData.diskDownloadLocation, fileBookMark: self.fileDownloadData.diskDownloadBookmarkData, atOffset: UInt64(offset))
-        if !success {
-            //error case should be handled here
-            self.fileDownloadData.runningStatus = .failed
-            self.saveFileDownloadInfoInDB(completion:  { [weak self]
-                (error)
-                in
-                guard let blockSelf = self
-                    else{
-                        return
-                }
-                if error != nil {
-                    blockSelf.markDownloadFailed()
-                    blockSelf.delegate?.notAbleToWriteToDownloadFile()
-                }
-            })
-            return
-        }
+    func didCompletedDownload(){
         
         var isAllSegmentsCompletedDownload = true
         for segments in self.segmentDownloaders {
-            if !segments.donwloadData.isCompleted {
+            if !segments.downloadData.isCompleted {
                 isAllSegmentsCompletedDownload = false
                 break
             }
         }
         
         if isAllSegmentsCompletedDownload {
-            self.fileDownloadData.runningStatus = .completed
             self.saveFileDownloadInfoInDB(completion: { [weak self]
                 (error)
                 in
@@ -285,14 +276,28 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
                     else{
                         return
                 }
-                if error != nil {
-                    blockSelf.delegate?.downloadCompleted()
+                if error == nil {
+                    blockSelf.updateFileExtension()
                 }
             })
         }
     }
     
+    func writeDataToOffset(data:Data, offset:Int) -> Bool {
+        return fileHandler.writeDownloadedDataToFile(data: data, downloadFileName: self.fileDownloadData.name, directoryLocation: self.fileDownloadData.diskDownloadLocation, fileBookMark: self.fileDownloadData.diskDownloadBookmarkData, atOffset: UInt64(offset))
+    }
+    
     func isResumeSupported() -> Bool {
         return self.fileDownloadData.isResumeSupported
+    }
+    
+    func updateDBWithChunkDownloadData(data:ChunkDownloadData, compeletion:@escaping (_ error:Error?)-> ()){
+        IDMCoreDataHelper.shared.updateDBWithChunkDownloadData(chunkDownloadInfo: data) { (error) in
+           compeletion(error)
+        }
+    }
+    
+    func chunkDownloadFailed() {
+        self.markDownloadFailed()
     }
 }

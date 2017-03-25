@@ -66,6 +66,39 @@ final class IDMCoreDataHelper {
        
     }
     
+    final func updateDBWithChunkDownloadData(chunkDownloadInfo:ChunkDownloadData, completion:@escaping (_ error:Error?)-> ())
+    {
+        persistentContainer.performBackgroundTask { (context) in
+            let segmentFecthRequest: NSFetchRequest<NSFetchRequestResult> = SegmentDownloadData.fetchRequest()
+            segmentFecthRequest.predicate = NSPredicate(format: "segmentID == %@", chunkDownloadInfo.uniqueID)
+            do {
+                let segmentDownloadArray =  try context.fetch(segmentFecthRequest)
+                guard let segmentDownloadData = segmentDownloadArray.last as? SegmentDownloadData
+                    else {
+                        
+                        completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil))
+                        return
+                }
+                segmentDownloadData.startByte = Int64(chunkDownloadInfo.startByte)
+                segmentDownloadData.endByte = Int64(chunkDownloadInfo.endByte)
+                segmentDownloadData.resumeData = chunkDownloadInfo.resumeData as NSData?
+                segmentDownloadData.totalDownloaded = Int64(chunkDownloadInfo.totalDownloaded)
+                
+                do {
+                    try context.save()
+                    completion(nil)
+                }catch {
+                    Swift.print("saving falied :\(error.localizedDescription)")
+                    completion(error)
+                }
+                
+            }catch {
+                completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil))
+                Swift.print("loggin:error saving state")
+            }
+        }
+    }
+    
     final func updateDBWithFileDownloadInfo(fileDownloadInfo:FileDownloadDataInfo, completion:@escaping (_ error:Error?)-> ())
     {
         persistentContainer.performBackgroundTask { (context) in
@@ -114,6 +147,7 @@ final class IDMCoreDataHelper {
                 }
                             }
             catch {
+                completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil))
                 Swift.print("loggin:error saving state")
             }
         }

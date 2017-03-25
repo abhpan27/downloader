@@ -25,80 +25,118 @@ struct ChunkDownloadData {
 protocol SegmentDownloaderDelegate:class {
     func isResumeSupported() -> Bool
     func didWriteData()
-    func didCompletedDownload(tempFileURL:URL, offset:Int)
+    func didCompletedDownload()
+    func updateDBWithChunkDownloadData(data:ChunkDownloadData, compeletion:@escaping (_ error:Error?)-> ())
+    func writeDataToOffset(data:Data, offset:Int) -> Bool
 }
 
-final class IDMSegmentDownloader:NSObject, URLSessionDownloadDelegate{
+final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     
-    var donwloadData:ChunkDownloadData
+    var downloadData:ChunkDownloadData
     weak var delegate:SegmentDownloaderDelegate?
     var session:URLSession?
-    var downloadTask:URLSessionDownloadTask?
+    var downloadTask:URLSessionDataTask?
     var shouldResumeDownloadOnError:Bool = true
+    var isRetryingDownloadStart = false
     
     init(data:ChunkDownloadData, delegate:SegmentDownloaderDelegate){
-        self.donwloadData = data
+        self.downloadData = data
         self.delegate = delegate
     }
     
-    final func start() {
+    private func setUpSession() {
+        self.session?.invalidateAndCancel()
         let urlConfigurationForDownload = URLSessionConfiguration.default
         urlConfigurationForDownload.httpMaximumConnectionsPerHost = 15
         session = URLSession(configuration: urlConfigurationForDownload, delegate: self, delegateQueue: OperationQueue.main)
-        var urlRequestForChunkDownload = URLRequest(url: URL(string: donwloadData.downloadURL)!)
-        if self.delegate!.isResumeSupported() {
-            urlRequestForChunkDownload.addValue("bytes=\(self.donwloadData.startByte)-\(self.donwloadData.endByte)", forHTTPHeaderField: "Range")
-        }
-        Swift.print("starting donwload from \(self.donwloadData.startByte) to \(self.donwloadData.endByte) with totalSize: \(self.donwloadData.endByte - self.donwloadData.startByte + 1)")
-        downloadTask = session!.downloadTask(with: urlRequestForChunkDownload)
+    }
+    
+    final func start() {
+        setUpSession()
+        downloadTask = session!.dataTask(with: getURLRequestForDownloadTask())
         downloadTask!.resume()
     }
     
+    private func getURLRequestForDownloadTask() -> URLRequest {
+        var urlRequestForChunkDownload = URLRequest(url: URL(string: downloadData.downloadURL)!)
+        if self.delegate!.isResumeSupported() {
+
+            urlRequestForChunkDownload.addValue("bytes=\(getStartByteRange())-\(self.downloadData.endByte)", forHTTPHeaderField: "Range")
+        }
+        return urlRequestForChunkDownload
+    }
+    
+    private func getStartByteRange() -> Int {
+        let currentOffset = self.downloadData.startByte +  self.downloadData.totalDownloaded
+        return currentOffset
+    }
+    
     final func saveSegmentResumeData(completion:@escaping (_ error:NSError?) -> ()){
-        self.downloadTask?.cancel(byProducingResumeData: { [weak self]
-            (data) in
+        shouldResumeDownloadOnError = false
+        self.delegate?.updateDBWithChunkDownloadData(data: self.downloadData, compeletion: { [weak self]
+            (error) in
             guard let blockSelf = self
                 else {
                     return
             }
-            if (data != nil){
-                blockSelf.donwloadData.resumeData = data
-                Swift.print("paused download")
-                blockSelf.shouldResumeDownloadOnError = false
-                completion(nil)
-                return
+            runInMainThread {
+                if error == nil {
+                    blockSelf.downloadTask?.cancel()
+                    completion(nil)
+                }else {
+                    completion(NSError(domain: ChunkDownloadError.errorDomain, code: ChunkDownloadError.pauseFailed, userInfo: nil))
+                }
             }
-            completion(NSError(domain: ChunkDownloadError.errorDomain, code: ChunkDownloadError.pauseFailed, userInfo: nil))
         })
     }
     
     final func resumeDownload(completion:@escaping () -> ()) {
-        if let data = self.donwloadData.resumeData{
-            self.shouldResumeDownloadOnError = false
-            self.downloadTask = self.session?.downloadTask(withResumeData: data)
-            self.downloadTask!.resume()
-            Swift.print("resumed download")
-        }
+        shouldResumeDownloadOnError = true
+        self.start()
         completion()
     }
     
     
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL){
-        self.donwloadData.isCompleted = true
-        delegate?.didCompletedDownload(tempFileURL: location, offset: self.donwloadData.startByte)
-    }
-    
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64){
-        self.donwloadData.totalDownloaded = Int(totalBytesWritten)
-        self.delegate?.didWriteData()
-        
-    }
-    
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
-        if shouldResumeDownloadOnError, let data = (error as? NSError)?.userInfo[NSURLSessionDownloadTaskResumeData] as? Data{
-            self.donwloadData.resumeData = data
-            self.downloadTask = self.session?.downloadTask(withResumeData: data)
-            self.downloadTask!.resume()
+        if error == nil {
+            self.downloadData.isCompleted = true
+            self.delegate?.didCompletedDownload()
+            return
+        }
+        guard (!isRetryingDownloadStart && shouldResumeDownloadOnError) else {
+            return
+        }
+        self.isRetryingDownloadStart = true
+        self.retryDownloading()
+
+    }
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
+        completionHandler(URLSession.ResponseDisposition.allow)
+    }
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
+        let offsetToWrite = self.downloadData.startByte + self.downloadData.totalDownloaded
+        if delegate!.writeDataToOffset(data: data, offset: offsetToWrite){
+            let bytesWritten = (data as NSData).length
+            self.downloadData.totalDownloaded = Int(bytesWritten) + self.downloadData.totalDownloaded
+            self.delegate?.didWriteData()
         }
     }
+    
+    private func retryDownloading() {
+        if !isRetryingDownloadStart {
+            return
+        }
+        if IDMReachability.isConnectedToInternet() {
+            self.start()
+            isRetryingDownloadStart = false
+            return
+        }
+        let exponentialDelay = 5
+        runAfterDelay(delay: Double(exponentialDelay)) { 
+            self.retryDownloading()
+        }
+    }
+    
 }

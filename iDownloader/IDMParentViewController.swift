@@ -125,7 +125,7 @@ extension IDMParentViewController: MouseDownDelgate {
                 return
         }
         
-        guard let threadCount = Int(self.addDownloadPopUpView.noOfThreadsTextField.stringValue), threadCount > 0 , threadCount < 15
+        guard let threadCount = Int(self.addDownloadPopUpView.noOfThreadsTextField.stringValue), threadCount > 0 , threadCount <= 15
             else {
                 showErorr(title: "Invalid no of threads", message: "Please enter a valid no of threads. Valid no of threads should be a number in range of 1-15")
                 return
