@@ -13,6 +13,7 @@ protocol FileDownloadControllerDelegate:class {
     func removeDownloader(downloadController:IDMFileDownloadController)
     func startLoader()
     func stopLoader()
+    func scrollToBottom()
 }
 
 struct UIData{
@@ -191,6 +192,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
     fileprivate func addControllerInList()  {
         runInMainThread {
             self.delegate?.insertNewDownloadRow(row: self.view)
+            self.delegate?.scrollToBottom()
         }
     }
     

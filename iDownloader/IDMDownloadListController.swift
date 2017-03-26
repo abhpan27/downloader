@@ -214,4 +214,8 @@ extension IDMDownloadListController {
         }
     }
     
+    func scrollToBottom(){
+        self.stackView.enclosingScrollView?.scrollToBottom()
+    }
+    
 }
