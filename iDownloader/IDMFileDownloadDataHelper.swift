@@ -263,6 +263,7 @@ final class IDMFileDownloadDataHelper{
     
     final func markDownloadFailed() {
         self.fileDownloadData.runningStatus = .failed
+        _ = self.removeTempFileForDownload()
         self.saveFileDownloadInfoInDB { (error) in
             //do nothing with error
         }

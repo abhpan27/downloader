@@ -70,6 +70,6 @@ final class IDMDownloadHeaderFetchHelper{
 //        let isEtagAvailable = (probeHeader["Etag"] != nil)
 //        let isLastModifiedAvaible = (probeHeader["Last-Modified"] != nil)
         let isByteRangeSupported = (probeHeader["Accept-Ranges"] != nil)
-        return false//isByteRangeSupported
+        return isByteRangeSupported
     }
 }

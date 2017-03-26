@@ -191,6 +191,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         self.downloadTask?.cancel()
         self.session?.invalidateAndCancel()
         self.delegate!.downloadFailedForChunk(isNonResumable: isNonResumable)
+        isSessionAcive = false
     }
     
     final func cancelDownloading(completion:@escaping () -> ()) {
