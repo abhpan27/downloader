@@ -282,6 +282,12 @@ final class IDMFileDownloadDataHelper{
             return false
         }
     }
+    
+    fileprivate func fireLocalNotification() {
+        let title = "Download completed"
+        let informativeText = "File - \(self.fileDownloadData.name) is downloaded in - \(self.fileDownloadData.diskDownloadLocation)"
+        IDMLocalNotificationHelper.shared.showNotification(title: title, infomativeText: informativeText, userInfo: ["":""])
+    }
 }
 
 extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
@@ -361,9 +367,7 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
                     if error == nil {
                        
                         blockSelf.delegate?.downloadCompleted()
-                        runInMainThread {
-                             blockSelf.fileHandler.removeProgressBarIndicator(fileName: blockSelf.fileDownloadData.name, containingDirectory: blockSelf.fileDownloadData.diskDownloadLocation, fileExtension: URL(string:blockSelf.fileDownloadData.downloadURL)!.pathExtension, fileBookMarkData: blockSelf.fileDownloadData.diskDownloadBookmarkData)
-                        }
+                        blockSelf.fireLocalNotification()
                     }else {
                         blockSelf.markDownloadFailed()
                     }

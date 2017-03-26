@@ -17,7 +17,7 @@ struct FileError {
 
 class IDMFileHandler {
     
-    let tempFileExtension = "RDDownload"
+    let tempFileExtension = "idmdownload"
     
     
     final func createTempFileAtLoaction(fileName:String, directoryLocation:String, fileBookMark:Data?, completion:((_ finalFileName:String, _ error:NSError?)-> Void)) {
@@ -123,6 +123,7 @@ class IDMFileHandler {
                 }
                 
                 try FileManager.default.moveItem(atPath: originalFilePath, toPath: finalPath)
+                self.removeFileDownloadedAtrribute(pathURL: URL(string: finalPath.percentEncoded))
                 return true
             }catch {
                 return false
@@ -141,6 +142,7 @@ class IDMFileHandler {
             let pathWithoutSystemLink = bookmarkURL.urlAfterResolvingSytemLink
             do {
                 try FileManager.default.moveItem(at: pathWithoutSystemLink, to: finalPathURL)
+                self.removeFileDownloadedAtrribute(pathURL: URL(string: finalPath.percentEncoded))
                 bookmarkURL.stopAccessingSecurityScopedResource()
                 return true
             }catch {
@@ -227,29 +229,6 @@ class IDMFileHandler {
         }
     }
     
-    final func removeProgressBarIndicator(fileName:String, containingDirectory:String, fileExtension:String,fileBookMarkData:Data?) {
-        if let bookMarkData = fileBookMarkData{
-            if let bookmarkURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData){
-                _ = bookmarkURL.startAccessingSecurityScopedResource()
-                let pathWithoutSystemLink = bookmarkURL.urlAfterResolvingSytemLink.path + "/\(fileName).\(fileExtension)"
-                if let url = URL(string:pathWithoutSystemLink.percentEncoded) {
-                    removeFileDownloadedAtrribute(url: url)
-                }
-                bookmarkURL.stopAccessingSecurityScopedResource()
-                return
-            }
-        }
-        
-        
-        let originalFilePath = containingDirectory + "/\(fileName).\( fileExtension )"
-        if FileManager.default.fileExists(atPath: originalFilePath) {
-            if let url = URL(string:originalFilePath.percentEncoded)  {
-                removeFileDownloadedAtrribute(url: url)
-            }
-            
-        }
-    }
-    
     private func setFileDownloadedAttribute(url:URL, fraction:Double) {
         let data = String(format:"%.1f bytes/S", fraction).data(using: String.Encoding.ascii)
         do {
@@ -259,7 +238,11 @@ class IDMFileHandler {
       }
     }
     
-    private func removeFileDownloadedAtrribute(url:URL) {
+    private func removeFileDownloadedAtrribute(pathURL:URL?) {
+        guard let url = pathURL
+            else {
+                return
+        }
         do {
             try url.removeExtendedAttribute(forName: "com.apple.progress.fractionCompleted")
             try FileManager.default.setAttributes([FileAttributeKey.creationDate : Date()], ofItemAtPath: url.path)

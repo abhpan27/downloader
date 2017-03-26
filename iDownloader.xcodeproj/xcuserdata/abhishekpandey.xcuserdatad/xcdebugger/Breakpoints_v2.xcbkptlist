@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/IDMFileDownloadDataHelper.swift"
-            timestampString = "512232712.042078"
+            timestampString = "512247814.792895"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
             landmarkName = "didWriteData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -490,61 +490,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/IDMFileHandler.swift"
-            timestampString = "512246880.111028"
+            timestampString = "512249039.82565"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
-            landmarkName = "removeFileDownloadedAtrribute(url:)"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "removeFileDownloadedAtrribute(pathURL:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iDownloader/IDMFileHandler.swift"
-            timestampString = "512246918.117222"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "removeProgressBarIndicator(fileName:containingDirectory:fileExtension:fileBookMarkData:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "iDownloader.IDMFileHandler.removeProgressBarIndicator (fileName : Swift.String, containingDirectory : Swift.String, fileExtension : Swift.String, fileBookMarkData : Swift.Optional&lt;Foundation.Data&gt;) -&gt; ()"
-                  moduleName = "iDownloader"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileHandler.swift"
-                  timestampString = "512246990.860185"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "231"
-                  endingLineNumber = "231"
-                  offsetFromSymbolStart = "78">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "iDownloader.IDMFileHandler.removeProgressBarIndicator (fileName : Swift.String, containingDirectory : Swift.String, fileExtension : Swift.String, fileBookMarkData : Swift.Optional&lt;Foundation.Data&gt;) -&gt; ()"
-                  moduleName = "iDownloader"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileHandler.swift"
-                  timestampString = "512246990.861878"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "231"
-                  endingLineNumber = "231"
-                  offsetFromSymbolStart = "205">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
