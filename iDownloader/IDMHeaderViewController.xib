@@ -22,10 +22,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="f3k-JC-V2l">
-                    <rect key="frame" x="30" y="24" width="310" height="35"/>
+                    <rect key="frame" x="30" y="24" width="327" height="35"/>
                     <subviews>
                         <box boxType="custom" borderType="none" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="EgK-6Z-ogj">
-                            <rect key="frame" x="276" y="0.0" width="1" height="35"/>
+                            <rect key="frame" x="293" y="0.0" width="1" height="35"/>
                             <view key="contentView" id="ETh-ue-T4N">
                                 <rect key="frame" x="0.0" y="0.0" width="1" height="35"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,20 +36,17 @@
                             <color key="fillColor" red="0.69803921568627447" green="0.64313725490196072" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                         </box>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S4A-ot-xN1" customClass="IDMAddDownloadButton" customModule="iDownloader" customModuleProvider="target">
-                            <rect key="frame" x="277" y="0.0" width="33" height="35"/>
+                            <rect key="frame" x="294" y="0.0" width="33" height="35"/>
                             <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Zar-mm-9ui">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
                             </buttonCell>
                             <connections>
                                 <action selector="didSelectedAddDowload:" target="-2" id="Lnl-ff-aIM"/>
                             </connections>
                         </button>
                         <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-o4-b5K">
-                            <rect key="frame" x="11" y="8" width="261" height="19"/>
+                            <rect key="frame" x="11" y="8" width="278" height="19"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" focusRingType="none" placeholderString="Add download link here" id="6hs-kb-lnv">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,11 +90,11 @@ DQ
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mwX-gP-UgR" customClass="IDMCustomGreenButton" customModule="iDownloader" customModuleProvider="target">
-                    <rect key="frame" x="385" y="24" width="75" height="35"/>
+                    <rect key="frame" x="402" y="24" width="48" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="bUV-rU-R9z"/>
                     </constraints>
-                    <buttonCell key="cell" type="bevel" title="Disable ads" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="T96-3K-yOQ">
+                    <buttonCell key="cell" type="bevel" title="Donate" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="T96-3K-yOQ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -112,7 +109,7 @@ DQ
                 <constraint firstItem="5NH-dY-FVv" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Wfu-2X-PR6"/>
                 <constraint firstItem="5NH-dY-FVv" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="5" id="bid-UU-t2O"/>
                 <constraint firstItem="mwX-gP-UgR" firstAttribute="centerY" secondItem="f3k-JC-V2l" secondAttribute="centerY" id="fs4-wZ-SpV"/>
-                <constraint firstAttribute="trailing" secondItem="mwX-gP-UgR" secondAttribute="trailing" constant="20" id="jrQ-jG-iO1"/>
+                <constraint firstAttribute="trailing" secondItem="mwX-gP-UgR" secondAttribute="trailing" constant="30" id="jrQ-jG-iO1"/>
                 <constraint firstAttribute="trailing" secondItem="o35-SN-lYv" secondAttribute="trailing" id="vKM-8C-PM5"/>
             </constraints>
             <point key="canvasLocation" x="138" y="50.5"/>

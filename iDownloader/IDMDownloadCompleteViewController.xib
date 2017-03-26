@@ -104,11 +104,11 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lZR-Oa-XUP" customClass="IDMFullRectColorButton" customModule="iDownloader" customModuleProvider="target">
-                    <rect key="frame" x="310" y="20" width="79" height="32"/>
+                    <rect key="frame" x="363" y="20" width="38" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="tI6-zd-Bxc"/>
                     </constraints>
-                    <buttonCell key="cell" type="bevel" title="Open Folder" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="32E-26-m4o">
+                    <buttonCell key="cell" type="bevel" title="Show" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="32E-26-m4o">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -119,7 +119,7 @@
             </subviews>
             <constraints>
                 <constraint firstItem="vAB-Uz-hIb" firstAttribute="centerY" secondItem="ZUR-4J-9FQ" secondAttribute="centerY" id="4ov-Oe-Gum"/>
-                <constraint firstItem="yKt-Jt-lBZ" firstAttribute="leading" secondItem="lZR-Oa-XUP" secondAttribute="trailing" constant="24" id="51a-ZM-pAd"/>
+                <constraint firstItem="yKt-Jt-lBZ" firstAttribute="leading" secondItem="lZR-Oa-XUP" secondAttribute="trailing" constant="12" id="51a-ZM-pAd"/>
                 <constraint firstItem="Mxw-dr-DgJ" firstAttribute="leading" secondItem="vAB-Uz-hIb" secondAttribute="leading" id="8L6-zB-Bj1"/>
                 <constraint firstItem="HJI-41-0m6" firstAttribute="top" secondItem="ZUR-4J-9FQ" secondAttribute="bottom" constant="8" id="9JY-0B-nE7"/>
                 <constraint firstItem="jYm-Br-hEb" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="B9N-kF-s5j"/>
