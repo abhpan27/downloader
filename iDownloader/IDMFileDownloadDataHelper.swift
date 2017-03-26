@@ -333,6 +333,7 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
         
         
         self.currentUIData = UIData(totalDownloaded: self.fileDownloadData.totalDownloaded,speedArray: self.currentUIData.speedArray,timeRemaining: timeRemaining, isRetyringOnError:isRetryingOnError)
+        self.fileHandler.updateProgressBarInFinder(fileName: self.fileDownloadData.name, containingDirectory: self.fileDownloadData.diskDownloadLocation, fileBookMarkData: self.fileDownloadData.diskDownloadBookmarkData, fraction: Double(self.fileDownloadData.totalDownloaded)/Double(self.fileDownloadData.totalSize))
     
     }
     
@@ -358,7 +359,11 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
                             return
                     }
                     if error == nil {
+                       
                         blockSelf.delegate?.downloadCompleted()
+                        runInMainThread {
+                             blockSelf.fileHandler.removeProgressBarIndicator(fileName: blockSelf.fileDownloadData.name, containingDirectory: blockSelf.fileDownloadData.diskDownloadLocation, fileExtension: URL(string:blockSelf.fileDownloadData.downloadURL)!.pathExtension, fileBookMarkData: blockSelf.fileDownloadData.diskDownloadBookmarkData)
+                        }
                     }else {
                         blockSelf.markDownloadFailed()
                     }

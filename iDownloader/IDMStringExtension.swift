@@ -24,4 +24,8 @@ extension String {
         
         return components(separatedBy: characterSet).joined(separator: "-")
     }
+    
+    var percentEncoded:String {
+        return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!
+    }
 }

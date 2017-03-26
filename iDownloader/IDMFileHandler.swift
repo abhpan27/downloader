@@ -136,7 +136,7 @@ class IDMFileHandler {
         }
         
         if let bookmarkURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData){
-            let finalPathURL =  URL(string:finalPath)!
+            let finalPathURL =  URL(string:finalPath.percentEncoded)!
             _ = bookmarkURL.startAccessingSecurityScopedResource()
             let pathWithoutSystemLink = bookmarkURL.urlAfterResolvingSytemLink
             do {
@@ -204,5 +204,67 @@ class IDMFileHandler {
         return nil
     }
     
+    final func updateProgressBarInFinder(fileName:String, containingDirectory:String,fileBookMarkData:Data?, fraction:Double) {
+        if let bookMarkData = fileBookMarkData{
+            if let bookmarkURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData){
+                _ = bookmarkURL.startAccessingSecurityScopedResource()
+                let pathWithoutSystemLink = bookmarkURL.urlAfterResolvingSytemLink.path + "/\(fileName).\(self.tempFileExtension)"
+                if let url = URL(string:pathWithoutSystemLink.percentEncoded) {
+                    setFileDownloadedAttribute(url: url, fraction: fraction)
+                }
+                bookmarkURL.stopAccessingSecurityScopedResource()
+                return
+            }
+        }
+        
+        
+        let originalFilePath = containingDirectory + "/\(fileName).\( self.tempFileExtension )"
+        if FileManager.default.fileExists(atPath: originalFilePath) {
+            if let url = URL(string:originalFilePath.percentEncoded)  {
+                setFileDownloadedAttribute(url: url, fraction: fraction)
+            }
+            
+        }
+    }
+    
+    final func removeProgressBarIndicator(fileName:String, containingDirectory:String, fileExtension:String,fileBookMarkData:Data?) {
+        if let bookMarkData = fileBookMarkData{
+            if let bookmarkURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData){
+                _ = bookmarkURL.startAccessingSecurityScopedResource()
+                let pathWithoutSystemLink = bookmarkURL.urlAfterResolvingSytemLink.path + "/\(fileName).\(fileExtension)"
+                if let url = URL(string:pathWithoutSystemLink.percentEncoded) {
+                    removeFileDownloadedAtrribute(url: url)
+                }
+                bookmarkURL.stopAccessingSecurityScopedResource()
+                return
+            }
+        }
+        
+        
+        let originalFilePath = containingDirectory + "/\(fileName).\( fileExtension )"
+        if FileManager.default.fileExists(atPath: originalFilePath) {
+            if let url = URL(string:originalFilePath.percentEncoded)  {
+                removeFileDownloadedAtrribute(url: url)
+            }
+            
+        }
+    }
+    
+    private func setFileDownloadedAttribute(url:URL, fraction:Double) {
+        let data = String(format:"%.1f bytes/S", fraction).data(using: String.Encoding.ascii)
+        do {
+            try url.setExtendedAttribute(data: data!, forName: "com.apple.progress.fractionCompleted")
+            try FileManager.default.setAttributes([FileAttributeKey.creationDate : NSDate(string:"1984-01-24 08:00:00 +0000")], ofItemAtPath: url.path)
+        }catch {
+      }
+    }
+    
+    private func removeFileDownloadedAtrribute(url:URL) {
+        do {
+            try url.removeExtendedAttribute(forName: "com.apple.progress.fractionCompleted")
+            try FileManager.default.setAttributes([FileAttributeKey.creationDate : Date()], ofItemAtPath: url.path)
+        }catch {
+        }
+    }
 }
 
