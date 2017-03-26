@@ -35,3 +35,10 @@ extension Date{
     }
 }
 
+extension URL {
+    
+    var urlAfterResolvingSytemLink:URL {
+        return self.resolvingSymlinksInPath()
+    }
+}
+

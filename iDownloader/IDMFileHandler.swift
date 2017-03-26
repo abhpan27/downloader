@@ -43,10 +43,11 @@ class IDMFileHandler {
                 return
         }
 
-        if let bookmarkFileURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData) {
-            _ = bookmarkFileURL.startAccessingSecurityScopedResource()
-            if FileManager.default.createFile(atPath: bookmarkFileURL.path + fileNameUsed, contents: nil, attributes: nil){
-                bookmarkFileURL.stopAccessingSecurityScopedResource()
+        if let bookmarkDirectoryURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData) {
+            _ = bookmarkDirectoryURL.startAccessingSecurityScopedResource()
+            let directoryPathWithoutSystemLink = bookmarkDirectoryURL.urlAfterResolvingSytemLink.path
+            let filePath = directoryPathWithoutSystemLink + "/\(fileNameUsed).\(tempFileExtension)"
+            if FileManager.default.createFile(atPath: filePath, contents: nil, attributes: nil){
                 completion(fileNameUsed,nil)
             }
         }
@@ -71,11 +72,12 @@ class IDMFileHandler {
                 return false
         }
         
-        if let bookmarkFileURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData) {
-            _ = bookmarkFileURL.startAccessingSecurityScopedResource()
-            if let fileHandleWithBookMark = FileHandle(forUpdatingAtPath:bookmarkFileURL.path) {
+        if let bookmarkDirectoryURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData) {
+            _ = bookmarkDirectoryURL.startAccessingSecurityScopedResource()
+            let directoryPathWithoutSystemLink = bookmarkDirectoryURL.urlAfterResolvingSytemLink.path
+            let filePath = directoryPathWithoutSystemLink + "/\(downloadFileName).\(tempFileExtension)"
+            if let fileHandleWithBookMark = FileHandle(forUpdatingAtPath:filePath) {
                     writeToFile(fileHandle: fileHandleWithBookMark, offset: atOffset, dataOfFile: data)
-                    bookmarkFileURL.stopAccessingSecurityScopedResource()
                     return true
             }
         }
@@ -92,7 +94,8 @@ class IDMFileHandler {
     private func getURLFromBookMarkData(bookmarkData:Data) -> URL? {
         do {
             var isBookMarkDataStale = false
-            if let bookmarkFileURL = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isBookMarkDataStale){
+           
+            if let bookmarkFileURL = try  URL(resolvingBookmarkData: bookmarkData, options: URL.BookmarkResolutionOptions.withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isBookMarkDataStale){
                 return bookmarkFileURL
                 
             }else {
@@ -135,8 +138,9 @@ class IDMFileHandler {
         if let bookmarkURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData){
             let finalPathURL =  URL(string:finalPath)!
             _ = bookmarkURL.startAccessingSecurityScopedResource()
+            let pathWithoutSystemLink = bookmarkURL.urlAfterResolvingSytemLink
             do {
-                try FileManager.default.moveItem(at: bookmarkURL, to: finalPathURL)
+                try FileManager.default.moveItem(at: pathWithoutSystemLink, to: finalPathURL)
                 bookmarkURL.stopAccessingSecurityScopedResource()
                 return true
             }catch {

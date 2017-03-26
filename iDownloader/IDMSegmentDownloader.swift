@@ -28,7 +28,7 @@ protocol SegmentDownloaderDelegate:class {
     func updateDBWithChunkDownloadData(data:ChunkDownloadData, compeletion:@escaping (_ error:Error?)-> ())
     func writeDataToOffset(data:Data, offset:Int) -> Bool
     func isRetrying()
-    func downloadFailedForNonResumableChunk()
+    func downloadFailedForChunk(isNonResumable:Bool)
 }
 
 final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
@@ -59,6 +59,10 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     }
     
     final func start() {
+        guard !self.downloadData.isCompleted
+            else{
+                return
+        }
         setUpSession()
         downloadTask = session!.dataTask(with: getURLRequestForDownloadTask())
         downloadTask!.resume()
@@ -104,9 +108,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         }
         
         guard delegate!.isResumeSupported() else {
-            self.downloadTask?.cancel()
-            self.session?.invalidateAndCancel()
-            self.delegate!.downloadFailedForNonResumableChunk()
+            chunkDownloadFailed(isNonResumable: true)
             return
         }
         
@@ -151,6 +153,8 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
             Swift.print("UUID :\(self.downloadData.uniqueID) writing data of lenght :\(bytesWritten) at offset :\(offsetToWrite)")
             self.downloadData.totalDownloaded = Int(bytesWritten) + self.downloadData.totalDownloaded
             self.delegate?.didWriteData()
+        }else {
+            chunkDownloadFailed(isNonResumable: false)
         }
     }
     
@@ -168,6 +172,12 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         runAfterDelay(delay: Double(retryInterval)) {
             self.retryDownloading()
         }
+    }
+    
+    private func chunkDownloadFailed(isNonResumable:Bool) {
+        self.downloadTask?.cancel()
+        self.session?.invalidateAndCancel()
+        self.delegate!.downloadFailedForChunk(isNonResumable: isNonResumable)
     }
     
 }

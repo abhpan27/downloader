@@ -311,9 +311,13 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         }
     }
     
-    func nonResumableDownloadFailed(){
+    func downloadFalied(isNonResumable:Bool){
         runInMainThread {
-            IDMUtilities.shared.showError(title: "Download Failed", information: "Downloading file \(self.fileDownloadHelper!.fileDownloadData.name) falied. Server don't support resume for this file download. Please try downloading it on good internet connection")
+            if isNonResumable{
+                IDMUtilities.shared.showError(title: "Download Failed :(", information: "Downloading file \(self.fileDownloadHelper!.fileDownloadData.name) falied. Server don't support resume for this file download. Please try downloading it on good internet connection")
+            }else {
+                IDMUtilities.shared.showError(title: "Download Failed :(", information: "Downloading file \(self.fileDownloadHelper!.fileDownloadData.name) falied. Something went wrong while downloading. Please try again")
+            }
         }
     }
     
