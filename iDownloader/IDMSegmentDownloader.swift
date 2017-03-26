@@ -156,6 +156,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
         completionHandler(URLSession.ResponseDisposition.allow)
         self.sessionInvalidateTaskCompletion = nil
+        self.deleteDownloadTaskCompletion = nil
         self.isSessionAcive = true
     }
     

@@ -86,7 +86,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/AppDelegate.swift"
@@ -106,13 +106,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IDMAppController.swift"
-            timestampString = "512148495.49431"
+            timestampString = "512216055.317533"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "doPauseAllOnAppQuit()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iDownloader.IDMAppController.doPauseAllOnAppQuit () -&gt; ()"
+                  moduleName = "iDownloader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/IDMAppController.swift"
+                  timestampString = "512216458.101588"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iDownloader.IDMAppController.(doPauseAllOnAppQuit () -&gt; ()).(closure #1)"
+                  moduleName = "iDownloader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/IDMAppController.swift"
+                  timestampString = "512216458.103085"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -122,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/IDMSegmentDownloader.swift"
-            timestampString = "512211357.732852"
+            timestampString = "512216185.583906"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "urlSession(_:didBecomeInvalidWithError:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/IDMFileDownloadController.swift"
-            timestampString = "512213163.159478"
+            timestampString = "512216457.708076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
             landmarkName = "deleteDownload()"
             landmarkType = "7">
             <Locations>
@@ -186,11 +218,11 @@
                   moduleName = "iDownloader"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileDownloadController.swift"
-                  timestampString = "512214395.276258"
+                  timestampString = "512216458.108546"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "322"
-                  endingLineNumber = "322"
+                  startingLineNumber = "321"
+                  endingLineNumber = "321"
                   offsetFromSymbolStart = "19">
                </Location>
                <Location
@@ -201,11 +233,11 @@
                   moduleName = "iDownloader"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileDownloadController.swift"
-                  timestampString = "512214395.27742"
+                  timestampString = "512216458.110244"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "323"
-                  endingLineNumber = "323"
+                  startingLineNumber = "322"
+                  endingLineNumber = "322"
                   offsetFromSymbolStart = "28">
                </Location>
             </Locations>
@@ -250,7 +282,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/IDMFileDownloadController.swift"
-            timestampString = "512213261.378094"
+            timestampString = "512216457.708076"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
+            landmarkName = "retryDownload()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/IDMFileDownloadController.swift"
+            timestampString = "512216457.708076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "339"
@@ -266,27 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/IDMFileDownloadController.swift"
-            timestampString = "512213326.016516"
+            timestampString = "512216457.708076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
-            landmarkName = "retryDownload()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iDownloader/IDMFileDownloadController.swift"
-            timestampString = "512214403.134054"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
             landmarkName = "deleteDownload()"
             landmarkType = "7">
             <Locations>
@@ -298,11 +330,11 @@
                   moduleName = "iDownloader"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileDownloadController.swift"
-                  timestampString = "512214403.13894"
+                  timestampString = "512216458.203239"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "323"
-                  endingLineNumber = "323"
+                  startingLineNumber = "322"
+                  endingLineNumber = "322"
                   offsetFromSymbolStart = "28">
                </Location>
                <Location
@@ -313,14 +345,158 @@
                   moduleName = "iDownloader"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileDownloadController.swift"
-                  timestampString = "512214403.141074"
+                  timestampString = "512216458.204482"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "323"
-                  endingLineNumber = "323"
+                  startingLineNumber = "322"
+                  endingLineNumber = "322"
                   offsetFromSymbolStart = "12">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/IDMDownloadListController.swift"
+            timestampString = "512216078.787713"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "pauseAllRecursively(index:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/IDMDownloadListController.swift"
+            timestampString = "512216080.259599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "pauseAllRecursively(index:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iDownloader.IDMDownloadListController.(pauseAllRecursively in _A95C62647473680B41B3081D8A27B3C6) (index : Swift.Int, completion : () -&gt; ()) -&gt; ()"
+                  moduleName = "iDownloader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMDownloadListController.swift"
+                  timestampString = "512216458.212695"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iDownloader.IDMDownloadListController.((pauseAllRecursively in _A95C62647473680B41B3081D8A27B3C6) (index : Swift.Int, completion : () -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "iDownloader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMDownloadListController.swift"
+                  timestampString = "512216458.21402"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/IDMFileDownloadController.swift"
+            timestampString = "512216457.708076"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "pauseDownload(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/IDMFileDownloadDataHelper.swift"
+            timestampString = "512216143.344032"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "pauseDownload(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/IDMFileDownloadDataHelper.swift"
+            timestampString = "512216152.552606"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "saveStateOfChunks(chunkIndex:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/IDMSegmentDownloader.swift"
+            timestampString = "512216161.500424"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "saveSegmentResumeData(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/IDMDownloadListController.swift"
+            timestampString = "512216314.680829"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "getAllFileDownloadInfoFromDBAndIntializeUI()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
