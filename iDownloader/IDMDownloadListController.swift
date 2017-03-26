@@ -201,4 +201,13 @@ extension IDMDownloadListController {
         self.loader.stopAnimation(self)
     }
     
+    func removeDownloader(downloadController:IDMFileDownloadController){
+        self.stackView.removeView(downloadController.view)
+        if let index = self.fileDownloaders.index(where: { (downloader) -> Bool in
+            return downloader == downloadController
+        }){
+            self.fileDownloaders.remove(at: index)
+        }
+    }
+    
 }

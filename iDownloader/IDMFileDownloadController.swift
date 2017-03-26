@@ -10,6 +10,7 @@ import Cocoa
 
 protocol FileDownloadControllerDelegate:class {
     func insertNewDownloadRow(row:NSView)
+    func removeDownloader(downloadController:IDMFileDownloadController)
     func startLoader()
     func stopLoader()
 }
@@ -166,7 +167,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     }
     
     @IBAction func didSelectedSecondButton(_ sender: Any) {
-        
+        self.deleteDownload()
     }
     
     private func retryDownload() {
@@ -317,6 +318,23 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
                 IDMUtilities.shared.showError(title: "Download Failed :(", information: "Downloading file \(self.fileDownloadHelper!.fileDownloadData.name) falied. Server don't support resume for this file download. Please try downloading it on good internet connection")
             }else {
                 IDMUtilities.shared.showError(title: "Download Failed :(", information: "Downloading file \(self.fileDownloadHelper!.fileDownloadData.name) falied. Something went wrong while downloading. Please try again")
+            }
+        }
+    }
+    
+    final func deleteDownload() {
+        self.fileDownloadHelper!.cancelDownloading { (error) in
+            IDMCoreDataHelper.shared.deleteDataForFileInfo(fileDownloadInfo: self.fileDownloadHelper!.fileDownloadData) {[weak self]
+                (error)
+                in
+                guard let blockSelf = self
+                    else {
+                        return
+                }
+                runInMainThread {
+                    _ = blockSelf.fileDownloadHelper!.removeTempFileForDownload()
+                    blockSelf.delegate?.removeDownloader(downloadController: blockSelf)
+                }
             }
         }
     }

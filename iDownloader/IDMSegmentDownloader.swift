@@ -38,6 +38,8 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     var session:URLSession?
     var downloadTask:URLSessionDataTask?
     var sessionInvalidateTaskCompletion:((_ error:NSError?) -> ())?
+    var deleteDownloadTaskCompletion:(() -> ())?
+    var isSessionAcive = false
     var isRetryingDownloadStart = false {
         didSet {
             delegate?.isRetrying()
@@ -81,9 +83,13 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     }
     
     final func saveSegmentResumeData(completion:@escaping (_ error:NSError?) -> ()){
-        self.downloadTask?.cancel()
-        self.session?.invalidateAndCancel()
-        self.sessionInvalidateTaskCompletion = completion
+        if isSessionAcive {
+            self.downloadTask?.cancel()
+            self.session?.invalidateAndCancel()
+            self.sessionInvalidateTaskCompletion = completion
+        }else {
+            completion(nil)
+        }
     }
     
     final func resumeDownload(completion:@escaping () -> ()) {
@@ -119,10 +125,16 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     }
     
     public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?){
+        if let deleteCompletion = self.deleteDownloadTaskCompletion {
+            deleteCompletion()
+            return
+        }
+        
         guard let completion = self.sessionInvalidateTaskCompletion
             else{
                 return
         }
+        isSessionAcive = false
         Swift.print("UUID :\(self.downloadData.uniqueID) paused download at :\(self.downloadData.totalDownloaded)")
         self.delegate?.updateDBWithChunkDownloadData(data: self.downloadData, compeletion: { [weak self]
             (error) in
@@ -144,6 +156,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
         completionHandler(URLSession.ResponseDisposition.allow)
         self.sessionInvalidateTaskCompletion = nil
+        self.isSessionAcive = true
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
@@ -178,6 +191,17 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         self.downloadTask?.cancel()
         self.session?.invalidateAndCancel()
         self.delegate!.downloadFailedForChunk(isNonResumable: isNonResumable)
+    }
+    
+    final func cancelDownloading(completion:@escaping () -> ()) {
+        if isSessionAcive {
+            self.downloadTask?.cancel()
+            self.session?.invalidateAndCancel()
+            self.deleteDownloadTaskCompletion = completion
+        }else {
+            completion()
+        }
+       
     }
     
 }

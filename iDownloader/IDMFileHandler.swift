@@ -152,5 +152,34 @@ class IDMFileHandler {
         
     }
     
+    final func checkAndRemoveTempFile(fileName:String, containingDirectory:String, fileBookMarkData:Data?) -> Bool{
+        let filePath = containingDirectory + "/\(fileName).\(self.tempFileExtension)"
+        do {
+             try FileManager.default.removeItem(atPath: filePath)
+            return true
+        }catch {
+            
+            
+            guard let bookMarkData = fileBookMarkData
+                else{
+                    return false
+            }
+            
+            if let bookmarkURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData){
+                _ = bookmarkURL.startAccessingSecurityScopedResource()
+                if let pathWithoutSystemLink = URL(string:bookmarkURL.urlAfterResolvingSytemLink.path + "/\(fileName).\(self.tempFileExtension)"){
+                    do {
+                        try FileManager.default.removeItem(at: pathWithoutSystemLink)
+                        bookmarkURL.stopAccessingSecurityScopedResource()
+                        return true
+                    }catch {
+                        return false
+                    }
+                }
+            }
+        }
+       return false
+    }
+    
 }
 

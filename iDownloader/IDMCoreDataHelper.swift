@@ -151,27 +151,6 @@ final class IDMCoreDataHelper {
         }
     }
     
-    final func deleteFileData(fileData:FileDownloadDataInfo){
-        let uniqueIDToDelete = fileData.uniqueID
-        
-        persistentContainer.performBackgroundTask { (context) in
-            let existingFileDataFetchRequest: NSFetchRequest<NSFetchRequestResult> = FileDownloadData.fetchRequest()
-            existingFileDataFetchRequest.predicate = NSPredicate(format: "fileDownloadID == %@", uniqueIDToDelete)
-            do {
-                let fileDownloadDataArray =  try context.fetch(existingFileDataFetchRequest)
-                guard let fileDownloadData = fileDownloadDataArray.last as? FileDownloadData
-                    else {
-                        Swift.print("there is no item to delete")
-                        return
-                }
-                context.delete(fileDownloadData)
-                try context.save()
-            }catch {
-                Swift.print("delete error")
-            }
-            
-        }
-    }
     
     final func getAllTheFileDownloadInfoFromDB(completion:@escaping ((_ error:NSError?, _ fileDownloadInfoArray:[FileDownloadDataInfo]) -> ()))
     {
@@ -215,6 +194,36 @@ final class IDMCoreDataHelper {
                 }
                 Swift.print("loggin: coundn't get data from DB")
             }
+        }
+    }
+    
+    final func deleteDataForFileInfo(fileDownloadInfo:FileDownloadDataInfo, completion:@escaping (_ error:Error?)-> ())
+    {
+        persistentContainer.performBackgroundTask { (context) in
+            let existingFileDataFetchRequest: NSFetchRequest<NSFetchRequestResult> = FileDownloadData.fetchRequest()
+            existingFileDataFetchRequest.predicate = NSPredicate(format: "fileDownloadID == %@", fileDownloadInfo.uniqueID)
+            do {
+                let fileDownloadDataArray =  try context.fetch(existingFileDataFetchRequest)
+                guard let fileDownloadData = fileDownloadDataArray.last as? FileDownloadData
+                    else {
+                        
+                        completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil))
+                        return
+                }
+                context.delete(fileDownloadData)
+                do {
+                    try context.save()
+                    completion(nil)
+                }catch {
+                    Swift.print("saving falied :\(error.localizedDescription)")
+                    completion(error)
+                }
+                
+            }catch {
+                completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil))
+                Swift.print("loggin:error saving state")
+            }
+            
         }
     }
     

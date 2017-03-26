@@ -119,8 +119,15 @@ final class IDMFileDownloadDataHelper{
         }
     }
     
+    
+    final func removeTempFileForDownload() -> Bool{
+        return self.fileHandler.checkAndRemoveTempFile(fileName: self.fileDownloadData.name, containingDirectory: self.fileDownloadData.diskDownloadLocation, fileBookMarkData: self.fileDownloadData.diskDownloadBookmarkData)
+    }
+    
     private func deleteCurrentInsertedData() {
-        IDMCoreDataHelper.shared.deleteFileData(fileData: self.fileDownloadData)
+        IDMCoreDataHelper.shared.deleteDataForFileInfo(fileDownloadInfo: self.fileDownloadData){_ in 
+            //do nothing
+        }
     }
     
     private func createChunksAndStartDownload() {
@@ -146,6 +153,28 @@ final class IDMFileDownloadDataHelper{
     
     @objc func pauseDownload(completion:@escaping (_ error:NSError?) -> ()) {
         saveStateOfChunks(chunkIndex: 0, completion: completion)
+    }
+    
+    final func cancelDownloading( completion:@escaping (_ error:NSError?) -> ()) {
+        cancelDownloadInChunk(chunkIndex: 0, completion: completion)
+    }
+    
+    //cancle all dowonloads recursivly
+    private func cancelDownloadInChunk(chunkIndex:Int, completion:@escaping (_ error:NSError?) -> ()) {
+        if chunkIndex >= self.segmentDownloaders.count {
+            completion(nil)
+            return
+        }
+        
+        self.segmentDownloaders[chunkIndex].cancelDownloading {
+            [weak self]
+            in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            blockSelf.cancelDownloadInChunk(chunkIndex: chunkIndex + 1, completion: completion)
+        }
     }
     
     //start recursive save
