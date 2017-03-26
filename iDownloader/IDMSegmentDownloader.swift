@@ -37,7 +37,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     weak var delegate:SegmentDownloaderDelegate?
     var session:URLSession?
     var downloadTask:URLSessionDataTask?
-    var shouldResumeDownloadOnError:Bool = true
+    var sessionInvalidateTaskCompletion:((_ error:NSError?) -> ())?
     var isRetryingDownloadStart = false {
         didSet {
             delegate?.isRetrying()
@@ -67,7 +67,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     private func getURLRequestForDownloadTask() -> URLRequest {
         var urlRequestForChunkDownload = URLRequest(url: URL(string: downloadData.downloadURL)!)
         urlRequestForChunkDownload.addValue("bytes=\(getStartByteRange())-\(self.downloadData.endByte)", forHTTPHeaderField: "Range")
-        Swift.print("starting download from bytes=\(getStartByteRange())-\(self.downloadData.endByte)")
+        Swift.print("UUID :\(self.downloadData.uniqueID) starting download from bytes=\(getStartByteRange())-\(self.downloadData.endByte)")
         return urlRequestForChunkDownload
     }
     
@@ -77,26 +77,12 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     }
     
     final func saveSegmentResumeData(completion:@escaping (_ error:NSError?) -> ()){
-        shouldResumeDownloadOnError = false
-        self.delegate?.updateDBWithChunkDownloadData(data: self.downloadData, compeletion: { [weak self]
-            (error) in
-            guard let blockSelf = self
-                else {
-                    return
-            }
-            runInMainThread {
-                if error == nil {
-                    blockSelf.downloadTask?.cancel()
-                    completion(nil)
-                }else {
-                    completion(NSError(domain: ChunkDownloadError.errorDomain, code: ChunkDownloadError.pauseFailed, userInfo: nil))
-                }
-            }
-        })
+        self.downloadTask?.cancel()
+        self.session?.invalidateAndCancel()
+        self.sessionInvalidateTaskCompletion = completion
     }
     
     final func resumeDownload(completion:@escaping () -> ()) {
-        shouldResumeDownloadOnError = true
         self.start()
         completion()
     }
@@ -108,7 +94,12 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
             self.delegate?.didCompletedDownload()
             return
         }
-        guard (!isRetryingDownloadStart && shouldResumeDownloadOnError) else {
+        
+        if  (error as! NSError).domain == NSURLErrorDomain && (error as! NSError).code == NSURLErrorCancelled{
+            return
+        }
+        
+        guard (!isRetryingDownloadStart) else {
             return
         }
         
@@ -120,28 +111,45 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         }
         
         self.isRetryingDownloadStart = true
-        self.delegate?.updateDBWithChunkDownloadData(data: self.downloadData, compeletion: {[weak self]
-            (error)
-            in
+        self.retryDownloading()
+        self.delegate?.isRetrying()
+
+    }
+    
+    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?){
+        guard let completion = self.sessionInvalidateTaskCompletion
+            else{
+                return
+        }
+        Swift.print("UUID :\(self.downloadData.uniqueID) paused download at :\(self.downloadData.totalDownloaded)")
+        self.delegate?.updateDBWithChunkDownloadData(data: self.downloadData, compeletion: { [weak self]
+            (error) in
             guard let blockSelf = self
                 else {
                     return
             }
-            blockSelf.retryDownloading()
+            runInMainThread {
+                if error == nil {
+                Swift.print("UUID :\(blockSelf.downloadData.uniqueID) after savinf in DB download at :\(blockSelf.downloadData.totalDownloaded)")
+                    completion(nil)
+                }else {
+                    completion(NSError(domain: ChunkDownloadError.errorDomain, code: ChunkDownloadError.pauseFailed, userInfo: nil))
+                }
+            }
         })
-
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
         completionHandler(URLSession.ResponseDisposition.allow)
+        self.sessionInvalidateTaskCompletion = nil
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
         let offsetToWrite = self.downloadData.startByte + self.downloadData.totalDownloaded
         if delegate!.writeDataToOffset(data: data, offset: offsetToWrite){
             let bytesWritten = (data as NSData).length
+            Swift.print("UUID :\(self.downloadData.uniqueID) writing data of lenght :\(bytesWritten) at offset :\(offsetToWrite)")
             self.downloadData.totalDownloaded = Int(bytesWritten) + self.downloadData.totalDownloaded
-            Swift.print("total donwloaded:\(self.downloadData.totalDownloaded)")
             self.delegate?.didWriteData()
         }
     }

@@ -245,6 +245,7 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
                 isRetryingOnError = true
             }
         }
+        self.fileDownloadData.chuckDownloadData = newChunkData
         
         guard newTotalDownloaded < self.fileDownloadData.totalSize
             else{
@@ -256,7 +257,7 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
             return
         }
         
-        guard Date().timeIntervalSince(lastDownloadSpeedCheckTime!) > 1
+        guard Date().timeIntervalSince(lastDownloadSpeedCheckTime!) > 0
             else {
                 return
         }
@@ -271,9 +272,7 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
         }
         
         self.currentUIData = UIData(totalDownloaded: self.fileDownloadData.totalDownloaded,speed: currentSpeed,timeRemaining: timeRemaining, isRetyringOnError:isRetryingOnError)
-        
-        //update chunk data also
-        self.fileDownloadData.chuckDownloadData = newChunkData
+    
     }
     
     func didCompletedDownload(){

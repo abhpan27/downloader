@@ -85,6 +85,7 @@ class IDMFileHandler {
     private func writeToFile(fileHandle:FileHandle, offset:UInt64, dataOfFile:Data){
         fileHandle.seek(toFileOffset: offset)
         fileHandle.write(dataOfFile)
+        fileHandle.synchronizeFile()
         fileHandle.closeFile()
     }
     

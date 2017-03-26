@@ -293,12 +293,6 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     }
     
     func updateUIWithUIData(){
-        
-        guard !fileDownloadHelper!.currentUIData.isRetyringOnError
-            else {
-            return
-        }
-        
         let uiData = self.fileDownloadHelper!.currentUIData
         self.fileNameLabel.stringValue = self.fileDownloadHelper!.fileDownloadData.name
         self.downloadedLabel.stringValue = "Total downloaded - \(IDMUtilities.shared.representableStringForBytes(bytes: uiData.totalDownloaded)) of \(IDMUtilities.shared.representableStringForBytes(bytes: self.fileDownloadHelper!.fileDownloadData.totalSize))"

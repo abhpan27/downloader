@@ -34,9 +34,9 @@ final class IDMCoreDataHelper {
             fileDownloadData.fileDownloadID = fileDownloadInfo.uniqueID
             fileDownloadData.fileName = fileDownloadInfo.name
             fileDownloadData.fileDownloadURL = fileDownloadInfo.downloadURL
-            fileDownloadData.totalSize = Int64(fileDownloadInfo.totalSize)
+            fileDownloadData.totalSize = NSNumber(value:fileDownloadInfo.totalSize)
             fileDownloadData.fileType = fileDownloadInfo.type.rawValue
-            fileDownloadData.totalDownloaded = Int64(fileDownloadInfo.totalDownloaded)
+            fileDownloadData.totalDownloaded = NSNumber(value:fileDownloadInfo.totalDownloaded)
             fileDownloadData.isResumable = fileDownloadInfo.isResumeSupported
             fileDownloadData.diskDownloadBookMark = fileDownloadInfo.diskDownloadBookmarkData as NSData?
             fileDownloadData.diskDownloadURL = fileDownloadInfo.diskDownloadLocation
@@ -46,10 +46,10 @@ final class IDMCoreDataHelper {
             var segmentsSet = Set<SegmentDownloadData>()
             for chunkDownloadInfo in fileDownloadInfo.chuckDownloadData {
                 let segmentData = SegmentDownloadData(context: context)
-                segmentData.startByte = Int64(chunkDownloadInfo.startByte)
-                segmentData.endByte = Int64(chunkDownloadInfo.endByte)
+                segmentData.startByte = NSNumber(value:chunkDownloadInfo.startByte)
+                segmentData.endByte = NSNumber(value:chunkDownloadInfo.endByte)
                 segmentData.segmentID = chunkDownloadInfo.uniqueID
-                segmentData.totalDownloaded = Int64(chunkDownloadInfo.totalDownloaded)
+                segmentData.totalDownloaded = NSNumber(value:chunkDownloadInfo.totalDownloaded)
                 segmentsSet.insert(segmentData)
             }
             fileDownloadData.segments = segmentsSet as NSSet
@@ -78,9 +78,10 @@ final class IDMCoreDataHelper {
                         completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil))
                         return
                 }
-                segmentDownloadData.startByte = Int64(chunkDownloadInfo.startByte)
-                segmentDownloadData.endByte = Int64(chunkDownloadInfo.endByte)
-                segmentDownloadData.totalDownloaded = Int64(chunkDownloadInfo.totalDownloaded)
+                segmentDownloadData.startByte = NSNumber(value:chunkDownloadInfo.startByte)
+                segmentDownloadData.endByte = NSNumber(value:chunkDownloadInfo.endByte)
+                segmentDownloadData.totalDownloaded = NSNumber(value:chunkDownloadInfo.totalDownloaded)
+                Swift.print("UUID:\(segmentDownloadData.segmentID):saving download data in DB \(segmentDownloadData.totalDownloaded)")
                 
                 do {
                     try context.save()
@@ -113,9 +114,9 @@ final class IDMCoreDataHelper {
                 fileDownloadData.fileDownloadID = fileDownloadInfo.uniqueID
                 fileDownloadData.fileName = fileDownloadInfo.name
                 fileDownloadData.fileDownloadURL = fileDownloadInfo.downloadURL
-                fileDownloadData.totalSize = Int64(fileDownloadInfo.totalSize)
+                fileDownloadData.totalSize = NSNumber(value:fileDownloadInfo.totalSize)
                 fileDownloadData.fileType = fileDownloadInfo.type.rawValue
-                fileDownloadData.totalDownloaded = Int64(fileDownloadInfo.totalDownloaded)
+                fileDownloadData.totalDownloaded = NSNumber(value:fileDownloadInfo.totalDownloaded)
                 fileDownloadData.isResumable = fileDownloadInfo.isResumeSupported
                 fileDownloadData.diskDownloadBookMark = fileDownloadInfo.diskDownloadBookmarkData as NSData?
                 fileDownloadData.diskDownloadURL = fileDownloadInfo.diskDownloadLocation
@@ -128,10 +129,10 @@ final class IDMCoreDataHelper {
                         chunk.uniqueID == segmentData.segmentID
                     }){
                         let chunkDownloadInfo = fileDownloadInfo.chuckDownloadData[indexOfChunkInfo]
-                        segmentData.startByte = Int64(chunkDownloadInfo.startByte)
-                        segmentData.endByte = Int64(chunkDownloadInfo.endByte)
+                        segmentData.startByte = NSNumber(value:chunkDownloadInfo.startByte)
+                        segmentData.endByte = NSNumber(value:chunkDownloadInfo.endByte)
                         segmentData.segmentID = chunkDownloadInfo.uniqueID
-                        segmentData.totalDownloaded = Int64(chunkDownloadInfo.totalDownloaded)
+                        segmentData.totalDownloaded = NSNumber(value:chunkDownloadInfo.totalDownloaded)
                     }
                    
                 }
@@ -195,13 +196,13 @@ final class IDMCoreDataHelper {
                      var segmentArray = [ChunkDownloadData]()
                     if let segmensts = fileDownloadData.segments as? Set<SegmentDownloadData>{
                         for segment in segmensts{
-                            let isSegmentCompleted = segment.totalDownloaded <= (segment.endByte - segment.startByte)
-                            let chunkData = ChunkDownloadData(uniqueID: segment.segmentID! , startByte: Int(segment.startByte), endByte: Int(segment.endByte), totalDownloaded: Int(segment.totalDownloaded), downloadURL: fileDownloadData.fileDownloadURL!, isCompleted: isSegmentCompleted)
+                            let isSegmentCompleted = segment.totalDownloaded!.intValue >= (segment.endByte!.intValue - segment.startByte!.intValue)
+                            let chunkData = ChunkDownloadData(uniqueID: segment.segmentID! , startByte: segment.startByte!.intValue, endByte: segment.endByte!.intValue, totalDownloaded: segment.totalDownloaded!.intValue, downloadURL: fileDownloadData.fileDownloadURL!, isCompleted: isSegmentCompleted)
                             segmentArray.append(chunkData)
                         }
                     }
                     
-                   let fileDownloadInfo =  FileDownloadDataInfo(uniqueID: fileDownloadData.fileDownloadID! , name: fileDownloadData.fileName!, downloadURL: fileDownloadData.fileDownloadURL!, isResumeSupported: fileDownloadData.isResumable, type: fileTypes(rawValue: fileDownloadData.fileType!)!, startTimeStamp: fileDownloadData.downloadStartTime, endTimeStamp: fileDownloadData.downloadEndTime, diskDownloadLocation: fileDownloadData.diskDownloadURL!, diskDownloadBookmarkData: fileDownloadData.diskDownloadBookMark as Data?, runningStatus: downloadRunningStatus(rawValue:fileDownloadData.runningStatus!)! , totalSize: Int(fileDownloadData.totalSize), chuckDownloadData: segmentArray, totalDownloaded: Int(fileDownloadData.totalDownloaded), currentSpeed: 0, isNewDownload: false)
+                   let fileDownloadInfo =  FileDownloadDataInfo(uniqueID: fileDownloadData.fileDownloadID! , name: fileDownloadData.fileName!, downloadURL: fileDownloadData.fileDownloadURL!, isResumeSupported: fileDownloadData.isResumable, type: fileTypes(rawValue: fileDownloadData.fileType!)!, startTimeStamp: fileDownloadData.downloadStartTime, endTimeStamp: fileDownloadData.downloadEndTime, diskDownloadLocation: fileDownloadData.diskDownloadURL!, diskDownloadBookmarkData: fileDownloadData.diskDownloadBookMark as Data?, runningStatus: downloadRunningStatus(rawValue:fileDownloadData.runningStatus!)! , totalSize: fileDownloadData.totalSize!.intValue, chuckDownloadData: segmentArray, totalDownloaded: fileDownloadData.totalDownloaded!.intValue, currentSpeed: 0, isNewDownload: false)
                     fileDownloadInfoArray.append(fileDownloadInfo)
                 }
                 runInMainThread {
