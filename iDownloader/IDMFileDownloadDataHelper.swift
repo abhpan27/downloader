@@ -156,6 +156,10 @@ final class IDMFileDownloadDataHelper{
     }
     
     final func cancelDownloading( completion:@escaping (_ error:NSError?) -> ()) {
+        if self.fileDownloadData.runningStatus == .completed{
+            completion(nil)
+            return
+        }
         cancelDownloadInChunk(chunkIndex: 0, completion: completion)
     }
     

@@ -22,7 +22,7 @@ struct UIData{
     var isRetyringOnError:Bool
 }
 
-class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
+class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFiledownloaderViewDelegate, FileOpenPopUpDelegate {
 
     
     @IBOutlet weak var fileCompletionImage: NSImageView!
@@ -31,7 +31,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     @IBOutlet weak var horizontalLine: NSBox!
     @IBOutlet weak var secondButton: NSButton!
     @IBOutlet weak var firstButton: NSButton!
-    @IBOutlet weak var container: NSView!
+    @IBOutlet weak var container: IDMFiledownloaderView!
     @IBOutlet weak var progressView: CircularProgressView!
     @IBOutlet weak var fileNameLabel: NSTextField!
     @IBOutlet weak var speedLabel: NSTextField!
@@ -67,6 +67,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         self.fileCompletionImageContainer.layer?.backgroundColor = NSColor.clear.cgColor
         self.fileCompletionImageContainer.layer?.borderWidth = 1.0
         self.fileCompletionImageContainer.layer?.borderColor = NSColor(IDMr: 155, g: 155, b: 155).cgColor
+        container.delegate = self
     }
     
     final func createFileDataHelperAndBeginDownload(fileDownloadInfo:FileDownloadDataInfo, shouldForceStartPauseDownload:Bool){
@@ -336,6 +337,27 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
     private func retryDownload() {
         _ = self.fileDownloadHelper!.removeTempFileForDownload()
         self.fileDownloadHelper?.clearAllDataAndReStart()
+    }
+    
+    //MARK:IDMFiledownloaderViewDelegate
+    func didMouseDown() {
+        if self.fileDownloadHelper?.fileDownloadData.runningStatus == .completed {
+            self.showOpenFilePanel()
+        }
+    }
+    
+    func isCompleted() -> Bool {
+        return self.fileDownloadHelper!.fileDownloadData.runningStatus == .completed
+    }
+    
+    func showOpenFilePanel() {
+        let openPanelViewController = IDMDownloadCompleteViewController(delegate: self, fileDonwloadInfo: self.fileDownloadHelper!.fileDownloadData)
+        (NSApp.delegate as! AppDelegate).appController.showPopUpWithViewController(viewController: openPanelViewController, withSize: NSSize(width: 400, height: 320))
+    }
+    
+    //MARK:FileOpenPopUpDelegate
+    func didNotFindFile() {
+        self.deleteDownload()
     }
     
 }

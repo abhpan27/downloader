@@ -9,7 +9,8 @@
 import Cocoa
 
 class IDMHighligtingButton: IDMMouseTrackingButton {
-
+    
+    
     override func mouseEntered(with event: NSEvent) {
         self.alphaValue = 1.0
     }

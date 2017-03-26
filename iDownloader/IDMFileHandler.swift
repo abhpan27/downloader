@@ -181,5 +181,28 @@ class IDMFileHandler {
        return false
     }
     
+    final func isFileAvailable(fileName:String, containingDirectory:String, fileExtension:String,fileBookMarkData:Data?) -> URL?{
+        
+        if let bookMarkData = fileBookMarkData{
+            if let bookmarkURL = self.getURLFromBookMarkData(bookmarkData: bookMarkData){
+                _ = bookmarkURL.startAccessingSecurityScopedResource()
+                let pathWithoutSystemLink = bookmarkURL.urlAfterResolvingSytemLink.path + "/\(fileName).\(fileExtension)"
+                if FileManager.default.fileExists(atPath: pathWithoutSystemLink){
+                    return URL(fileURLWithPath: pathWithoutSystemLink, relativeTo: Bundle.main.bundleURL)
+                }
+            }
+        }
+        
+        
+        let originalFilePath = containingDirectory + "/\(fileName).\( fileExtension )"
+        if FileManager.default.fileExists(atPath: originalFilePath) {
+            return URL(fileURLWithPath: originalFilePath, relativeTo: Bundle.main.bundleURL)
+        }
+        
+       
+        
+        return nil
+    }
+    
 }
 

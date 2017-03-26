@@ -31,7 +31,7 @@
             <rect key="frame" x="0.0" y="0.0" width="560" height="130"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="mJQ-KJ-q7s">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="mJQ-KJ-q7s" customClass="IDMFiledownloaderView" customModule="iDownloader" customModuleProvider="target">
                     <rect key="frame" x="30" y="15" width="500" height="100"/>
                     <subviews>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Qoz-4R-EOj" customClass="CircularProgressView" customModule="iDownloader" customModuleProvider="target">
