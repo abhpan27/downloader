@@ -136,6 +136,7 @@ final class IDMFileDownloadDataHelper{
     }
     
     private func startSegmentDownloads() {
+        self.fileDownloadData.runningStatus = .running
         lastDownloadSpeedCheckTime = Date()
         for segmentDownloader in segmentDownloaders {
             segmentDownloader.start()
