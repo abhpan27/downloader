@@ -22,6 +22,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        self.window.makeKeyAndOrderFront(self)
+        return true
+    }
+    
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
         self.appController.doPauseAllOnAppQuit()
         return NSApplicationTerminateReply.terminateLater

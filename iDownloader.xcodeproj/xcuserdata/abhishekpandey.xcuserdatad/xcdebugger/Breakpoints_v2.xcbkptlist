@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/AppDelegate.swift"
-            timestampString = "512144918.735312"
+            timestampString = "512215698.736718"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
             landmarkName = "applicationShouldTerminate(_:)"
             landmarkType = "7">
          </BreakpointContent>
