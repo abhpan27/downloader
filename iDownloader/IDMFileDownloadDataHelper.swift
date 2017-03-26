@@ -379,7 +379,10 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
     }
     
     func downloadFailedForChunk(isNonResumable:Bool) {
+        if self.fileDownloadData.runningStatus != .failed{
+            self.delegate?.downloadFalied(isNonResumable: isNonResumable)
+        }
         self.markDownloadFailed()
-        self.delegate?.downloadFalied(isNonResumable: isNonResumable)
+       
     }
 }

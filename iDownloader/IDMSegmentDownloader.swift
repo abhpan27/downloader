@@ -40,6 +40,7 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     var sessionInvalidateTaskCompletion:((_ error:NSError?) -> ())?
     var deleteDownloadTaskCompletion:(() -> ())?
     var isSessionAcive = false
+    
     var isRetryingDownloadStart = false {
         didSet {
             delegate?.isRetrying()

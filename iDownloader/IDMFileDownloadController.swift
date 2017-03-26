@@ -74,7 +74,6 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         if fileDownloadInfo.runningStatus == .running || fileDownloadInfo.runningStatus == .paused{
             self.fileDownloadHelper?.startDownloading(shouldForceStartPauseDownload: shouldForceStartPauseDownload)
         }
-        delegate?.startLoader()
         self.addControllerInList()
         delay(0.1, closure: {
             self.updateUIWithUIData()

@@ -118,6 +118,7 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
     }
     
     private func getAllFileDownloadInfoFromDBAndIntializeUI() {
+        self.startLoader()
         IDMCoreDataHelper.shared.getAllTheFileDownloadInfoFromDB {[weak self]
             (error, fileInfoArray)
             in
@@ -127,6 +128,9 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
             }
             if fileInfoArray.count > 0{
                  blockSelf.createControllersAndStartDownloading(fileInfoArray: fileInfoArray)
+            }
+            runInMainThread {
+                blockSelf.stopLoader()
             }
         }
     }
