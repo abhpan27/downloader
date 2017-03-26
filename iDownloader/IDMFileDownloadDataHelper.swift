@@ -81,11 +81,11 @@ final class IDMFileDownloadDataHelper{
                 blockSelf.delegate?.newFileDataCreationFalied()
                 return
             }
-            blockSelf.createTempFileForDownload()
+            blockSelf.createTempFileForDownloadAndStart()
         }
     }
     
-    private func createTempFileForDownload() {
+    private func createTempFileForDownloadAndStart() {
         fileHandler.createTempFileAtLoaction(fileName: self.fileDownloadData.name, directoryLocation: self.fileDownloadData.diskDownloadLocation, fileBookMark: self.fileDownloadData.diskDownloadBookmarkData) {
             [weak self]
             (fileNameOfCreatedTempFile, error)
@@ -157,6 +157,24 @@ final class IDMFileDownloadDataHelper{
     
     final func cancelDownloading( completion:@escaping (_ error:NSError?) -> ()) {
         cancelDownloadInChunk(chunkIndex: 0, completion: completion)
+    }
+    
+    final func clearAllDataAndReStart() {
+        self.fileDownloadData.startTimeStamp = Date().timeIntervalSince1970
+        self.fileDownloadData.runningStatus = downloadRunningStatus.running
+        self.fileDownloadData.totalDownloaded = 0
+        self.fileDownloadData.currentSpeed = 0
+        self.fileDownloadData.isNewDownload = true
+        self.currentUIData = UIData(totalDownloaded:  self.fileDownloadData.totalDownloaded, speed: 0, timeRemaining: Int.max,isRetyringOnError: false )
+        var newChunkDataArray = [ChunkDownloadData]()
+        for chunkData in self.fileDownloadData.chuckDownloadData {
+            let newChunkData = ChunkDownloadData(uniqueID: chunkData.uniqueID, startByte: chunkData.startByte, endByte: chunkData.endByte, totalDownloaded: 0, downloadURL: chunkData.downloadURL, isCompleted: false)
+            newChunkDataArray.append(newChunkData)
+        }
+        self.fileDownloadData.chuckDownloadData = newChunkDataArray
+        self.segmentDownloaders.removeAll()
+        self.createDonwloadChunks()
+        self.createTempFileForDownloadAndStart()
     }
     
     //cancle all dowonloads recursivly

@@ -170,10 +170,6 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
         self.deleteDownload()
     }
     
-    private func retryDownload() {
-        
-    }
-    
     final func startUiUpdateTimer() {
         runInMainThread {
             [weak self]
@@ -337,6 +333,11 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate {
                 }
             }
         }
+    }
+    
+    private func retryDownload() {
+        _ = self.fileDownloadHelper!.removeTempFileForDownload()
+        self.fileDownloadHelper?.clearAllDataAndReStart()
     }
     
 }
