@@ -18,7 +18,7 @@ protocol FileDownloadControllerDelegate:class {
 
 struct UIData{
     let totalDownloaded:Int
-    let speed:Double
+    var speedArray:[Double]
     let timeRemaining:Int
     var isRetyringOnError:Bool
 }
@@ -40,6 +40,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
     @IBOutlet weak var downloadedLabel: NSTextField!
     @IBOutlet weak var percentDownloadedlabel: NSTextField!
     var uiUpdateTimer:Timer?
+    let KB = 1024
     
     
     
@@ -297,7 +298,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
         let downloadedRatio = CGFloat(uiData.totalDownloaded)/CGFloat(self.fileDownloadHelper!.fileDownloadData.totalSize)
         self.progressView.progress = downloadedRatio
         self.percentDownloadedlabel.stringValue = String(format: "%.1f", downloadedRatio * 100) + "%"
-        self.speedLabel.stringValue = "Download speed - \(IDMUtilities.shared.representableStringForSpeed(speed: uiData.speed))"
+        self.speedLabel.stringValue = "Download speed - \(IDMUtilities.shared.representableStringForSpeed(speed: uiData.speedArray.average))"
         self.timeRemainingLabel.stringValue = "Time remaining - \(IDMUtilities.shared.representableStringForTime(seconds:  uiData.timeRemaining))"
         self.setUpContentView()
     }

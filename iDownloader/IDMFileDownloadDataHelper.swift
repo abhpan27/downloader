@@ -53,7 +53,7 @@ final class IDMFileDownloadDataHelper{
     init(delegate:FileDownloaderDelegate, fileDownloadInfo:FileDownloadDataInfo) {
         self.delegate = delegate
         self.fileDownloadData = fileDownloadInfo
-        self.currentUIData = UIData(totalDownloaded: fileDownloadInfo.totalDownloaded, speed: 0, timeRemaining: Int.max,isRetyringOnError: false )
+        self.currentUIData = UIData(totalDownloaded: fileDownloadInfo.totalDownloaded, speedArray: [0], timeRemaining: Int.max,isRetyringOnError: false )
         self.createDonwloadChunks()
     }
     
@@ -169,7 +169,7 @@ final class IDMFileDownloadDataHelper{
         self.fileDownloadData.totalDownloaded = 0
         self.fileDownloadData.currentSpeed = 0
         self.fileDownloadData.isNewDownload = true
-        self.currentUIData = UIData(totalDownloaded:  self.fileDownloadData.totalDownloaded, speed: 0, timeRemaining: Int.max,isRetyringOnError: false )
+        self.currentUIData = UIData(totalDownloaded:  self.fileDownloadData.totalDownloaded, speedArray: [0], timeRemaining: Int.max,isRetyringOnError: false )
         var newChunkDataArray = [ChunkDownloadData]()
         for chunkData in self.fileDownloadData.chuckDownloadData {
             let newChunkData = ChunkDownloadData(uniqueID: chunkData.uniqueID, startByte: chunkData.startByte, endByte: chunkData.endByte, totalDownloaded: 0, downloadURL: chunkData.downloadURL, isCompleted: false)
@@ -321,10 +321,18 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
         self.fileDownloadData.totalDownloaded = newTotalDownloaded
         var timeRemaining = Int.max
         if (currentSpeed != 0){
-            timeRemaining = (self.fileDownloadData.totalSize - self.fileDownloadData.totalDownloaded)/Int(currentSpeed)
+            if self.currentUIData.speedArray.count <= 50 {
+                self.currentUIData.speedArray.append(currentSpeed)
+            }else {
+                self.currentUIData.speedArray.remove(at: self.currentUIData.speedArray.count - 1)
+                self.currentUIData.speedArray.append(currentSpeed)
+            }
+            timeRemaining = (self.fileDownloadData.totalSize - self.fileDownloadData.totalDownloaded)/Int(self.currentUIData.speedArray.average)
         }
+    
         
-        self.currentUIData = UIData(totalDownloaded: self.fileDownloadData.totalDownloaded,speed: currentSpeed,timeRemaining: timeRemaining, isRetyringOnError:isRetryingOnError)
+        
+        self.currentUIData = UIData(totalDownloaded: self.fileDownloadData.totalDownloaded,speedArray: self.currentUIData.speedArray,timeRemaining: timeRemaining, isRetyringOnError:isRetryingOnError)
     
     }
     

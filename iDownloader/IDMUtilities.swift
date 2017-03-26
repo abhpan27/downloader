@@ -62,13 +62,22 @@ final class IDMUtilities {
             return "Calculating..."
         }
         if seconds < 60 {
-            return "\(seconds) Seconds"
+            let suffix = seconds == 1 ? "Second" : "Seconds"
+            return "\(seconds) " + suffix
         }
         
         if seconds < 60 * 60 {
-            return "\(seconds / (60)) Minutes"
+            let remaingSeconds = seconds % (60)
+            let minutes = seconds/60
+            let minuteSuffix = minutes == 1 ? "Minute" : "Minutes"
+            let scondSuffix = remaingSeconds == 1 ? "Second" : "Seconds"
+            return "\(minutes) " + minuteSuffix + " \(remaingSeconds) " + scondSuffix
         }
         
-        return "\(seconds / (60 * 60)) Hours"
+        let remainingMinutes = seconds % (60 * 60)
+        let hrs = seconds/(60 * 60)
+        let minuteSuffix = remainingMinutes == 1 ? "Minute" : "Minutes"
+        let hrsSuffix = hrs == 1 ? "Hour" : "Hours"
+        return "\(hrs) "+hrsSuffix + " \(remainingMinutes) " + minuteSuffix
     }
 }
