@@ -20,6 +20,10 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
         getAllFileDownloadInfoFromDBAndIntializeUI()
     }
     
+    final func filterExistingController(filter:DownloadFilter){
+        
+    }
+    
     
     final func startNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int, fileType:fileTypes){
         self.startLoader()

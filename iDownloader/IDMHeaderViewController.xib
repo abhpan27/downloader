@@ -12,6 +12,7 @@
                 <outlet property="addButton" destination="S4A-ot-xN1" id="AcT-r6-e8P"/>
                 <outlet property="addDownloadContainer" destination="f3k-JC-V2l" id="uds-fb-vtk"/>
                 <outlet property="downloadLinkTextField" destination="Ofm-o4-b5K" id="JeA-qP-0Gb"/>
+                <outlet property="titleLabel" destination="5NH-dY-FVv" id="24J-cN-gVE"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

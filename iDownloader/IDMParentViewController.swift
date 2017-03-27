@@ -89,6 +89,10 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
         sideBarTableView.backgroundColor = NSColor.clear
     }
     
+    override func viewDidAppear() {
+        headerController.setTitle(tileString: currentFilter.stringForRow)
+    }
+    
     
     private func intiateDownloadPopUp(downloadUrl: String) {
         guard let urlFromString = URL(string: downloadUrl)
@@ -282,6 +286,8 @@ extension IDMParentViewController:NSTableViewDelegate, NSTableViewDataSource, mo
             }
             self.currentFilter = selectedItem
             self.slideCloseNavBar()
+            self.downloadListController.filterExistingController(filter: selectedItem)
+            self.headerController.setTitle(tileString: currentFilter.stringForRow)
             self.lastSelectedIndex = selectedItem.rawValue
         }
         

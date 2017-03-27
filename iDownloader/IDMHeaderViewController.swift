@@ -14,6 +14,7 @@ protocol HeaderActionDelegate:class{
 
 class IDMHeaderViewController: NSViewController{
 
+    @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var downloadLinkTextField: NSTextField!
     @IBOutlet weak var addDownloadContainer: NSView!
     @IBOutlet weak var addButton: NSButton!
@@ -40,6 +41,10 @@ class IDMHeaderViewController: NSViewController{
     
     @IBAction func didSelectedAddDowload(_ sender: Any) {
         checkAndStartDownload()
+    }
+    
+    final func setTitle(tileString:String){
+        self.titleLabel.stringValue = tileString
     }
     
     private func checkAndStartDownload() {
