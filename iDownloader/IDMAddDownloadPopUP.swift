@@ -18,13 +18,14 @@ class IDMAddDownloadPopUP: IDMPopupView {
     var fileType:fileTypes?
     var downloadURL:String?
     
-    final func updateDateUI(fileType:fileTypes, fileName:String, downloadLocation:String, noOfThreads:String, downloadURL:String) {
+    final func updateDateUI(fileType:fileTypes, fileName:String, downloadLocation:String, noOfThreads:String, downloadURL:String, downloadBookMarkDaat:Data?) {
         self.fileType = fileType
         self.fileTypeLabel.stringValue = fileType.nameForType
         self.fileNameTextField.stringValue = fileName
         self.downloadLocationTextField.stringValue = downloadLocation
         self.noOfThreadsTextField.stringValue = noOfThreads
         self.downloadURL = downloadURL
+        self.outOfSandBoxDirectoryURLData = downloadBookMarkDaat
     }
     
     final func changeDowloadLocation(newFileURL:URL){

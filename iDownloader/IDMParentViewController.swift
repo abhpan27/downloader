@@ -73,9 +73,10 @@ extension IDMParentViewController: MouseDownDelgate {
     final func setUpUIandAddDownloadPopUp(forFileType:fileTypes, fileName:String, downloadURL:String) {
         self.view.addFittingSubView(subView: addDownloadContainer)
         addDownloadContainer.delegate = self
-        let defaultDownloadLocation = IDMFileManager.shared.defaultDownloadURL.path
-        let defaultNoOfThreads = "10"
-        addDownloadPopUpView.updateDateUI(fileType: forFileType, fileName: fileName, downloadLocation: defaultDownloadLocation, noOfThreads: defaultNoOfThreads, downloadURL:downloadURL)
+        let defaultDownloadLocation = IDMSettingsManager.shared.defaultDownloadPath
+        let defaultNoOfThreads = "\(IDMSettingsManager.shared.defaultNumberOfSegments)"
+        let defaultBookMark = IDMSettingsManager.shared.defaultBookMarkData
+        addDownloadPopUpView.updateDateUI(fileType: forFileType, fileName: fileName, downloadLocation: defaultDownloadLocation, noOfThreads: defaultNoOfThreads, downloadURL:downloadURL, downloadBookMarkDaat: defaultBookMark)
     }
     
     func didMouseDown() {

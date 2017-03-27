@@ -49,6 +49,7 @@ class IDMFileHandler {
             let filePath = directoryPathWithoutSystemLink + "/\(fileNameUsed).\(tempFileExtension)"
             if FileManager.default.createFile(atPath: filePath, contents: nil, attributes: nil){
                 completion(fileNameUsed,nil)
+                return
             }
         }
         
