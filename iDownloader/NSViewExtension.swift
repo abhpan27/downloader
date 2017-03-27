@@ -31,4 +31,9 @@ extension NSView {
             self.shadow = shadow
         }
     }
+    
+    final func setBackgroundColor(color:NSColor){
+        self.wantsLayer = true
+        self.layer?.backgroundColor = color.cgColor
+    }
 }

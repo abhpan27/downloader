@@ -8,11 +8,42 @@
 
 import Cocoa
 
+enum DownloadFilter:Int {
+    case allDownloads = 0, paused, completed, running, videoFiles, documentFiles, applicationFiles, compressedFiles,
+    imageFiles, otherFiles
+    
+    var stringForRow:String {
+        switch self {
+        case .allDownloads:
+            return "All Downloads"
+        case .paused:
+            return "Paused"
+        case .completed:
+            return "Completed"
+        case .running:
+            return "Running"
+        case .videoFiles:
+            return "Videos"
+        case .documentFiles:
+            return "Documents"
+        case .applicationFiles:
+            return "Applications"
+        case .compressedFiles:
+            return "Compressed"
+        case .imageFiles:
+            return "Images"
+        case .otherFiles:
+            return "Other Files"
+        }
+    }
+}
+
 class IDMParentViewController: NSViewController, HeaderActionDelegate {
 
+    @IBOutlet weak var sideBarTableView: NSTableView!
     @IBOutlet weak var navBarSeperator: NSView!
     @IBOutlet weak var navBarLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var navBarContainer: NSView!
+    @IBOutlet weak var navBarContainer: IDMSideBarMousExitDetectionView!
     @IBOutlet weak var filtersContainer: NSView!
     @IBOutlet weak var sideBarContainer: NSView!
     @IBOutlet weak var topBarContainer: NSView!
@@ -24,8 +55,10 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
     @IBOutlet weak var addDownloadPopUpView: IDMAddDownloadPopUP!
     @IBOutlet var addDownloadContainer: IDMMouseEventBlockingView!
     var isNavBarOpen = false
+    var lastSelectedIndex = -1
     
-    
+    let arrayOfFilters:[DownloadFilter] = [.allDownloads, .paused, .completed, .running, .videoFiles, .documentFiles, .applicationFiles, .compressedFiles, .imageFiles, .otherFiles]
+    var currentFilter = DownloadFilter.allDownloads
     
     var headerController:IDMHeaderViewController!
     var sideBarController:IDMSideBarController!
@@ -53,7 +86,9 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
         self.navBarContainer.layer?.backgroundColor = NSColor(IDMr: 74, g: 74, b: 74, alpha:1.0).cgColor
         navBarSeperator.wantsLayer = true
         navBarSeperator.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
+        sideBarTableView.backgroundColor = NSColor.clear
     }
+    
     
     private func intiateDownloadPopUp(downloadUrl: String) {
         guard let urlFromString = URL(string: downloadUrl)
@@ -155,6 +190,7 @@ extension IDMParentViewController: MouseDownDelgate {
             else {
                 return
         }
+       
         NSAnimationContext.runAnimationGroup({ (context) -> Void in
             context.duration = 0.3
             context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
@@ -162,6 +198,10 @@ extension IDMParentViewController: MouseDownDelgate {
             
         }, completionHandler: {
             self.isNavBarOpen = true
+             self.navBarContainer.delegate = self
+            if self.lastSelectedIndex == -1 {
+                self.sideBarTableView.rowView(atRow: self.currentFilter.rawValue, makeIfNecessary: true)?.isSelected = true
+            }
         })
     }
     
@@ -177,6 +217,8 @@ extension IDMParentViewController: MouseDownDelgate {
             
         }, completionHandler: {
             self.isNavBarOpen = false
+             self.navBarContainer.delegate = nil
+            
         })
     }
     
@@ -213,4 +255,39 @@ extension IDMParentViewController:SideBarDelegate {
         checkAndCloseOrOpenNavBar()
         
     }
+}
+
+extension IDMParentViewController:NSTableViewDelegate, NSTableViewDataSource, mouseExitDetection {
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return self.arrayOfFilters.count
+    }
+    
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        let rowView = self.sideBarTableView.make(withIdentifier: "IDMSlideBarRowView", owner: self) as! IDMSlideBarRowView
+        rowView.itemLable.stringValue = self.arrayOfFilters[row].stringForRow
+        return rowView
+    }
+
+    
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        
+        if let selectedItem = DownloadFilter(rawValue: self.sideBarTableView.selectedRow){
+            if self.lastSelectedIndex == -1 {
+                self.sideBarTableView.rowView(atRow: self.currentFilter.rawValue, makeIfNecessary: true)?.setBackgroundColor(color: NSColor.clear)
+            }
+            self.currentFilter = selectedItem
+            self.slideCloseNavBar()
+            self.lastSelectedIndex = selectedItem.rawValue
+        }
+        
+    }
+    func didMouseExit() {
+        self.slideCloseNavBar()
+    }
+    
 }
