@@ -13,6 +13,7 @@ final class IDMAppController:IDMPopUpDelgate {
     
     let parentController:IDMParentViewController
     var arrayOfPopUps = [IDMWindowController]()
+    var settingsPopUp:IDMWindowController?
     
     init() {
         parentController = IDMParentViewController()
@@ -31,14 +32,28 @@ final class IDMAppController:IDMPopUpDelgate {
         }
     }
     
-    func showPopUpWithViewController(viewController:NSViewController, withSize:NSSize = NSSize(width: 400, height: 500)) {
+    func showPopUpWithViewController(viewController:NSViewController, withSize:NSSize = NSSize(width: 400, height: 500), shouldCloseOnResignKey:Bool = true) {
         let popUpController = IDMWindowController(windowNibName: "IDMWindowController")
+        popUpController.shouldCloseOnResignKey = shouldCloseOnResignKey
         popUpController.contentViewController = viewController
         let rect = popUpController.window!.getRectOfWindowInMiddle((NSApp.delegate as! AppDelegate).window, withSize:withSize )
         popUpController.window!.setFrame(rect, display: true)
         (NSApp.delegate as! AppDelegate).window.addChildWindow(popUpController.window!, ordered: NSWindowOrderingMode.above)
         popUpController.window!.makeKeyAndOrderFront(self)
         self.arrayOfPopUps.append(popUpController)
+    }
+    
+    func showSettings() {
+        self.settingsPopUp = nil
+        let popUpController = IDMWindowController(windowNibName: "IDMWindowController")
+        popUpController.shouldCloseOnResignKey = false
+        let settingsController = IDMSettingsController()
+        popUpController.contentViewController = settingsController
+        self.settingsPopUp = popUpController
+        let withSize:NSSize = NSSize(width: 400, height: 300)
+        let rect = self.settingsPopUp!.window!.getRectOfWindowInMiddle((NSApp.delegate as! AppDelegate).window, withSize:withSize)
+        self.settingsPopUp!.window!.setFrame(rect, display: true)
+        self.settingsPopUp!.window!.makeKeyAndOrderFront(self)        
     }
     
     func didCloseWindow(sender:IDMWindowController) {

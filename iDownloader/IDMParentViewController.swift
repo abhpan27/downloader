@@ -155,6 +155,7 @@ extension IDMParentViewController:SideBarDelegate {
     }
     
     func didSelectedSettingsInSideBar(){
+        (NSApp.delegate as! AppDelegate).appController.showSettings()
     }
     
     func didSelectedRateUsInSideBar(){

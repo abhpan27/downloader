@@ -15,6 +15,7 @@ protocol IDMPopUpDelgate:class {
 class IDMWindowController: NSWindowController, NSWindowDelegate {
     
     weak var delegate:IDMPopUpDelgate?
+    var shouldCloseOnResignKey = true
     override func windowDidLoad() {
         super.windowDidLoad()
         self.window?.titlebarAppearsTransparent = true
@@ -33,8 +34,10 @@ class IDMWindowController: NSWindowController, NSWindowDelegate {
     }
     
     func windowDidResignKey(_ notification: Notification) {
-//        self.close()
-//        self.delegate?.didCloseWindow(sender: self)
+        if shouldCloseOnResignKey{
+            self.close()
+            self.delegate?.didCloseWindow(sender: self)
+        }
     }
     
 }

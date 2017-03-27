@@ -8,6 +8,10 @@
 
 import Cocoa
 
+struct Constants {
+    static let defaultSoundName = "Default"
+}
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 

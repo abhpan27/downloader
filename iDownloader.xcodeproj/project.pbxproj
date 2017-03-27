@@ -39,6 +39,9 @@
 		8CA0C7081E7D3CFA002EA6D6 /* IDMDownloadListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CA0C7061E7D3CFA002EA6D6 /* IDMDownloadListController.xib */; };
 		8CA0C70A1E7D3D5A002EA6D6 /* IDMMailWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA0C7091E7D3D5A002EA6D6 /* IDMMailWindowController.swift */; };
 		8CA0C70F1E7D427E002EA6D6 /* NSViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA0C70E1E7D427E002EA6D6 /* NSViewExtension.swift */; };
+		8CA1A2301E895441008651B5 /* IDMSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1A22E1E895441008651B5 /* IDMSettingsController.swift */; };
+		8CA1A2311E895441008651B5 /* IDMSettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CA1A22F1E895441008651B5 /* IDMSettingsController.xib */; };
+		8CA1A2331E895B25008651B5 /* IDMSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1A2321E895B25008651B5 /* IDMSettingsManager.swift */; };
 		8CA83AED1E7EF0F000E030EB /* IDMSegmentDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA83AEC1E7EF0F000E030EB /* IDMSegmentDownloader.swift */; };
 		8CDB78CB1E7D466D00314F52 /* NSColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDB78CA1E7D466D00314F52 /* NSColorExtension.swift */; };
 		8CDB78CE1E7D4F8500314F52 /* IDMAddDownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDB78CD1E7D4F8500314F52 /* IDMAddDownloadButton.swift */; };
@@ -117,6 +120,9 @@
 		8CA0C7061E7D3CFA002EA6D6 /* IDMDownloadListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMDownloadListController.xib; sourceTree = "<group>"; };
 		8CA0C7091E7D3D5A002EA6D6 /* IDMMailWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMMailWindowController.swift; sourceTree = "<group>"; };
 		8CA0C70E1E7D427E002EA6D6 /* NSViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSViewExtension.swift; sourceTree = "<group>"; };
+		8CA1A22E1E895441008651B5 /* IDMSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSettingsController.swift; sourceTree = "<group>"; };
+		8CA1A22F1E895441008651B5 /* IDMSettingsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMSettingsController.xib; sourceTree = "<group>"; };
+		8CA1A2321E895B25008651B5 /* IDMSettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSettingsManager.swift; sourceTree = "<group>"; };
 		8CA83AEC1E7EF0F000E030EB /* IDMSegmentDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSegmentDownloader.swift; sourceTree = "<group>"; };
 		8CC96DBE1E82C3B6001392A8 /* iDownloaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iDownloaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CC96DBF1E82C3B6001392A8 /* iDownloaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iDownloaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,6 +222,7 @@
 		8C67544A1E7CFC390044FFA5 /* iDownloader */ = {
 			isa = PBXGroup;
 			children = (
+				8CA1A22D1E895428008651B5 /* Settings */,
 				8C10CE571E8846C400A1E5F7 /* Notification */,
 				8C3879C51E87FB3D002F5D69 /* Download Complete popup */,
 				8C528B8C1E804ABB00076550 /* Utilities */,
@@ -339,6 +346,16 @@
 				8C10CE551E881B3E00A1E5F7 /* IDMScrollViewExtension.swift */,
 			);
 			name = "Cocoa Extensions";
+			sourceTree = "<group>";
+		};
+		8CA1A22D1E895428008651B5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8CA1A22E1E895441008651B5 /* IDMSettingsController.swift */,
+				8CA1A22F1E895441008651B5 /* IDMSettingsController.xib */,
+				8CA1A2321E895B25008651B5 /* IDMSettingsManager.swift */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		8CDB78CC1E7D4F6F00314F52 /* Custom UI Elements */ = {
@@ -533,6 +550,7 @@
 				8CA0C7041E7D3CAA002EA6D6 /* IDMSideBarController.xib in Resources */,
 				8CA0C7081E7D3CFA002EA6D6 /* IDMDownloadListController.xib in Resources */,
 				8C6754561E7CFC390044FFA5 /* Main.storyboard in Resources */,
+				8CA1A2311E895441008651B5 /* IDMSettingsController.xib in Resources */,
 				8CA0C7001E7D3C72002EA6D6 /* IDMHeaderViewController.xib in Resources */,
 				8CA0C6FC1E7D3B20002EA6D6 /* IDMParentViewController.xib in Resources */,
 				8C3879C91E87FB61002F5D69 /* IDMWindowController.xib in Resources */,
@@ -570,6 +588,7 @@
 				8CA0C70A1E7D3D5A002EA6D6 /* IDMMailWindowController.swift in Sources */,
 				8CDB78E11E7DAC2500314F52 /* IDMHighligtingButton.swift in Sources */,
 				8CDB78E51E7DB91800314F52 /* IDMPopupView.swift in Sources */,
+				8CA1A2331E895B25008651B5 /* IDMSettingsManager.swift in Sources */,
 				8CE9F78B1E7E70B0005034A3 /* IDMFileDownloadUIHelper.swift in Sources */,
 				8C10CE591E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift in Sources */,
 				8C528B901E804CE100076550 /* IDMFlippedViewOfScollView.swift in Sources */,
@@ -593,6 +612,7 @@
 				8CDB78DF1E7DABA000314F52 /* IDMTextFieldContainer.swift in Sources */,
 				8CDB78DA1E7D9AB900314F52 /* IDMMouseEventBlockingView.swift in Sources */,
 				8C7F44CC1E842157008E7060 /* DeterminateAnimation.swift in Sources */,
+				8CA1A2301E895441008651B5 /* IDMSettingsController.swift in Sources */,
 				8CE9F77D1E7E5CAD005034A3 /* IDMDownloadHeaderFetchHelper.swift in Sources */,
 				8CDB78D61E7D5CAB00314F52 /* IDMSideBarRow.swift in Sources */,
 				8C67544C1E7CFC390044FFA5 /* AppDelegate.swift in Sources */,

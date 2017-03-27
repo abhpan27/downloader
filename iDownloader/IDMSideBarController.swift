@@ -65,7 +65,7 @@ class IDMSideBarController: NSViewController, NSTableViewDelegate, NSTableViewDa
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         return 55
     }
-    
+
     func tableViewSelectionDidChange(_ notification: Notification) {
         let selectedRow = sideBarTableView.selectedRow
         switch selectedRow {
@@ -81,6 +81,7 @@ class IDMSideBarController: NSViewController, NSTableViewDelegate, NSTableViewDa
             delegate?.didSelectedRateUsInSideBar()
         default: break
         }
+        sideBarTableView.deselectRow(selectedRow)
     }
     
 }

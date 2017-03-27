@@ -91,7 +91,7 @@ class IDMFileHandler {
         fileHandle.closeFile()
     }
     
-    private func getURLFromBookMarkData(bookmarkData:Data) -> URL? {
+    final func getURLFromBookMarkData(bookmarkData:Data) -> URL? {
         do {
             var isBookMarkDataStale = false
            
