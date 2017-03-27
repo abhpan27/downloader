@@ -14,8 +14,10 @@
                 <outlet property="downloadFolderTextField" destination="8ns-yw-Opu" id="6bD-UZ-YTw"/>
                 <outlet property="fileNameTextField" destination="yjJ-Du-QBk" id="Aom-QE-LSh"/>
                 <outlet property="fileTypeLabel" destination="4fN-mi-zUu" id="p8p-cO-HYi"/>
-                <outlet property="filtersContainer" destination="cc2-HQ-h8P" id="Zb0-Os-UHt"/>
                 <outlet property="listOfDownloadContainer" destination="KaZ-6O-jom" id="QKb-Zp-iWU"/>
+                <outlet property="navBarContainer" destination="iEN-Uf-0lq" id="ZkC-J5-3tP"/>
+                <outlet property="navBarLeadingConstraint" destination="ajx-DI-06N" id="jZZ-aV-TJS"/>
+                <outlet property="navBarSeperator" destination="Gk5-XM-mrA" id="QaC-Aa-tHZ"/>
                 <outlet property="sideBarContainer" destination="Yje-JT-zXo" id="fov-JZ-DsB"/>
                 <outlet property="threadsTextField" destination="7Mr-hA-V9t" id="77F-U9-E2R"/>
                 <outlet property="topBarContainer" destination="chO-N6-veQ" id="6gF-vR-1vh"/>
@@ -28,18 +30,6 @@
             <rect key="frame" x="0.0" y="0.0" width="870" height="675"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="cc2-HQ-h8P">
-                    <rect key="frame" x="70" y="0.0" width="0.0" height="673"/>
-                    <constraints>
-                        <constraint firstAttribute="width" id="R0Q-4n-Mem"/>
-                    </constraints>
-                </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Yje-JT-zXo">
-                    <rect key="frame" x="0.0" y="0.0" width="70" height="675"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="70" id="xPB-WC-vIc"/>
-                    </constraints>
-                </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="chO-N6-veQ">
                     <rect key="frame" x="70" y="600" width="800" height="75"/>
                     <constraints>
@@ -53,23 +43,44 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="500" id="xwV-61-XAS"/>
                     </constraints>
                 </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="iEN-Uf-0lq">
+                    <rect key="frame" x="71" y="0.0" width="100" height="675"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="i9y-P6-Hyu"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Yje-JT-zXo">
+                    <rect key="frame" x="0.0" y="0.0" width="70" height="675"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="xPB-WC-vIc"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Gk5-XM-mrA">
+                    <rect key="frame" x="70" y="0.0" width="1" height="675"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="hU0-IS-BGm"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
                 <constraint firstItem="Yje-JT-zXo" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="0ro-gd-ulw"/>
-                <constraint firstItem="chO-N6-veQ" firstAttribute="leading" secondItem="cc2-HQ-h8P" secondAttribute="trailing" id="3OP-HK-Ytt"/>
-                <constraint firstItem="KaZ-6O-jom" firstAttribute="leading" secondItem="cc2-HQ-h8P" secondAttribute="trailing" id="BBY-7B-fNe"/>
+                <constraint firstItem="Gk5-XM-mrA" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="Jcq-bZ-aA0"/>
                 <constraint firstItem="chO-N6-veQ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="MHU-kx-2UA"/>
-                <constraint firstItem="cc2-HQ-h8P" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="2" id="O9y-l6-QGT"/>
                 <constraint firstItem="Yje-JT-zXo" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="S3h-QE-Am4"/>
+                <constraint firstItem="KaZ-6O-jom" firstAttribute="leading" secondItem="Yje-JT-zXo" secondAttribute="trailing" id="UHQ-Lc-gdW"/>
+                <constraint firstItem="iEN-Uf-0lq" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="Xou-Jo-pQ1"/>
                 <constraint firstAttribute="bottom" secondItem="Yje-JT-zXo" secondAttribute="bottom" id="YMe-hF-PK4"/>
-                <constraint firstItem="cc2-HQ-h8P" firstAttribute="leading" secondItem="Yje-JT-zXo" secondAttribute="trailing" id="Yix-ew-FIr"/>
                 <constraint firstAttribute="bottom" secondItem="KaZ-6O-jom" secondAttribute="bottom" id="abg-Eb-kwv"/>
+                <constraint firstItem="iEN-Uf-0lq" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="71" id="ajx-DI-06N"/>
+                <constraint firstItem="chO-N6-veQ" firstAttribute="leading" secondItem="Yje-JT-zXo" secondAttribute="trailing" id="cRP-dU-7ol"/>
                 <constraint firstAttribute="trailing" secondItem="KaZ-6O-jom" secondAttribute="trailing" id="dA5-Ti-7vN"/>
-                <constraint firstItem="KaZ-6O-jom" firstAttribute="leading" secondItem="cc2-HQ-h8P" secondAttribute="trailing" id="dJ8-5S-glT"/>
-                <constraint firstAttribute="bottom" secondItem="cc2-HQ-h8P" secondAttribute="bottom" id="fex-HJ-ynh"/>
                 <constraint firstItem="KaZ-6O-jom" firstAttribute="top" secondItem="chO-N6-veQ" secondAttribute="bottom" id="gLS-3y-L54"/>
+                <constraint firstItem="Gk5-XM-mrA" firstAttribute="leading" secondItem="Yje-JT-zXo" secondAttribute="trailing" id="hbs-Se-ch7"/>
                 <constraint firstAttribute="trailing" secondItem="chO-N6-veQ" secondAttribute="trailing" id="poF-96-las"/>
+                <constraint firstAttribute="bottom" secondItem="Gk5-XM-mrA" secondAttribute="bottom" id="tbL-lu-rVD"/>
+                <constraint firstAttribute="bottom" secondItem="iEN-Uf-0lq" secondAttribute="bottom" id="ydS-TO-pLg"/>
             </constraints>
+            <point key="canvasLocation" x="139" y="168.5"/>
         </customView>
         <customView id="Sc4-Vz-4hI" customClass="IDMMouseEventBlockingView" customModule="iDownloader" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="640" height="426"/>

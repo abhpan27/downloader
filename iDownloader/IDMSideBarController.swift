@@ -47,7 +47,7 @@ class IDMSideBarController: NSViewController, NSTableViewDelegate, NSTableViewDa
         super.viewDidLoad()
         sideBarTableView.backgroundColor = NSColor.clear
         self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = NSColor(IDMr: 74, g: 74, b: 74, alpha:0.86).cgColor
+        self.view.layer?.backgroundColor = NSColor(IDMr: 74, g: 74, b: 74, alpha:1.0).cgColor
     }
     
     

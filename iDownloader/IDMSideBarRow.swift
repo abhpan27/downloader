@@ -48,7 +48,7 @@ class IDMSideBarRow: NSView {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        self.layer?.backgroundColor = NSColor(IDMr: 74, g: 74, b: 74).cgColor
+        self.layer?.backgroundColor = NSColor(IDMr: 50, g: 50, b: 50).cgColor
     }
     
     override func mouseExited(with event: NSEvent) {

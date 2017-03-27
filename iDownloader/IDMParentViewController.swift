@@ -10,6 +10,9 @@ import Cocoa
 
 class IDMParentViewController: NSViewController, HeaderActionDelegate {
 
+    @IBOutlet weak var navBarSeperator: NSView!
+    @IBOutlet weak var navBarLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var navBarContainer: NSView!
     @IBOutlet weak var filtersContainer: NSView!
     @IBOutlet weak var sideBarContainer: NSView!
     @IBOutlet weak var topBarContainer: NSView!
@@ -20,6 +23,7 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
     @IBOutlet weak var threadsTextField: NSTextField!
     @IBOutlet weak var addDownloadPopUpView: IDMAddDownloadPopUP!
     @IBOutlet var addDownloadContainer: IDMMouseEventBlockingView!
+    var isNavBarOpen = false
     
     
     
@@ -44,6 +48,11 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
         self.topBarContainer.addFittingSubView(subView: headerController.view)
         self.sideBarContainer.addFittingSubView(subView: sideBarController.view)
         self.listOfDownloadContainer.addFittingSubView(subView: downloadListController.view)
+        self.navBarLeadingConstraint.constant = -105
+        self.navBarContainer.wantsLayer = true
+        self.navBarContainer.layer?.backgroundColor = NSColor(IDMr: 74, g: 74, b: 74, alpha:1.0).cgColor
+        navBarSeperator.wantsLayer = true
+        navBarSeperator.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
     }
     
     private func intiateDownloadPopUp(downloadUrl: String) {
@@ -133,6 +142,44 @@ extension IDMParentViewController: MouseDownDelgate {
         
     }
     
+    fileprivate func checkAndCloseOrOpenNavBar() {
+        if self.isNavBarOpen {
+            slideCloseNavBar()
+        }else {
+            slideOpenNavBar()
+        }
+    }
+    
+    fileprivate func slideOpenNavBar() {
+        guard !self.isNavBarOpen
+            else {
+                return
+        }
+        NSAnimationContext.runAnimationGroup({ (context) -> Void in
+            context.duration = 0.3
+            context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            self.navBarLeadingConstraint.animator().constant = 71
+            
+        }, completionHandler: {
+            self.isNavBarOpen = true
+        })
+    }
+    
+    fileprivate func slideCloseNavBar() {
+        guard self.isNavBarOpen
+            else {
+                return
+        }
+        NSAnimationContext.runAnimationGroup({ (context) -> Void in
+            context.duration = 0.3
+            context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            self.navBarLeadingConstraint.animator().constant = -105
+            
+        }, completionHandler: {
+            self.isNavBarOpen = false
+        })
+    }
+    
     
     @IBAction func didSelectedStartDownload(_ sender: Any) {
         validateAndStartDownload()
@@ -163,6 +210,7 @@ extension IDMParentViewController:SideBarDelegate {
     }
     
     func didSelectedFilterInSideBar(){
+        checkAndCloseOrOpenNavBar()
         
     }
 }
