@@ -33,8 +33,8 @@ class IDMWindowController: NSWindowController, NSWindowDelegate {
     }
     
     func windowDidResignKey(_ notification: Notification) {
-        self.close()
-        self.delegate?.didCloseWindow(sender: self)
+//        self.close()
+//        self.delegate?.didCloseWindow(sender: self)
     }
     
 }

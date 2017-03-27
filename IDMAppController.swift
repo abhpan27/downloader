@@ -48,4 +48,13 @@ final class IDMAppController:IDMPopUpDelgate {
             self.arrayOfPopUps.remove(at: index)
         }
     }
+    
+    func showDownloadCompletedPopUpForUniqueID(uniqueID:String){
+        for fileController in self.parentController.downloadListController.fileDownloaders {
+            if fileController.fileDownloadHelper?.fileDownloadData.uniqueID == uniqueID{
+                fileController.showOpenFilePanel()
+                return
+            }
+        }
+    }
 }

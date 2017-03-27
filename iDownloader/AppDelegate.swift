@@ -9,13 +9,25 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
     lazy var appController = IDMAppController()
     var window:NSWindow!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        NSUserNotificationCenter.default.delegate = self
+        if let userInfo = aNotification.userInfo{
+            if let notification = userInfo[NSApplicationLaunchUserNotificationKey] as? NSUserNotification{
+                if let userInfo = notification.userInfo  as? [String:String] {
+                    if let downloadID = userInfo["downloadID"]{
+                         self.appController.showDownloadCompletedPopUpForUniqueID(uniqueID: downloadID)
+                    }
+                   
+                }
+            }
+        }
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -30,6 +42,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
         self.appController.doPauseAllOnAppQuit()
         return NSApplicationTerminateReply.terminateLater
+    }
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool{
+        return true
+    }
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification){
+        if let userInfo = notification.userInfo  as? [String:String] {
+            if let downloadID = userInfo["downloadID"]{
+                self.appController.showDownloadCompletedPopUpForUniqueID(uniqueID: downloadID)
+            }
+        }
     }
     
 

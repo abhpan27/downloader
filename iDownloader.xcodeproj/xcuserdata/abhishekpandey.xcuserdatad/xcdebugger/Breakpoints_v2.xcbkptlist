@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/IDMFileDownloadDataHelper.swift"
-            timestampString = "512247814.792895"
+            timestampString = "512315663.935239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "didWriteData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/AppDelegate.swift"
-            timestampString = "512215698.736718"
+            timestampString = "512315992.713794"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "applicationShouldTerminate(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -494,9 +494,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "269"
-            endingLineNumber = "269"
-            landmarkName = "removeFileDownloadedAtrribute(pathURL:)"
-            landmarkType = "7">
+            endingLineNumber = "269">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

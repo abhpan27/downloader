@@ -285,8 +285,9 @@ final class IDMFileDownloadDataHelper{
     
     fileprivate func fireLocalNotification() {
         let title = "Download completed"
-        let informativeText = "File - \(self.fileDownloadData.name) is downloaded in - \(self.fileDownloadData.diskDownloadLocation)"
-        IDMLocalNotificationHelper.shared.showNotification(title: title, infomativeText: informativeText, userInfo: ["":""])
+        let informativeText = "File - \(self.fileDownloadData.name) is downloaded"
+        let userInfo = ["downloadID":self.fileDownloadData.uniqueID]
+        IDMLocalNotificationHelper.shared.showNotification(title: title, infomativeText: informativeText, userInfo: userInfo)
     }
 }
 
