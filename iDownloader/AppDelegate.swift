@@ -32,6 +32,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             }
         }
         
+        let appleEventManager:NSAppleEventManager = NSAppleEventManager.shared()
+        appleEventManager.setEventHandler(self, andSelector: #selector(AppDelegate.handleOpenWith(_:replyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -60,7 +63,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }
     }
     
-
+    func handleOpenWith(_ event: NSAppleEventDescriptor?, replyEvent: NSAppleEventDescriptor?) {
+        let directObjectDescriptor = event?.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))
+        let urlString = directObjectDescriptor?.stringValue;
+        
+        if let launchedURLString =  urlString{
+            if let launchedURL = URL(string: launchedURLString) {
+                    self.appController.handleURLSchemeLaunch(downloadURL: launchedURL)
+            }
+        }
+    }
     
 }
 

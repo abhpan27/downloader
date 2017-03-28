@@ -113,6 +113,16 @@ extension URL {
         return NSError(domain: NSPOSIXErrorDomain, code: Int(err),
                        userInfo: [NSLocalizedDescriptionKey: String(cString: strerror(err))])
     }
+    
+    public var queryItems: [String: String] {
+        var params = [String: String]()
+        return URLComponents(url: self, resolvingAgainstBaseURL: false)?
+            .queryItems?
+            .reduce([:], { (_, item) -> [String: String] in
+                params[item.name] = item.value
+                return params
+            }) ?? [:]
+    }
 }
 
 extension Array where Element: FloatingPoint {

@@ -94,7 +94,7 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
     }
     
     
-    fileprivate func intiateDownloadPopUp(downloadUrl: String) {
+    final func intiateDownloadPopUp(downloadUrl: String) {
         guard let urlFromString = URL(string: downloadUrl)
             else {
                 return

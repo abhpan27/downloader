@@ -72,4 +72,21 @@ final class IDMAppController:IDMPopUpDelgate {
             }
         }
     }
+    
+    func handleURLSchemeLaunch(downloadURL:URL){
+        
+        guard let host = downloadURL.host, host == "adddownload"
+            else{
+                return
+        }
+        
+        guard let downloadPath = downloadURL.queryItems["downloadlink"] 
+            else {
+            return
+        }
+        NSApplication.shared().activate(ignoringOtherApps: true)
+        
+        self.parentController.intiateDownloadPopUp(downloadUrl: downloadPath)
+       
+    }
 }

@@ -170,7 +170,7 @@
                   moduleName = "iDownloader"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileDownloadController.swift"
-                  timestampString = "512402952.028014"
+                  timestampString = "512411148.457529"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "324"
@@ -185,7 +185,7 @@
                   moduleName = "iDownloader"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileDownloadController.swift"
-                  timestampString = "512402952.029256"
+                  timestampString = "512411148.461054"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "325"
@@ -282,7 +282,7 @@
                   moduleName = "iDownloader"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileDownloadController.swift"
-                  timestampString = "512402952.038854"
+                  timestampString = "512411148.488153"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "325"
@@ -297,7 +297,7 @@
                   moduleName = "iDownloader"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/iDownloader/IDMFileDownloadController.swift"
-                  timestampString = "512402952.040072"
+                  timestampString = "512411148.489525"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "325"
@@ -462,6 +462,86 @@
             startingLineNumber = "98"
             endingLineNumber = "98"
             landmarkName = "intiateDownloadPopUp(downloadUrl:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IDMAppController.swift"
+            timestampString = "512410866.142323"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "handleURLSchemeLaunch(downloadURL:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iDownloader.IDMAppController.handleURLSchemeLaunch (downloadURL : Foundation.URL) -&gt; ()"
+                  moduleName = "iDownloader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/IDMAppController.swift"
+                  timestampString = "512411148.555679"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iDownloader.IDMAppController.handleURLSchemeLaunch (downloadURL : Foundation.URL) -&gt; ()"
+                  moduleName = "iDownloader"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abhishekpandey/iDownloader/iDownloader/IDMAppController.swift"
+                  timestampString = "512411148.5569"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "140">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/AppDelegate.swift"
+            timestampString = "512410903.874375"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "handleOpenWith(_:replyEvent:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDownloader/AppDelegate.swift"
+            timestampString = "512410995.574798"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "handleOpenWith(_:replyEvent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

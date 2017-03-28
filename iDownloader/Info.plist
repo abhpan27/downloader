@@ -46,5 +46,16 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.abhpan27.iDownloader</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>iDownloader</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
