@@ -48,6 +48,11 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
     @IBOutlet weak var threadsTextField: NSTextField!
     @IBOutlet weak var addDownloadPopUpView: IDMAddDownloadPopUP!
     @IBOutlet var addDownloadContainer: IDMMouseEventBlockingView!
+    
+    @IBOutlet var dropLinkOverlay: NSView!
+    
+    
+    
     var isNavBarOpen = false
     var lastSelectedIndex = -1
     
@@ -81,6 +86,7 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
         navBarSeperator.wantsLayer = true
         navBarSeperator.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
         sideBarTableView.backgroundColor = NSColor.clear
+        (self.view as! IDMDragLinkDetectorView).delegate = self
     }
     
     override func viewDidAppear() {
@@ -88,10 +94,16 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
     }
     
     
-    private func intiateDownloadPopUp(downloadUrl: String) {
+    fileprivate func intiateDownloadPopUp(downloadUrl: String) {
         guard let urlFromString = URL(string: downloadUrl)
             else {
                 return
+        }
+        
+        guard let scheme = urlFromString.scheme, scheme.lowercased() == "http" || scheme.lowercased() == "https"
+            else {
+            IDMUtilities.shared.showError(title: "Opps!", information: "Only Http and Https downloads are supported")
+            return
         }
         
         let fileNameAndExtesion = urlFromString.lastPathComponent.components(separatedBy: ".")
@@ -113,6 +125,7 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
 //MARK: Add download UI
 extension IDMParentViewController: MouseDownDelgate {
     final func setUpUIandAddDownloadPopUp(forFileType:fileTypes, fileName:String, downloadURL:String) {
+        self.addDownloadContainer.removeFromSuperview()
         self.view.addFittingSubView(subView: addDownloadContainer)
         addDownloadContainer.delegate = self
         let defaultDownloadLocation = IDMSettingsManager.shared.defaultDownloadPath
@@ -290,4 +303,21 @@ extension IDMParentViewController:NSTableViewDelegate, NSTableViewDataSource, mo
         self.slideCloseNavBar()
     }
     
+}
+
+extension IDMParentViewController:IDMDragLinkDetectorViewDelegate {
+    func showOverlay() {
+        self.dropLinkOverlay.wantsLayer = true
+        self.dropLinkOverlay.layer?.backgroundColor = NSColor(IDMr: 255, g: 255, b: 255, alpha: 0.5).cgColor
+        self.view.addFittingSubView(subView: self.dropLinkOverlay)
+    }
+    
+    func removeOverlay() {
+        self.dropLinkOverlay.removeFromSuperview()
+    }
+    
+    func didDroppedLink(path: String) {
+         self.dropLinkOverlay.removeFromSuperview()
+        self.intiateDownloadPopUp(downloadUrl:path)
+    }
 }

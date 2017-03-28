@@ -6,7 +6,7 @@
 //  Copyright © 2017 Abhishek Pandey. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 
 func delay(_ delay:Double, closure:@escaping ()->()) {
@@ -121,6 +121,14 @@ extension Array where Element: FloatingPoint {
     }
     var average: Element {
         return isEmpty ? 0 : total / Element(count)
+    }
+}
+
+extension NSDraggingInfo {
+    func downloadURL() -> NSURL? {
+        let pasteBoard = draggingPasteboard()
+        let url = NSURL(from: pasteBoard)
+        return url
     }
 }
 
