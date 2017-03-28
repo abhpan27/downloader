@@ -14,6 +14,8 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
     @IBOutlet weak var stackView: NSStackView!
     let IDMIntialDownloadProbeHelper = IDMDownloadHeaderFetchHelper()
     var fileDownloaders = [IDMFileDownloadController]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -21,7 +23,52 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
     }
     
     final func filterExistingController(filter:DownloadFilter){
-        
+        self.removeAllDownloadRows()
+        for downloadController in self.fileDownloaders {
+            var shouldInsertRow = false
+            switch filter{
+            case .allDownloads:
+                shouldInsertRow = true
+            case .videoFiles:
+                if downloadController.fileDownloadHelper!.fileDownloadData.type == .video {
+                    shouldInsertRow = true
+                }
+                
+            case .compressedFiles:
+                if downloadController.fileDownloadHelper!.fileDownloadData.type == .compressed {
+                    shouldInsertRow = true
+                }
+                
+            case .otherFiles:
+                if downloadController.fileDownloadHelper!.fileDownloadData.type == .other {
+                    shouldInsertRow = true
+                }
+                
+            case .documentFiles:
+                if downloadController.fileDownloadHelper!.fileDownloadData.type == .document {
+                    shouldInsertRow = true
+                }
+                
+            case .imageFiles:
+                if downloadController.fileDownloadHelper!.fileDownloadData.type == .picture {
+                    shouldInsertRow = true
+                }
+                
+            case .applicationFiles:
+                if downloadController.fileDownloadHelper!.fileDownloadData.type == .application {
+                    shouldInsertRow = true
+                }
+            }
+            if shouldInsertRow {
+                self.insertNewDownloadRow(row: downloadController.view)
+            }
+        }
+    }
+    
+    private func removeAllDownloadRows() {
+        for view in self.stackView.views(in: NSStackViewGravity.center){
+            self.stackView.removeView(view)
+        }
     }
     
     
@@ -196,7 +243,7 @@ extension IDMDownloadListController {
     //MARK:FileDownloadControllerDelegate
     
     func insertNewDownloadRow(row: NSView) {
-        self.stackView.addView(row, in: NSStackViewGravity.top)
+        self.stackView.addView(row, in: NSStackViewGravity.center)
     }
     
     func startLoader(){

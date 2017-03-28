@@ -9,19 +9,13 @@
 import Cocoa
 
 enum DownloadFilter:Int {
-    case allDownloads = 0, paused, completed, running, videoFiles, documentFiles, applicationFiles, compressedFiles,
+    case allDownloads = 0, videoFiles, documentFiles, applicationFiles, compressedFiles,
     imageFiles, otherFiles
     
     var stringForRow:String {
         switch self {
         case .allDownloads:
             return "All Downloads"
-        case .paused:
-            return "Paused"
-        case .completed:
-            return "Completed"
-        case .running:
-            return "Running"
         case .videoFiles:
             return "Videos"
         case .documentFiles:
@@ -57,7 +51,7 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
     var isNavBarOpen = false
     var lastSelectedIndex = -1
     
-    let arrayOfFilters:[DownloadFilter] = [.allDownloads, .paused, .completed, .running, .videoFiles, .documentFiles, .applicationFiles, .compressedFiles, .imageFiles, .otherFiles]
+    let arrayOfFilters:[DownloadFilter] = [.allDownloads, .videoFiles, .documentFiles, .applicationFiles, .compressedFiles, .imageFiles, .otherFiles]
     var currentFilter = DownloadFilter.allDownloads
     
     var headerController:IDMHeaderViewController!
