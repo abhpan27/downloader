@@ -788,7 +788,7 @@
 				DEVELOPMENT_TEAM = RR2E3EH7YW;
 				INFOPLIST_FILE = iDownloader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.iDownloader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.idownloader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iDownloader/iDownloader-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -807,7 +807,7 @@
 				DEVELOPMENT_TEAM = RR2E3EH7YW;
 				INFOPLIST_FILE = iDownloader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.iDownloader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.idownloader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iDownloader/iDownloader-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -823,7 +823,7 @@
 				DEVELOPMENT_TEAM = RR2E3EH7YW;
 				INFOPLIST_FILE = iDownloaderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.iDownloader.iDownloaderTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.idownloader.iDownloaderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iDownloader.app/Contents/MacOS/iDownloader";
@@ -839,7 +839,7 @@
 				DEVELOPMENT_TEAM = RR2E3EH7YW;
 				INFOPLIST_FILE = iDownloaderTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.iDownloader.iDownloaderTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.idownloader.iDownloaderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iDownloader.app/Contents/MacOS/iDownloader";
@@ -854,7 +854,7 @@
 				DEVELOPMENT_TEAM = RR2E3EH7YW;
 				INFOPLIST_FILE = iDownloaderUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.iDownloader.iDownloaderUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.idownloader.iDownloaderUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = iDownloader;
@@ -869,7 +869,7 @@
 				DEVELOPMENT_TEAM = RR2E3EH7YW;
 				INFOPLIST_FILE = iDownloaderUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.iDownloader.iDownloaderUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.idownloader.iDownloaderUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = iDownloader;
