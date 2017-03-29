@@ -41,6 +41,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Insert code here to tear down your application
     }
     
+    func applicationDidBecomeActive(_ notification: Notification) {
+        self.appController.checkAndAddURLFromPasteBoard()
+    }
+    
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         self.window.makeKeyAndOrderFront(self)
         return true

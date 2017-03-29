@@ -89,4 +89,39 @@ final class IDMAppController:IDMPopUpDelgate {
         self.parentController.intiateDownloadPopUp(downloadUrl: downloadPath)
        
     }
+    
+    final func checkAndAddURLFromPasteBoard() {
+        var urlStrings = [String]()
+        let pasteboard = NSPasteboard.general()
+        
+        if let nofElements = pasteboard.pasteboardItems?.count {
+            
+            if nofElements > 0 {
+                var strArr: Array<String> = []
+                for element in pasteboard.pasteboardItems! {
+                    if let str = element.string(forType: "public.utf8-plain-text") {
+                        strArr.append(str)
+                    }
+                }
+                
+                if strArr.count == 0 { return }
+                urlStrings = strArr
+                Swift.print("url dropped is \(urlStrings)")
+            }
+        }
+        
+        for possibleURL in urlStrings {
+            guard let downloadURL = URL(string: possibleURL)
+                else{
+                    continue
+            }
+            
+            guard let scheme = downloadURL.scheme?.lowercased(), scheme == "http" || scheme == "https" else {
+                continue
+            }
+            
+            self.parentController.headerController.downloadLinkTextField.stringValue = downloadURL.absoluteString
+            break
+        }
+    }
 }

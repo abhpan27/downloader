@@ -307,6 +307,7 @@ extension IDMParentViewController:NSTableViewDelegate, NSTableViewDataSource, mo
 
 extension IDMParentViewController:IDMDragLinkDetectorViewDelegate {
     func showOverlay() {
+        self.dropLinkOverlay.removeFromSuperview()
         self.dropLinkOverlay.wantsLayer = true
         self.dropLinkOverlay.layer?.backgroundColor = NSColor(IDMr: 255, g: 255, b: 255, alpha: 0.5).cgColor
         self.view.addFittingSubView(subView: self.dropLinkOverlay)
