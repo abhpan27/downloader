@@ -331,8 +331,9 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
             if self.currentUIData.speedArray.count <= 50 {
                 self.currentUIData.speedArray.append(currentSpeed)
             }else {
-                self.currentUIData.speedArray.remove(at: self.currentUIData.speedArray.count - 1)
-                self.currentUIData.speedArray.append(currentSpeed)
+                var newAarray = self.currentUIData.speedArray[1..<self.currentUIData.speedArray.count]
+                newAarray.append(currentSpeed)
+                self.currentUIData.speedArray = Array(newAarray)
             }
             timeRemaining = (self.fileDownloadData.totalSize - self.fileDownloadData.totalDownloaded)/Int(self.currentUIData.speedArray.average)
         }

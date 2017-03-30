@@ -132,6 +132,7 @@ extension Array where Element: FloatingPoint {
     var average: Element {
         return isEmpty ? 0 : total / Element(count)
     }
+
 }
 
 extension NSDraggingInfo {
