@@ -260,7 +260,7 @@ extension IDMParentViewController:SideBarDelegate {
     }
     
     func didSelectedRateUsInSideBar(){
-        let appStoreLink = "macappstore://userpub.itunes.apple.com/WebObjects/MZUserPublishing.woa/wa/addUserReview?id= 1220730126&type=Purple+Software".percentEncoded
+        let appStoreLink = "macappstore://itunes.apple.com/app/id1220730126?mt=12"
         if let url = URL(string: appStoreLink){
              NSWorkspace.shared().open(url)
         }
