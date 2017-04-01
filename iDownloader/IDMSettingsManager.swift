@@ -19,6 +19,13 @@ final class IDMSettingsManager {
         
     }
     
+    var isFreshInstall:Bool {
+        if let _ = UserDefaults.standard.value(forKey: SettingsKeys.isFreshInstall){
+            return false
+        }
+        return true
+    }
+    
     var defaultBookMarkData: Data? {
         if let defaultBookMarkData = UserDefaults.standard.value(forKey:  SettingsKeys.defaultBookMarkData) as? Data{
             return defaultBookMarkData
@@ -66,6 +73,11 @@ final class IDMSettingsManager {
     
     final func setDefaultNumberOfSegments(segments:Int){
         UserDefaults.standard.set(segments, forKey:   SettingsKeys.noOfSegmennts)
+        UserDefaults.standard.synchronize()
+    }
+    
+    final func setIsFreshInstall(){
+        UserDefaults.standard.set(1, forKey:   SettingsKeys.isFreshInstall)
         UserDefaults.standard.synchronize()
     }
     

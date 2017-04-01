@@ -13,6 +13,9 @@
 		8C10CE541E8811D000A1E5F7 /* IDMHighlightingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE531E8811D000A1E5F7 /* IDMHighlightingButton.swift */; };
 		8C10CE561E881B3E00A1E5F7 /* IDMScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE551E881B3E00A1E5F7 /* IDMScrollViewExtension.swift */; };
 		8C10CE591E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE581E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift */; };
+		8C1DC4F91E8FAF7800CB819A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1DC4F71E8FAF7800CB819A /* Fabric.framework */; };
+		8C1DC4FA1E8FAF7800CB819A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1DC4F81E8FAF7800CB819A /* Crashlytics.framework */; };
+		8C1DC4FC1E8FB2E000CB819A /* IDMAnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */; };
 		8C3879C81E87FB61002F5D69 /* IDMWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3879C61E87FB61002F5D69 /* IDMWindowController.swift */; };
 		8C3879C91E87FB61002F5D69 /* IDMWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C3879C71E87FB61002F5D69 /* IDMWindowController.xib */; };
 		8C49D19C1E87FC9600DD3362 /* NSWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49D19B1E87FC9600DD3362 /* NSWindowExtension.swift */; };
@@ -96,6 +99,9 @@
 		8C10CE531E8811D000A1E5F7 /* IDMHighlightingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMHighlightingButton.swift; sourceTree = "<group>"; };
 		8C10CE551E881B3E00A1E5F7 /* IDMScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMScrollViewExtension.swift; sourceTree = "<group>"; };
 		8C10CE581E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMLocalNotificationHelper.swift; sourceTree = "<group>"; };
+		8C1DC4F71E8FAF7800CB819A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		8C1DC4F81E8FAF7800CB819A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMAnalyticsHelper.swift; sourceTree = "<group>"; };
 		8C3879C61E87FB61002F5D69 /* IDMWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMWindowController.swift; sourceTree = "<group>"; };
 		8C3879C71E87FB61002F5D69 /* IDMWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMWindowController.xib; sourceTree = "<group>"; };
 		8C49D19B1E87FC9600DD3362 /* NSWindowExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSWindowExtension.swift; sourceTree = "<group>"; };
@@ -168,6 +174,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CE9F7851E7E6A23005034A3 /* SystemConfiguration.framework in Frameworks */,
+				8C1DC4FA1E8FAF7800CB819A /* Crashlytics.framework in Frameworks */,
+				8C1DC4F91E8FAF7800CB819A /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +220,7 @@
 			children = (
 				8C528B8D1E804AE300076550 /* IDMUtilities.swift */,
 				8C7F44CE1E844496008E7060 /* IDMFileHandler.swift */,
+				8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -428,6 +437,8 @@
 		8CE9F7831E7E6A23005034A3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C1DC4F71E8FAF7800CB819A /* Fabric.framework */,
+				8C1DC4F81E8FAF7800CB819A /* Crashlytics.framework */,
 				8CE9F7841E7E6A23005034A3 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
@@ -451,6 +462,7 @@
 				8C6754441E7CFC390044FFA5 /* Sources */,
 				8C6754451E7CFC390044FFA5 /* Frameworks */,
 				8C6754461E7CFC390044FFA5 /* Resources */,
+				8C1DC4F61E8FAF4300CB819A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -586,6 +598,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8C1DC4F61E8FAF4300CB819A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run f7a7df8686064516c6c3baed9a392590f69eed06 800a71316c536dcb081e2015957db6221f9c832f179fdb106ada233d95c09523";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8C6754441E7CFC390044FFA5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -639,6 +667,7 @@
 				8CA0C6FB1E7D3B20002EA6D6 /* IDMParentViewController.swift in Sources */,
 				8C7F44CD1E842157008E7060 /* ProgressUtils.swift in Sources */,
 				8CE9F7891E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift in Sources */,
+				8C1DC4FC1E8FB2E000CB819A /* IDMAnalyticsHelper.swift in Sources */,
 				8CE9F7821E7E69AF005034A3 /* Reachability.m in Sources */,
 				8C7F44CA1E842157008E7060 /* BaseView.swift in Sources */,
 				8C528B8E1E804AE300076550 /* IDMUtilities.swift in Sources */,
@@ -786,6 +815,10 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = RR2E3EH7YW;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = iDownloader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.idownloader;
@@ -805,6 +838,10 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = RR2E3EH7YW;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = iDownloader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abhishek.idownloader;

@@ -13,6 +13,7 @@ struct SettingsKeys {
     static let notificationSound = "notificationSound"
     static let defaultBookMarkData = "defaultBookMarkData"
     static let noOfSegmennts = "noOfSegmennts"
+    static let isFreshInstall = "FreshInstall"
 }
 
 class IDMSettingsController: NSViewController {

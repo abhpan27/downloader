@@ -7,6 +7,9 @@
 //
 
 import Cocoa
+import Fabric
+import Crashlytics
+
 
 struct Constants {
     static let defaultSoundName = "Default"
@@ -20,6 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        Fabric.with([Crashlytics.self])
+        IDMAnalyticsHelper.shared.checkAndLogFreshInstall()
         NSUserNotificationCenter.default.delegate = self
         if let userInfo = aNotification.userInfo{
             if let notification = userInfo[NSApplicationLaunchUserNotificationKey] as? NSUserNotification{

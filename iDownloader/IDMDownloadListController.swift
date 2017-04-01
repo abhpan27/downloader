@@ -73,6 +73,7 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
     
     
     final func startNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int, fileType:fileTypes){
+        IDMAnalyticsHelper.shared.LogNewDownloadStart()
         self.startLoader()
         IDMIntialDownloadProbeHelper.fetchHeaderDataForDownloadURL(downloadLink: downloadURL){
             [weak self]
