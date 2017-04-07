@@ -281,12 +281,12 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Bj-sf-Iqr" customClass="IDMCustomGreenButton" customModule="iDownloader" customModuleProvider="target">
+                        <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Bj-sf-Iqr" customClass="IDMCustomGreenButton" customModule="iDownloader" customModuleProvider="target">
                             <rect key="frame" x="366" y="20" width="98" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="buZ-7A-79x"/>
                             </constraints>
-                            <buttonCell key="cell" type="bevel" title="Start Download" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Gyx-Ot-w3h">
+                            <buttonCell key="cell" type="bevel" title="Start Download" bezelStyle="rounded" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Gyx-Ot-w3h">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <string key="keyEquivalent" base64-UTF8="YES">
@@ -356,7 +356,7 @@ DQ
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Thr-5E-gTZ">
-                    <rect key="frame" x="46" y="77" width="205" height="22"/>
+                    <rect key="frame" x="45" y="77" width="205" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Drop download link here" id="vHL-4a-Hgv">
                         <font key="font" metaFont="systemMedium" size="18"/>
                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
