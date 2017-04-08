@@ -26,6 +26,7 @@
 		8C6754511E7CFC390044FFA5 /* iDownloader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C67544F1E7CFC390044FFA5 /* iDownloader.xcdatamodeld */; };
 		8C6754531E7CFC390044FFA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C6754521E7CFC390044FFA5 /* Assets.xcassets */; };
 		8C6754561E7CFC390044FFA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6754541E7CFC390044FFA5 /* Main.storyboard */; };
+		8C7C90C81E98EB72000C10A2 /* IDMAppDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7C90C71E98EB72000C10A2 /* IDMAppDelegateExtension.swift */; };
 		8C7F44CA1E842157008E7060 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C61E842157008E7060 /* BaseView.swift */; };
 		8C7F44CB1E842157008E7060 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C71E842157008E7060 /* CircularProgressView.swift */; };
 		8C7F44CC1E842157008E7060 /* DeterminateAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7F44C81E842157008E7060 /* DeterminateAnimation.swift */; };
@@ -114,6 +115,7 @@
 		8C6754521E7CFC390044FFA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C6754551E7CFC390044FFA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8C6754571E7CFC390044FFA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C7C90C71E98EB72000C10A2 /* IDMAppDelegateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IDMAppDelegateExtension.swift; path = iDownloader/IDMAppDelegateExtension.swift; sourceTree = "<group>"; };
 		8C7F44C61E842157008E7060 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		8C7F44C71E842157008E7060 /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8C7F44C81E842157008E7060 /* DeterminateAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeterminateAnimation.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				8C67544B1E7CFC390044FFA5 /* AppDelegate.swift */,
 				8CA0C6F51E7D397F002EA6D6 /* IDMAppController.swift */,
 				8CA1A2381E899B0B008651B5 /* IDMMenuHelper.swift */,
+				8C7C90C71E98EB72000C10A2 /* IDMAppDelegateExtension.swift */,
 			);
 			name = AppController;
 			path = ..;
@@ -624,6 +627,7 @@
 				8C3879C81E87FB61002F5D69 /* IDMWindowController.swift in Sources */,
 				8CDB78CB1E7D466D00314F52 /* NSColorExtension.swift in Sources */,
 				8CDB78D01E7D51D200314F52 /* IDMMouseTrackingButton.swift in Sources */,
+				8C7C90C81E98EB72000C10A2 /* IDMAppDelegateExtension.swift in Sources */,
 				8CA0C7031E7D3CAA002EA6D6 /* IDMSideBarController.swift in Sources */,
 				8CA0C70A1E7D3D5A002EA6D6 /* IDMMailWindowController.swift in Sources */,
 				8CBFC7641E8AA04200D1BBB3 /* IDMDragLinkDetectorView.swift in Sources */,
