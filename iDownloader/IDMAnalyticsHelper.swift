@@ -18,7 +18,7 @@ final class IDMAnalyticsHelper {
     let newDownload = "New Download"
     
     final func checkAndLogFreshInstall() {
-        if !IDMSettingsManager.shared.isFreshInstall {
+        if IDMSettingsManager.shared.isFreshInstall {
             Answers.logCustomEvent(withName: freshInstallKey, customAttributes: [
                 locale: Locale.current.regionCode as Any])
             IDMSettingsManager.shared.setIsFreshInstall()
