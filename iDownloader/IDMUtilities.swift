@@ -80,4 +80,14 @@ final class IDMUtilities {
         let hrsSuffix = hrs == 1 ? "Hour" : "Hours"
         return "\(hrs) "+hrsSuffix + " \(remainingMinutes) " + minuteSuffix
     }
+    
+    func dialogOKCancel(question: String, text: String) -> Bool {
+        let myPopup: NSAlert = NSAlert()
+        myPopup.messageText = question
+        myPopup.informativeText = text
+        myPopup.alertStyle = NSAlertStyle.warning
+        myPopup.addButton(withTitle: "OK")
+        myPopup.addButton(withTitle: "Cancel")
+        return myPopup.runModal() == NSAlertFirstButtonReturn
+    }
 }

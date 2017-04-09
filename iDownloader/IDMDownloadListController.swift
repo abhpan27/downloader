@@ -198,6 +198,39 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
         }
     }
     
+    final func clearAllCompletedDownloads() {
+        var arrayOfFileDownlodesToRamove = [FileDownloadDataInfo]()
+        var arrayOfRowsToRemove = [NSView]()
+        for item in self.fileDownloaders {
+            if item.fileDownloadHelper?.fileDownloadData.runningStatus == .completed {
+                arrayOfFileDownlodesToRamove.append(item.fileDownloadHelper!.fileDownloadData)
+                arrayOfRowsToRemove.append(item.view)
+            }
+        }
+        
+        //remove all download objects
+        for view in arrayOfRowsToRemove {
+            if stackView.views.contains(view){
+                   self.stackView.removeView(view)
+            }
+        }
+        
+        //remove fileDownloaders 
+        for item in arrayOfFileDownlodesToRamove {
+            if let index = self.fileDownloaders.index(where: { (downloader) -> Bool in
+                return (downloader.fileDownloadHelper!.fileDownloadData.uniqueID == item.uniqueID)
+            }){
+                self.fileDownloaders.remove(at: index)
+            }
+        }
+        
+        //remove from DB 
+        IDMCoreDataHelper.shared.deleteAllCompletedDownloadsEntry { (error) in
+            //do nothing
+        }
+        
+    }
+    
 }
 
 //MARK: IDMFileDownloadController

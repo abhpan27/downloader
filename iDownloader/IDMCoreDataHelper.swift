@@ -227,5 +227,36 @@ final class IDMCoreDataHelper {
         }
     }
     
+    final func deleteAllCompletedDownloadsEntry(completion:@escaping (_ error:Error?)-> ()) {
+        persistentContainer.performBackgroundTask { (context) in
+            let existingFileDataFetchRequest: NSFetchRequest<NSFetchRequestResult> = FileDownloadData.fetchRequest()
+            existingFileDataFetchRequest.predicate = NSPredicate(format: "runningStatus == %@", "completed")
+            do {
+                let fileDownloadDataArray =  try context.fetch(existingFileDataFetchRequest)
+                guard let fileDownloadDataList = fileDownloadDataArray as? [FileDownloadData]
+                    else {
+                        
+                        completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil))
+                        return
+                }
+                for fileDownloadData in fileDownloadDataList{
+                    context.delete(fileDownloadData)
+                }
+              
+                do {
+                    try context.save()
+                    completion(nil)
+                }catch {
+                    Swift.print("saving falied :\(error.localizedDescription)")
+                    completion(error)
+                }
+                
+            }catch {
+                completion(NSError(domain: CoreDataErrors.domain, code: CoreDataErrors.nothingFound, userInfo: nil))
+                Swift.print("loggin:error saving state")
+            }
+        }
+    }
+    
     
 }

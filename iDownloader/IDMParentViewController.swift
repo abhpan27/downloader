@@ -120,6 +120,10 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
         intiateDownloadPopUp(downloadUrl:downloadUrl)
     }
     
+    func removeCompletedFiles(){
+        self.downloadListController.clearAllCompletedDownloads()
+    }
+    
 }
 
 //MARK: Add download UI
