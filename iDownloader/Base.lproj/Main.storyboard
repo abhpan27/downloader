@@ -292,6 +292,31 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Extensions" id="DQy-Di-dyd">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Extensions" id="4xm-lm-eCP">
+                                    <items>
+                                        <menuItem title="Download Safari extension" id="K7j-0j-6do">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="didSelectedDownloadSafariExtensionWithSender:" target="Ady-hI-5gd" id="Gun-uv-SCC"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Add Firefox extension" id="KLl-RO-SYY">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="didSelectedAddFirefoxExtensionWithSender:" target="Ady-hI-5gd" id="8Qg-Od-jQ6"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Add Chrome extension" id="Tso-it-WA9">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="didSelectedAddChromeExtensionWithSender:" target="Ady-hI-5gd" id="48H-kg-tjr"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -321,11 +346,6 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="iDownloader Help" keyEquivalent="?" id="FKE-Sm-Kum">
-                                            <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Contact developer" id="nZe-Cc-SHZ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>

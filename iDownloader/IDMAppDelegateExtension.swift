@@ -24,4 +24,22 @@ extension AppDelegate {
         }
     }
     
+    @IBAction func didSelectedDownloadSafariExtension(sender:Any?){
+        NSWorkspace.shared().open(URL(string:"http://www.abhishekhq.com/safari/iDownloader.safariextz")!)
+    }
+    
+    @IBAction func didSelectedAddChromeExtension(sender:Any?){
+        let canOpen =  NSWorkspace.shared().open([URL(string:"https://chrome.google.com/webstore/detail/idownloader-launcher/nnckfbjfkpjkkgmejemjnbknnhjadpom/")!], withAppBundleIdentifier: "com.google.Chrome", options: NSWorkspaceLaunchOptions.default, additionalEventParamDescriptor: nil, launchIdentifiers: nil)
+        if !canOpen {
+            IDMUtilities.shared.showError(title: "Oops!!", information: "Looks like Chrome is not installed in your Mac")
+        }
+    }
+    
+    @IBAction func didSelectedAddFirefoxExtension(sender:Any?){
+        let canOpen =  NSWorkspace.shared().open([URL(string:"https://addons.mozilla.org/addon/idownloader-launcher/")!], withAppBundleIdentifier: "org.mozilla.firefox", options: NSWorkspaceLaunchOptions.default, additionalEventParamDescriptor: nil, launchIdentifiers: nil)
+        if !canOpen {
+            IDMUtilities.shared.showError(title: "Oops!!", information: "Looks like firefox is not installed in your Mac")
+        }
+        
+    }
 }
