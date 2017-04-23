@@ -82,6 +82,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         if let launchedURLString =  urlString{
             if let launchedURL = URL(string: launchedURLString) {
+                    self.window?.makeKeyAndOrderFront(self)
                     self.appController.handleURLSchemeLaunch(downloadURL: launchedURL)
             }
         }

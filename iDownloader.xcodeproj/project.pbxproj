@@ -52,6 +52,9 @@
 		8CA1A2391E899B0B008651B5 /* IDMMenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1A2381E899B0B008651B5 /* IDMMenuHelper.swift */; };
 		8CA83AED1E7EF0F000E030EB /* IDMSegmentDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA83AEC1E7EF0F000E030EB /* IDMSegmentDownloader.swift */; };
 		8CBFC7641E8AA04200D1BBB3 /* IDMDragLinkDetectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFC7631E8AA04200D1BBB3 /* IDMDragLinkDetectorView.swift */; };
+		8CC5BAD51EACAA4F00792FC3 /* IDMRatingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5BAD41EACAA4F00792FC3 /* IDMRatingsHelper.swift */; };
+		8CC5BAD91EACAC7B00792FC3 /* IDMRatingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5BAD71EACAC7B00792FC3 /* IDMRatingsController.swift */; };
+		8CC5BADA1EACAC7B00792FC3 /* IDMRatingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CC5BAD81EACAC7B00792FC3 /* IDMRatingsController.xib */; };
 		8CDB78CB1E7D466D00314F52 /* NSColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDB78CA1E7D466D00314F52 /* NSColorExtension.swift */; };
 		8CDB78CE1E7D4F8500314F52 /* IDMAddDownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDB78CD1E7D4F8500314F52 /* IDMAddDownloadButton.swift */; };
 		8CDB78D01E7D51D200314F52 /* IDMMouseTrackingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDB78CF1E7D51D200314F52 /* IDMMouseTrackingButton.swift */; };
@@ -142,6 +145,9 @@
 		8CA1A2381E899B0B008651B5 /* IDMMenuHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMMenuHelper.swift; sourceTree = "<group>"; };
 		8CA83AEC1E7EF0F000E030EB /* IDMSegmentDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSegmentDownloader.swift; sourceTree = "<group>"; };
 		8CBFC7631E8AA04200D1BBB3 /* IDMDragLinkDetectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMDragLinkDetectorView.swift; sourceTree = "<group>"; };
+		8CC5BAD41EACAA4F00792FC3 /* IDMRatingsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMRatingsHelper.swift; sourceTree = "<group>"; };
+		8CC5BAD71EACAC7B00792FC3 /* IDMRatingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMRatingsController.swift; sourceTree = "<group>"; };
+		8CC5BAD81EACAC7B00792FC3 /* IDMRatingsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMRatingsController.xib; sourceTree = "<group>"; };
 		8CC96DBE1E82C3B6001392A8 /* iDownloaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iDownloaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CC96DBF1E82C3B6001392A8 /* iDownloaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iDownloaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CDB78CA1E7D466D00314F52 /* NSColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColorExtension.swift; sourceTree = "<group>"; };
@@ -223,6 +229,7 @@
 				8C528B8D1E804AE300076550 /* IDMUtilities.swift */,
 				8C7F44CE1E844496008E7060 /* IDMFileHandler.swift */,
 				8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */,
+				8CC5BAD41EACAA4F00792FC3 /* IDMRatingsHelper.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -351,6 +358,7 @@
 		8CA0C70C1E7D4208002EA6D6 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8CC5BAD61EACAC4A00792FC3 /* Ratings Controller */,
 				8C89AF331E7E581900215038 /* ParentController */,
 				8C89AF341E7E582D00215038 /* HeaderController */,
 				8C89AF351E7E583700215038 /* SideBarController */,
@@ -380,6 +388,15 @@
 				8CA1A2321E895B25008651B5 /* IDMSettingsManager.swift */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		8CC5BAD61EACAC4A00792FC3 /* Ratings Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8CC5BAD71EACAC7B00792FC3 /* IDMRatingsController.swift */,
+				8CC5BAD81EACAC7B00792FC3 /* IDMRatingsController.xib */,
+			);
+			name = "Ratings Controller";
 			sourceTree = "<group>";
 		};
 		8CDB78CC1E7D4F6F00314F52 /* Custom UI Elements */ = {
@@ -580,6 +597,7 @@
 				8CA1A2311E895441008651B5 /* IDMSettingsController.xib in Resources */,
 				8CA0C7001E7D3C72002EA6D6 /* IDMHeaderViewController.xib in Resources */,
 				8CA0C6FC1E7D3B20002EA6D6 /* IDMParentViewController.xib in Resources */,
+				8CC5BADA1EACAC7B00792FC3 /* IDMRatingsController.xib in Resources */,
 				8C3879C91E87FB61002F5D69 /* IDMWindowController.xib in Resources */,
 				8CE9F78F1E7E76AF005034A3 /* IDMFileDownloadController.xib in Resources */,
 			);
@@ -639,6 +657,7 @@
 				8C528B901E804CE100076550 /* IDMFlippedViewOfScollView.swift in Sources */,
 				8C10CE561E881B3E00A1E5F7 /* IDMScrollViewExtension.swift in Sources */,
 				8CDB78CE1E7D4F8500314F52 /* IDMAddDownloadButton.swift in Sources */,
+				8CC5BAD51EACAA4F00792FC3 /* IDMRatingsHelper.swift in Sources */,
 				8C7F44CB1E842157008E7060 /* CircularProgressView.swift in Sources */,
 				8CE9F7921E7E81D2005034A3 /* IDMCoreDataHelper.swift in Sources */,
 				8C10CE4F1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.swift in Sources */,
@@ -648,6 +667,7 @@
 				8CDB78D21E7D544000314F52 /* IDMCustomGreenButton.swift in Sources */,
 				8CDB78DD1E7D9B6E00314F52 /* IDMFileTypeHelper.swift in Sources */,
 				8C49D19C1E87FC9600DD3362 /* NSWindowExtension.swift in Sources */,
+				8CC5BAD91EACAC7B00792FC3 /* IDMRatingsController.swift in Sources */,
 				8CA1A2351E898551008651B5 /* IDMSlideBarRowView.swift in Sources */,
 				8CE9F78E1E7E76AF005034A3 /* IDMFileDownloadController.swift in Sources */,
 				8C10CE541E8811D000A1E5F7 /* IDMHighlightingButton.swift in Sources */,

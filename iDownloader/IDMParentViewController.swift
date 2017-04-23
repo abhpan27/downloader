@@ -246,6 +246,13 @@ extension IDMParentViewController: MouseDownDelgate {
 
 //MARK:side bar filter handling
 extension IDMParentViewController:SideBarDelegate {
+    internal func didSelectedClearAllInSideBar() {
+        let answer = IDMUtilities.shared.dialogOKCancel(question: "Remove all completed item from App?", text: "If you clear, downloaded files will not be shown in app. It will not delete Downloaded file from your PC")
+        if answer {
+            self.removeCompletedFiles()
+        }
+    }
+
     
     func didSelectedPauseAllInSideBar(){
         self.downloadListController.pauseAllDownloads {
@@ -261,13 +268,6 @@ extension IDMParentViewController:SideBarDelegate {
     
     func didSelectedSettingsInSideBar(){
         (NSApp.delegate as! AppDelegate).appController.showSettings()
-    }
-    
-    func didSelectedRateUsInSideBar(){
-        let appStoreLink = "macappstore://itunes.apple.com/app/id1220730126?mt=12"
-        if let url = URL(string: appStoreLink){
-             NSWorkspace.shared().open(url)
-        }
     }
     
     func didSelectedFilterInSideBar(){

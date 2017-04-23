@@ -14,12 +14,20 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
     @IBOutlet weak var stackView: NSStackView!
     let IDMIntialDownloadProbeHelper = IDMDownloadHeaderFetchHelper()
     var fileDownloaders = [IDMFileDownloadController]()
+    var ratingsController:IDMRatingsController?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         getAllFileDownloadInfoFromDBAndIntializeUI()
+    }
+    
+    private func checkAndShowRatingsPopUp() {
+        if IDMRatingsHelper().shouldShowRatingsPopUp() {
+            ratingsController = IDMRatingsController()
+            self.presentViewControllerAsSheet(ratingsController!)
+        }
     }
     
     final func filterExistingController(filter:DownloadFilter){
@@ -183,6 +191,7 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
             }
             runInMainThread {
                 blockSelf.stopLoader()
+                blockSelf.checkAndShowRatingsPopUp()
             }
         }
     }

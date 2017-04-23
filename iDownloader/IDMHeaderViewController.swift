@@ -10,7 +10,6 @@ import Cocoa
 
 protocol HeaderActionDelegate:class{
     func didSelectedStartDownloadFromHeader(downloadUrl:String)
-    func removeCompletedFiles()
 }
 
 class IDMHeaderViewController: NSViewController{
@@ -68,14 +67,6 @@ class IDMHeaderViewController: NSViewController{
         alert.messageText = title
         alert.informativeText = message
         alert.runModal()
-    }
-    
-    
-    @IBAction func didSelectedClearDownloads(_ sender: Any) {
-        let answer = IDMUtilities.shared.dialogOKCancel(question: "Remove all completed item from App?", text: "If you clear, downloaded files will not be shown in app. It will not delete Downloaded file from your PC")
-        if answer {
-            self.headerActionDelgate?.removeCompletedFiles()
-        }
     }
     
 }

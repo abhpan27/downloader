@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IDMRatingsController" customModule="iDownloader" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="404" height="217"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T0n-eJ-pB1">
+                    <rect key="frame" x="177" y="142" width="50" height="50"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="heart" id="7Qy-Oc-EDe"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GP-BX-b7T">
+                    <rect key="frame" x="125" y="105" width="154" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Do we deserve a 5 Star?" id="zhZ-Xq-x3a">
+                        <font key="font" metaFont="systemMedium" size="13"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Spi-vt-H5H">
+                    <rect key="frame" x="67" y="68" width="270" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="266" id="3Qk-yR-Iur"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Your Rating and reviews help us grow, Please take a moment to rate iDownloader." id="GGP-56-EXu">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QJl-Kd-350">
+                    <rect key="frame" x="292" y="13" width="98" height="32"/>
+                    <buttonCell key="cell" type="push" title="Rate Now" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8rv-A2-Xb0">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="didSelectedRateNow:" target="-2" id="8qM-w1-MFx"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nLf-e0-xfK">
+                    <rect key="frame" x="168" y="13" width="115" height="32"/>
+                    <buttonCell key="cell" type="push" title="May be later" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZQX-5d-NkZ">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="didSelectedLater:" target="-2" id="AAa-Th-sxX"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l28-q8-xnA">
+                    <rect key="frame" x="14" y="13" width="136" height="32"/>
+                    <buttonCell key="cell" type="push" title="Don't Ask Again" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Itg-Rf-opa">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="didSelectedToNotAsk:" target="-2" id="xXc-tn-F9x"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="nLf-e0-xfK" secondAttribute="bottom" constant="20" id="8dV-sV-WAn"/>
+                <constraint firstItem="0GP-BX-b7T" firstAttribute="top" secondItem="T0n-eJ-pB1" secondAttribute="bottom" constant="20" id="RN5-CL-lxs"/>
+                <constraint firstItem="l28-q8-xnA" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="TIq-RI-iTm"/>
+                <constraint firstItem="Spi-vt-H5H" firstAttribute="top" secondItem="0GP-BX-b7T" secondAttribute="bottom" constant="9" id="UMv-MS-cKh"/>
+                <constraint firstItem="0GP-BX-b7T" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="XeC-vZ-MD9"/>
+                <constraint firstAttribute="bottom" secondItem="QJl-Kd-350" secondAttribute="bottom" constant="20" id="Y7S-Hb-y5r"/>
+                <constraint firstItem="T0n-eJ-pB1" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="25" id="azV-ZT-DoR"/>
+                <constraint firstItem="Spi-vt-H5H" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="c60-ZH-gXl"/>
+                <constraint firstItem="QJl-Kd-350" firstAttribute="leading" secondItem="nLf-e0-xfK" secondAttribute="trailing" constant="21" id="dsJ-fq-XXh"/>
+                <constraint firstAttribute="trailing" secondItem="QJl-Kd-350" secondAttribute="trailing" constant="20" id="gZw-nF-JqH"/>
+                <constraint firstAttribute="bottom" secondItem="l28-q8-xnA" secondAttribute="bottom" constant="20" id="iER-KV-i5b"/>
+                <constraint firstItem="T0n-eJ-pB1" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="qal-CJ-bpy"/>
+            </constraints>
+            <point key="canvasLocation" x="129" y="141.5"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="heart" width="50" height="50"/>
+    </resources>
+</document>

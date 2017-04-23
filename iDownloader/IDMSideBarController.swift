@@ -17,14 +17,14 @@ protocol SideBarDelegate:class {
     func didSelectedPauseAllInSideBar()
     func didSelectedResumeAllInSideBar()
     func didSelectedSettingsInSideBar()
-    func didSelectedRateUsInSideBar()
     func didSelectedFilterInSideBar()
+    func didSelectedClearAllInSideBar()
 }
 
 class IDMSideBarController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
     @IBOutlet weak var sideBarTableView: NSTableView!
-    fileprivate let actionData = [RowData(image:NSImage(named: "menu")!, actionTitle:"Filter"),RowData(image:NSImage(named: "media-pause")!, actionTitle:"Pause"),RowData(image:NSImage(named: "ResumeWhite")!, actionTitle:"Resume"),RowData(image:NSImage(named: "SettingsSideBar")!, actionTitle:"Settings"),RowData(image:NSImage(named: "Rate")!, actionTitle:"Rate Us")]
+    fileprivate let actionData = [RowData(image:NSImage(named: "menu")!, actionTitle:"Filter"),RowData(image:NSImage(named: "media-pause")!, actionTitle:"Pause"),RowData(image:NSImage(named: "ResumeWhite")!, actionTitle:"Resume"),RowData(image:NSImage(named: "SettingsSideBar")!, actionTitle:"Settings"), RowData(image:NSImage(named: "clearAll")!, actionTitle:"Clear All")]
     
     weak var delegate:SideBarDelegate?
     
@@ -32,7 +32,7 @@ class IDMSideBarController: NSViewController, NSTableViewDelegate, NSTableViewDa
     let pauseTableIndex = 1
     let resumeIndex = 2
     let settingsIndex = 3
-    let rateUsIndex = 4
+    let clearAllIndex = 4
     
     init(delegate:SideBarDelegate){
         self.delegate = delegate
@@ -77,8 +77,8 @@ class IDMSideBarController: NSViewController, NSTableViewDelegate, NSTableViewDa
             delegate?.didSelectedResumeAllInSideBar()
         case settingsIndex:
             delegate?.didSelectedSettingsInSideBar()
-        case rateUsIndex:
-            delegate?.didSelectedRateUsInSideBar()
+        case clearAllIndex:
+            delegate?.didSelectedClearAllInSideBar()
         default: break
         }
         sideBarTableView.deselectRow(selectedRow)

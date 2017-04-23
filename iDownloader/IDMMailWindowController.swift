@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class IDMMailWindowController: NSWindowController {
+class IDMMailWindowController: NSWindowController, NSWindowDelegate {
 
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -16,7 +16,14 @@ class IDMMailWindowController: NSWindowController {
         self.window?.titlebarAppearsTransparent = true
         self.window?.titleVisibility = .hidden
         self.window?.isMovableByWindowBackground = true
+        self.window?.delegate = self
         (NSApp.delegate as! AppDelegate).appController.layOutUI()
+    }
+    
+    func window(_ window: NSWindow, willPositionSheet sheet: NSWindow, using rect: NSRect) -> NSRect
+    {
+        let finalRect = NSMakeRect(rect.minX, rect.minY-75, rect.width, rect.height)
+        return finalRect
     }
 
 }

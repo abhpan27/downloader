@@ -19,6 +19,16 @@ final class IDMSettingsManager {
         
     }
     
+    var hasAlreadyRated:Bool {
+        let hasAlreadyRatedApp = UserDefaults.standard.value(forKey: SettingsKeys.hasAlreadyRatedApp) as? Bool ?? false
+        return hasAlreadyRatedApp
+    }
+    
+    var hasSeletectedNotAskRatings:Bool {
+        let hasSeletectedNotAskRatings = UserDefaults.standard.value(forKey: SettingsKeys.hasSeletectedNotAskRatings) as? Bool ?? false
+        return hasSeletectedNotAskRatings
+    }
+    
     var isFreshInstall:Bool {
         if let _ = UserDefaults.standard.value(forKey: SettingsKeys.isFreshInstall){
             return false
@@ -78,6 +88,16 @@ final class IDMSettingsManager {
     
     final func setIsFreshInstall(){
         UserDefaults.standard.set(1, forKey:   SettingsKeys.isFreshInstall)
+        UserDefaults.standard.synchronize()
+    }
+    
+    final func setNotAsk() {
+        UserDefaults.standard.set(1, forKey:   SettingsKeys.hasSeletectedNotAskRatings)
+        UserDefaults.standard.synchronize()
+    }
+    
+    final func setAlreadyRated() {
+        UserDefaults.standard.set(1, forKey:   SettingsKeys.hasAlreadyRatedApp)
         UserDefaults.standard.synchronize()
     }
     
