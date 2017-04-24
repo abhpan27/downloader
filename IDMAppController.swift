@@ -47,10 +47,10 @@ final class IDMAppController:IDMPopUpDelgate {
         self.settingsPopUp = nil
         let popUpController = IDMWindowController(windowNibName: "IDMWindowController")
         popUpController.shouldCloseOnResignKey = false
-        let settingsController = IDMSettingsController()
+        let settingsController = IDMSettingsContainer()
         popUpController.contentViewController = settingsController
         self.settingsPopUp = popUpController
-        let withSize:NSSize = NSSize(width: 400, height: 300)
+        let withSize:NSSize = NSSize(width: 550, height: 400)
         let rect = self.settingsPopUp!.window!.getRectOfWindowInMiddle((NSApp.delegate as! AppDelegate).window, withSize:withSize)
         self.settingsPopUp!.window!.setFrame(rect, display: true)
         self.settingsPopUp!.window!.makeKeyAndOrderFront(self)        

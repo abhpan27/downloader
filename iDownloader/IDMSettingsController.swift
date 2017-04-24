@@ -29,16 +29,29 @@ class IDMSettingsController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = NSColor(IDMr: 235, g: 235, b: 235).cgColor
         readDataFromUserDefaultsAndSetUpUI()
     }
-    
+    override func viewDidAppear() {
+        runInMainThread {
+            self.changeWindowSize()
+        }
+    }
     private func readDataFromUserDefaultsAndSetUpUI() {
         setShouldShowNotifcation()
         setNotificationSound()
         setDefaultDownloadLocation()
         setUpNoOfSegments()
+    }
+    
+    fileprivate func changeWindowSize(){
+        if self.view.window == nil{
+            return
+        }
+        let currentWindowRect = self.view.window!.frame
+        let newWindowHeight:CGFloat = 350
+        let newMinY = currentWindowRect.minY + (currentWindowRect.height - newWindowHeight)
+        let newRect = NSMakeRect(currentWindowRect.minX, newMinY, currentWindowRect.width, newWindowHeight)
+        self.view.window?.setFrame(newRect, display: false, animate: true)
     }
     
     private func setShouldShowNotifcation() {

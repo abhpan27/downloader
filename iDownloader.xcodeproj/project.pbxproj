@@ -13,6 +13,8 @@
 		8C10CE541E8811D000A1E5F7 /* IDMHighlightingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE531E8811D000A1E5F7 /* IDMHighlightingButton.swift */; };
 		8C10CE561E881B3E00A1E5F7 /* IDMScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE551E881B3E00A1E5F7 /* IDMScrollViewExtension.swift */; };
 		8C10CE591E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE581E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift */; };
+		8C1732001EAE58C200322C87 /* IDMSettingsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1731FE1EAE58C200322C87 /* IDMSettingsContainer.swift */; };
+		8C1732011EAE58C200322C87 /* IDMSettingsContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C1731FF1EAE58C200322C87 /* IDMSettingsContainer.xib */; };
 		8C1DC4F91E8FAF7800CB819A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1DC4F71E8FAF7800CB819A /* Fabric.framework */; };
 		8C1DC4FA1E8FAF7800CB819A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1DC4F81E8FAF7800CB819A /* Crashlytics.framework */; };
 		8C1DC4FC1E8FB2E000CB819A /* IDMAnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */; };
@@ -103,6 +105,8 @@
 		8C10CE531E8811D000A1E5F7 /* IDMHighlightingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMHighlightingButton.swift; sourceTree = "<group>"; };
 		8C10CE551E881B3E00A1E5F7 /* IDMScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMScrollViewExtension.swift; sourceTree = "<group>"; };
 		8C10CE581E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMLocalNotificationHelper.swift; sourceTree = "<group>"; };
+		8C1731FE1EAE58C200322C87 /* IDMSettingsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSettingsContainer.swift; sourceTree = "<group>"; };
+		8C1731FF1EAE58C200322C87 /* IDMSettingsContainer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMSettingsContainer.xib; sourceTree = "<group>"; };
 		8C1DC4F71E8FAF7800CB819A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		8C1DC4F81E8FAF7800CB819A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMAnalyticsHelper.swift; sourceTree = "<group>"; };
@@ -210,6 +214,25 @@
 				8C10CE581E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift */,
 			);
 			name = Notification;
+			sourceTree = "<group>";
+		};
+		8C1731FD1EAE588500322C87 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8C1732021EAE75B900322C87 /* General settings */,
+				8C1731FE1EAE58C200322C87 /* IDMSettingsContainer.swift */,
+				8C1731FF1EAE58C200322C87 /* IDMSettingsContainer.xib */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		8C1732021EAE75B900322C87 /* General settings */ = {
+			isa = PBXGroup;
+			children = (
+				8CA1A22F1E895441008651B5 /* IDMSettingsController.xib */,
+				8CA1A22E1E895441008651B5 /* IDMSettingsController.swift */,
+			);
+			name = "General settings";
 			sourceTree = "<group>";
 		};
 		8C3879C51E87FB3D002F5D69 /* Download Complete popup */ = {
@@ -383,8 +406,7 @@
 		8CA1A22D1E895428008651B5 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				8CA1A22E1E895441008651B5 /* IDMSettingsController.swift */,
-				8CA1A22F1E895441008651B5 /* IDMSettingsController.xib */,
+				8C1731FD1EAE588500322C87 /* Controllers */,
 				8CA1A2321E895B25008651B5 /* IDMSettingsManager.swift */,
 			);
 			name = Settings;
@@ -592,6 +614,7 @@
 				8C6754531E7CFC390044FFA5 /* Assets.xcassets in Resources */,
 				8C10CE501E87FED500A1E5F7 /* IDMDownloadCompleteViewController.xib in Resources */,
 				8CA0C7041E7D3CAA002EA6D6 /* IDMSideBarController.xib in Resources */,
+				8C1732011EAE58C200322C87 /* IDMSettingsContainer.xib in Resources */,
 				8CA0C7081E7D3CFA002EA6D6 /* IDMDownloadListController.xib in Resources */,
 				8C6754561E7CFC390044FFA5 /* Main.storyboard in Resources */,
 				8CA1A2311E895441008651B5 /* IDMSettingsController.xib in Resources */,
@@ -693,6 +716,7 @@
 				8CE9F7891E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift in Sources */,
 				8C1DC4FC1E8FB2E000CB819A /* IDMAnalyticsHelper.swift in Sources */,
 				8C7F44CA1E842157008E7060 /* BaseView.swift in Sources */,
+				8C1732001EAE58C200322C87 /* IDMSettingsContainer.swift in Sources */,
 				8C528B8E1E804AE300076550 /* IDMUtilities.swift in Sources */,
 				8C3723B41E9BC0D200F16E20 /* Reachability.m in Sources */,
 				8CDB78E71E7E3EC900314F52 /* IDMAddDownloadPopUP.swift in Sources */,
