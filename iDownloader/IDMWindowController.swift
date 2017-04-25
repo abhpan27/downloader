@@ -23,8 +23,6 @@ class IDMWindowController: NSWindowController, NSWindowDelegate {
         self.window?.isMovableByWindowBackground = true
         self.window?.backgroundColor = NSColor.white
         self.window?.delegate = self
-        let minimize = self.window?.standardWindowButton(NSWindowButton.miniaturizeButton)
-        minimize?.isHidden = true
         let maximize = self.window?.standardWindowButton(NSWindowButton.zoomButton)
         maximize?.isHidden = true
     }

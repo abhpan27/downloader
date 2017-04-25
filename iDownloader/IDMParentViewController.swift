@@ -42,17 +42,10 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
     @IBOutlet weak var sideBarContainer: NSView!
     @IBOutlet weak var topBarContainer: NSView!
     @IBOutlet weak var listOfDownloadContainer: NSView!
-    @IBOutlet weak var fileTypeLabel: NSTextField!
-    @IBOutlet weak var downloadFolderTextField: NSTextField!
-    @IBOutlet weak var fileNameTextField: NSTextField!
-    @IBOutlet weak var threadsTextField: NSTextField!
-    @IBOutlet weak var addDownloadPopUpView: IDMAddDownloadPopUP!
-    @IBOutlet var addDownloadContainer: IDMMouseEventBlockingView!
-    
     @IBOutlet var dropLinkOverlay: NSView!
     
     
-    
+    var startDownloadWindowController:NSWindowController?
     var isNavBarOpen = false
     var lastSelectedIndex = -1
     
@@ -106,13 +99,8 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
             return
         }
         
-        let fileNameAndExtesion = urlFromString.lastPathComponent.components(separatedBy: ".")
-        
-        let fileName = fileNameAndExtesion[0]
-        let fileExtension =  urlFromString.pathExtension
-        let fileType = IDMFileTypeHelper().getFileType(fileExtension: fileExtension)
        //show popup
-        setUpUIandAddDownloadPopUp(forFileType: fileType, fileName: fileName, downloadURL:downloadUrl)
+        setUpUIandAddDownloadPopUp(downloadURL:downloadUrl)
     }
 
     //MARK:HeaderActionDelegate
@@ -127,39 +115,25 @@ class IDMParentViewController: NSViewController, HeaderActionDelegate {
 }
 
 //MARK: Add download UI
-extension IDMParentViewController: MouseDownDelgate {
-    final func setUpUIandAddDownloadPopUp(forFileType:fileTypes, fileName:String, downloadURL:String) {
-        self.addDownloadContainer.removeFromSuperview()
-        self.view.addFittingSubView(subView: addDownloadContainer)
-        addDownloadContainer.delegate = self
-        let defaultDownloadLocation = IDMSettingsManager.shared.defaultDownloadPath
-        let defaultNoOfThreads = "\(IDMSettingsManager.shared.defaultNumberOfSegments)"
-        let defaultBookMark = IDMSettingsManager.shared.defaultBookMarkData
-        addDownloadPopUpView.updateDateUI(fileType: forFileType, fileName: fileName, downloadLocation: defaultDownloadLocation, noOfThreads: defaultNoOfThreads, downloadURL:downloadURL, downloadBookMarkDaat: defaultBookMark)
+extension IDMParentViewController: StartDownloadPopUpDelegate {
+    final func setUpUIandAddDownloadPopUp(downloadURL:String) {
+        startDownloadWindowController?.close()
+        startDownloadWindowController = nil
+        startDownloadWindowController = IDMStartDownloadWindowController(windowNibName: "IDMStartDownloadWindowController")
+        startDownloadWindowController?.contentViewController = IDMStartDownloadViewController(downloadURL:downloadURL, delegate:self)
+        let withSize:NSSize = NSSize(width: 475, height: 275)
+        let rect = self.startDownloadWindowController!.window!.getRectOfWindowInMiddle((NSApp.delegate as! AppDelegate).window, withSize:withSize)
+        self.startDownloadWindowController!.window!.setFrame(rect, display: true)
+        self.startDownloadWindowController!.window!.makeKeyAndOrderFront(self)
+        
     }
     
-    func didMouseDown() {
-        addDownloadContainer.delegate = nil
-        addDownloadContainer.removeFromSuperview()
+    func startDownloadWithDownloadData(data: StartDownloadData) {
+        self.downloadListController.startNewDownload(fileName: data.fileName, downloadURL: data.downloadURL, downloadLocation: data.downloadLocation, downloadLocationBookMark: data.downloadBookMarkData, noOfThreads: data.numberOfSegements, fileType: data.fileType)
+        self.startDownloadWindowController?.close()
+        self.startDownloadWindowController = nil
     }
     
-    @IBAction func didSelectedChooseDownloadLocation(_ sender: Any) {
-        let openPanel = NSOpenPanel()
-        openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = true
-        openPanel.canCreateDirectories = true
-        openPanel.canChooseFiles = false
-        openPanel.begin { (result) -> Void in
-            if result == NSFileHandlingPanelOKButton {
-                guard let selectedURL = openPanel.url
-                    else{
-                        return
-                }
-                self.addDownloadPopUpView.changeDowloadLocation(newFileURL: selectedURL)
-                
-            }
-        }
-    }
     
     private func showErorr(title:String, message:String) {
         let alert =  NSAlert()
@@ -168,29 +142,6 @@ extension IDMParentViewController: MouseDownDelgate {
         alert.runModal()
     }
     
-    final func validateAndStartDownload(){
-        guard !self.addDownloadPopUpView.fileNameTextField.stringValue.isEmpty
-            else {
-                showErorr(title: "Invalid File name", message: "Please enter a valid file name")
-                return
-        }
-        
-        guard !self.addDownloadPopUpView.downloadLocationTextField.stringValue.isEmpty
-            else {
-                showErorr(title: "Invalid download location", message: "Please select a valid download location")
-                return
-        }
-        
-        guard let threadCount = Int(self.addDownloadPopUpView.noOfThreadsTextField.stringValue), threadCount > 0 , threadCount <= 15
-            else {
-                showErorr(title: "Invalid no of threads", message: "Please enter a valid no of threads. Valid no of threads should be a number in range of 1-15")
-                return
-        }
-        
-        self.downloadListController.startNewDownload(fileName: self.addDownloadPopUpView.fileNameTextField.stringValue, downloadURL: self.addDownloadPopUpView.downloadURL!, downloadLocation: self.addDownloadPopUpView.downloadLocationTextField.stringValue, downloadLocationBookMark: self.addDownloadPopUpView.outOfSandBoxDirectoryURLData, noOfThreads: threadCount, fileType:self.addDownloadPopUpView.fileType!)
-        self.addDownloadContainer.removeFromSuperview()
-        
-    }
     
     fileprivate func checkAndCloseOrOpenNavBar() {
         if self.isNavBarOpen {
@@ -235,11 +186,6 @@ extension IDMParentViewController: MouseDownDelgate {
              self.navBarContainer.delegate = nil
             
         })
-    }
-    
-    
-    @IBAction func didSelectedStartDownload(_ sender: Any) {
-        validateAndStartDownload()
     }
     
 }

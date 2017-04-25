@@ -50,7 +50,7 @@ class IDMCustomGreenButton: NSButton {
     {
         self.wantsLayer = true
         self.layer?.borderWidth = 1.0
-        self.layer?.cornerRadius = frame.height/2
+        self.layer?.cornerRadius = 5
         self.layer?.borderColor = defColor.cgColor
         self.layer?.backgroundColor = NSColor.white.cgColor
         changeTextColor(NSColor(IDMr: 86, g: 173, b: 104))
@@ -97,7 +97,7 @@ class IDMCustomGreenButton: NSButton {
     var intrinsicContentSizeOffset: NSSize = NSZeroSize
     
     override var intrinsicContentSize: NSSize {
-        return NSMakeSize(super.intrinsicContentSize.width + 29.0 + intrinsicContentSizeOffset.width, super.intrinsicContentSize.height + 3.0 + intrinsicContentSizeOffset.height)
+        return NSMakeSize(super.intrinsicContentSize.width + 10.0 + intrinsicContentSizeOffset.width, super.intrinsicContentSize.height + 3.0 + intrinsicContentSizeOffset.height)
     }
     
 }
