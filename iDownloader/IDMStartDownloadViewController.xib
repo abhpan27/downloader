@@ -159,8 +159,8 @@ DQ
                     </connections>
                 </button>
                 <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v9M-o1-PYh">
-                    <rect key="frame" x="190" y="13" width="135" height="32"/>
-                    <buttonCell key="cell" type="push" title="Download Later" bezelStyle="rounded" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="NZK-Me-1Az">
+                    <rect key="frame" x="166" y="13" width="159" height="32"/>
+                    <buttonCell key="cell" type="push" title="Schedule download" bezelStyle="rounded" alignment="center" borderStyle="border" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="NZK-Me-1Az">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>

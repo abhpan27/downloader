@@ -172,6 +172,9 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
         let offsetToWrite = self.downloadData.startByte + self.downloadData.totalDownloaded
+        if delegate == nil {
+            return
+        }
         if delegate!.writeDataToOffset(data: data, offset: offsetToWrite){
             let bytesWritten = (data as NSData).length
             Swift.print("UUID :\(self.downloadData.uniqueID) writing data of lenght :\(bytesWritten) at offset :\(offsetToWrite)")
