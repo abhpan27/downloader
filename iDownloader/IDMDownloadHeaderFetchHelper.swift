@@ -17,18 +17,28 @@ struct DownloadProbeError {
     static let contentLengthNotFound = NSError(domain: errorDomain, code: contentLengthNotFoundCode, userInfo: nil)
 }
 
-final class IDMDownloadHeaderFetchHelper{
-   
-    final func fetchHeaderDataForDownloadURL(downloadLink:String, completion:@escaping ((_ error:NSError?, _ canBreakIntoSegments:Bool, _ contentLenght:Int) -> Void)) {
+class IDMDownloadHeaderFetchHelper:NSObject, URLSessionTaskDelegate{
+
+    final func fetchHeaderDataForDownloadURL(downloadLink:String, userName:String?, password:String?, completion:@escaping ((_ error:NSError?, _ canBreakIntoSegments:Bool, _ contentLenght:Int) -> Void)) {
         //check if connected to internet
         if !IDMReachability.isConnectedToInternet(){
              completion(DownloadProbeError.noInternet, false, 0)
              return
         }
-        
+
         let downloadURL = URL(string: downloadLink)!
         var urlRequestForDownload = URLRequest(url: downloadURL)
         urlRequestForDownload.httpMethod = "HEAD"
+        
+        if userName != nil && password != nil {
+            let userPasswordString = "\(userName!):\(password!)"
+            let userPasswordData = userPasswordString.data(using: String.Encoding.utf8)
+            let base64EncodedCredential = userPasswordData!.base64EncodedString()
+            let authString = "Basic \(base64EncodedCredential)"
+            urlRequestForDownload.addValue(authString, forHTTPHeaderField: "Authorization")
+        }
+        
+               
         URLSession.shared.dataTask(with: urlRequestForDownload) { [weak self]
             (data, urlResponse, error) in
             guard let blockSelf = self
@@ -72,4 +82,5 @@ final class IDMDownloadHeaderFetchHelper{
         let isByteRangeSupported = (probeHeader["Accept-Ranges"] != nil)
         return isByteRangeSupported
     }
+//
 }

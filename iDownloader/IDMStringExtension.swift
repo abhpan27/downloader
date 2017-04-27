@@ -28,4 +28,15 @@ extension String {
     var percentEncoded:String {
         return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!
     }
+    
+    var encrypted:String?{
+        let password = Constants.encyptionKey
+        let encrypted = AES256CBC.encryptString(self, password: password)
+        return encrypted
+    }
+    
+    var decrypted:String? {
+        let decrypted = AES256CBC.decryptString(self, password: Constants.encyptionKey)
+        return decrypted
+    }
 }

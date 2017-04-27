@@ -10,9 +10,11 @@
         <attribute name="fileName" attributeType="String" syncable="YES"/>
         <attribute name="fileType" attributeType="String" syncable="YES"/>
         <attribute name="isResumable" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="runningStatus" attributeType="String" syncable="YES"/>
         <attribute name="totalDownloaded" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="totalSize" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="segments" toMany="YES" deletionRule="Cascade" destinationEntity="SegmentDownloadData" inverseName="fileDownload" inverseEntity="SegmentDownloadData" syncable="YES"/>
     </entity>
     <entity name="SegmentDownloadData" representedClassName=".SegmentDownloadData" syncable="YES" codeGenerationType="class">
@@ -23,7 +25,7 @@
         <relationship name="fileDownload" maxCount="1" deletionRule="Cascade" destinationEntity="FileDownloadData" inverseName="segments" inverseEntity="FileDownloadData" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FileDownloadData" positionX="-63" positionY="-18" width="128" height="240"/>
+        <element name="FileDownloadData" positionX="-63" positionY="-18" width="128" height="270"/>
         <element name="SegmentDownloadData" positionX="-54" positionY="81" width="128" height="120"/>
     </elements>
 </model>

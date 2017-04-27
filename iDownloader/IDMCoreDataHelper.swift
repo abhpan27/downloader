@@ -43,6 +43,9 @@ final class IDMCoreDataHelper {
             fileDownloadData.runningStatus = fileDownloadInfo.runningStatus.rawValue
             fileDownloadData.downloadStartTime = fileDownloadInfo.startTimeStamp
             fileDownloadData.downloadEndTime = fileDownloadInfo.endTimeStamp
+            //encrypt it
+            fileDownloadData.username = fileDownloadInfo.userName?.encrypted
+            fileDownloadData.password = fileDownloadInfo.password?.encrypted
             var segmentsSet = Set<SegmentDownloadData>()
             for chunkDownloadInfo in fileDownloadInfo.chuckDownloadData {
                 let segmentData = SegmentDownloadData(context: context)
@@ -173,15 +176,18 @@ final class IDMCoreDataHelper {
               
                     //create segment array
                      var segmentArray = [ChunkDownloadData]()
+                    //encrypt it
+                    let userName = fileDownloadData.username?.decrypted
+                    let password = fileDownloadData.password?.decrypted
                     if let segmensts = fileDownloadData.segments as? Set<SegmentDownloadData>{
                         for segment in segmensts{
                             let isSegmentCompleted = segment.totalDownloaded!.intValue >= (segment.endByte!.intValue - segment.startByte!.intValue)
-                            let chunkData = ChunkDownloadData(uniqueID: segment.segmentID! , startByte: segment.startByte!.intValue, endByte: segment.endByte!.intValue, totalDownloaded: segment.totalDownloaded!.intValue, downloadURL: fileDownloadData.fileDownloadURL!, isCompleted: isSegmentCompleted)
+                            let chunkData = ChunkDownloadData(uniqueID: segment.segmentID! , startByte: segment.startByte!.intValue, endByte: segment.endByte!.intValue, totalDownloaded: segment.totalDownloaded!.intValue, downloadURL: fileDownloadData.fileDownloadURL!, isCompleted: isSegmentCompleted, userName:userName, password:password)
                             segmentArray.append(chunkData)
                         }
                     }
                     
-                   let fileDownloadInfo =  FileDownloadDataInfo(uniqueID: fileDownloadData.fileDownloadID! , name: fileDownloadData.fileName!, downloadURL: fileDownloadData.fileDownloadURL!, isResumeSupported: fileDownloadData.isResumable, type: fileTypes(rawValue: fileDownloadData.fileType!)!, startTimeStamp: fileDownloadData.downloadStartTime, endTimeStamp: fileDownloadData.downloadEndTime, diskDownloadLocation: fileDownloadData.diskDownloadURL!, diskDownloadBookmarkData: fileDownloadData.diskDownloadBookMark as Data?, runningStatus: downloadRunningStatus(rawValue:fileDownloadData.runningStatus!)! , totalSize: fileDownloadData.totalSize!.intValue, chuckDownloadData: segmentArray, totalDownloaded: fileDownloadData.totalDownloaded!.intValue, currentSpeed: 0, isNewDownload: false)
+                    let fileDownloadInfo =  FileDownloadDataInfo(uniqueID: fileDownloadData.fileDownloadID! , name: fileDownloadData.fileName!, downloadURL: fileDownloadData.fileDownloadURL!, isResumeSupported: fileDownloadData.isResumable, type: fileTypes(rawValue: fileDownloadData.fileType!)!, startTimeStamp: fileDownloadData.downloadStartTime, endTimeStamp: fileDownloadData.downloadEndTime, diskDownloadLocation: fileDownloadData.diskDownloadURL!, diskDownloadBookmarkData: fileDownloadData.diskDownloadBookMark as Data?, runningStatus: downloadRunningStatus(rawValue:fileDownloadData.runningStatus!)! , totalSize: fileDownloadData.totalSize!.intValue, chuckDownloadData: segmentArray, totalDownloaded: fileDownloadData.totalDownloaded!.intValue, currentSpeed: 0, isNewDownload: false, userName:userName, password:password)
                     fileDownloadInfoArray.append(fileDownloadInfo)
                 }
                 runInMainThread {

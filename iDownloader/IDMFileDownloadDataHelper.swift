@@ -28,6 +28,8 @@ struct FileDownloadDataInfo{
     var totalDownloaded:Int
     var currentSpeed:Int
     var isNewDownload:Bool
+    let userName:String?
+    let password:String?
 }
 
 protocol FileDownloaderDelegate:class {
@@ -172,7 +174,7 @@ final class IDMFileDownloadDataHelper{
         self.currentUIData = UIData(totalDownloaded:  self.fileDownloadData.totalDownloaded, speedArray: [0], timeRemaining: Int.max,isRetyringOnError: false )
         var newChunkDataArray = [ChunkDownloadData]()
         for chunkData in self.fileDownloadData.chuckDownloadData {
-            let newChunkData = ChunkDownloadData(uniqueID: chunkData.uniqueID, startByte: chunkData.startByte, endByte: chunkData.endByte, totalDownloaded: 0, downloadURL: chunkData.downloadURL, isCompleted: false)
+            let newChunkData = ChunkDownloadData(uniqueID: chunkData.uniqueID, startByte: chunkData.startByte, endByte: chunkData.endByte, totalDownloaded: 0, downloadURL: chunkData.downloadURL, isCompleted: false, userName:chunkData.userName, password:chunkData.password)
             newChunkDataArray.append(newChunkData)
         }
         self.fileDownloadData.chuckDownloadData = newChunkDataArray

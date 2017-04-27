@@ -80,10 +80,10 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
     }
     
     
-    final func startNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int, fileType:fileTypes){
+    final func startNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int, fileType:fileTypes, userName:String?, password:String?){
         IDMAnalyticsHelper.shared.LogNewDownloadStart()
         self.startLoader()
-        IDMIntialDownloadProbeHelper.fetchHeaderDataForDownloadURL(downloadLink: downloadURL){
+        IDMIntialDownloadProbeHelper.fetchHeaderDataForDownloadURL(downloadLink: downloadURL, userName:userName, password:password){
             [weak self]
             (error, canBreakIntoSegments, contentLenght)
             in
@@ -102,7 +102,7 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
                 return
             }
             
-            let fileDownloadinfo = blockSelf.fileDownloadInfoForNewDownload(fileName: fileName, downloadURL: downloadURL, downloadLocation: downloadLocation, downloadLocationBookMark: downloadLocationBookMark, noOfThreads: noOfThreads, canBreakIntoSegments: canBreakIntoSegments, contentLength: contentLenght, fileType: fileType)
+            let fileDownloadinfo = blockSelf.fileDownloadInfoForNewDownload(fileName: fileName, downloadURL: downloadURL, downloadLocation: downloadLocation, downloadLocationBookMark: downloadLocationBookMark, noOfThreads: noOfThreads, canBreakIntoSegments: canBreakIntoSegments, contentLength: contentLenght, fileType: fileType, userName: userName, password:password)
             blockSelf.addFileDownloader(fileDownloadInfo: fileDownloadinfo)
             
         }
@@ -245,7 +245,7 @@ class IDMDownloadListController: NSViewController, FileDownloadControllerDelegat
 //MARK: IDMFileDownloadController
 extension IDMDownloadListController {
     
-    fileprivate func fileDownloadInfoForNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int,  canBreakIntoSegments:Bool, contentLength:Int, fileType:fileTypes) -> FileDownloadDataInfo
+    fileprivate func fileDownloadInfoForNewDownload(fileName:String, downloadURL:String, downloadLocation:String, downloadLocationBookMark:Data?, noOfThreads:Int,  canBreakIntoSegments:Bool, contentLength:Int, fileType:fileTypes, userName:String?, password:String?) -> FileDownloadDataInfo
     {
         let fileDownloadUniqueID = UUID().uuidString
         let currentTimeStamp = Date().timeIntervalSince1970
@@ -262,7 +262,7 @@ extension IDMDownloadListController {
         for index in 0..<noOfChunks{
             
             let chunckDownloadUniqueID = UUID().uuidString
-            let chunkDownloadData = ChunkDownloadData(uniqueID: chunckDownloadUniqueID, startByte: startByteForChunk, endByte: endByteForChunk, totalDownloaded: 0, downloadURL: downloadURL, isCompleted:false)
+            let chunkDownloadData = ChunkDownloadData(uniqueID: chunckDownloadUniqueID, startByte: startByteForChunk, endByte: endByteForChunk, totalDownloaded: 0, downloadURL: downloadURL, isCompleted:false, userName:userName, password:password)
             chunks.append(chunkDownloadData)
             startByteForChunk = endByteForChunk + 1
             if index < noOfChunks-2 {
@@ -272,7 +272,7 @@ extension IDMDownloadListController {
             }
         }
         
-       let fileDownloadinfo = FileDownloadDataInfo(uniqueID: fileDownloadUniqueID, name: fileName, downloadURL: downloadURL, isResumeSupported: canBreakIntoSegments, type: fileType, startTimeStamp: currentTimeStamp, endTimeStamp: endTimeStamp, diskDownloadLocation: downloadLocation, diskDownloadBookmarkData: downloadLocationBookMark, runningStatus: downloadRunningStatus.running, totalSize: contentLength, chuckDownloadData: chunks, totalDownloaded: 0, currentSpeed: 0, isNewDownload: true)
+       let fileDownloadinfo = FileDownloadDataInfo(uniqueID: fileDownloadUniqueID, name: fileName, downloadURL: downloadURL, isResumeSupported: canBreakIntoSegments, type: fileType, startTimeStamp: currentTimeStamp, endTimeStamp: endTimeStamp, diskDownloadLocation: downloadLocation, diskDownloadBookmarkData: downloadLocationBookMark, runningStatus: downloadRunningStatus.running, totalSize: contentLength, chuckDownloadData: chunks, totalDownloaded: 0, currentSpeed: 0, isNewDownload: true,userName:userName, password:password)
         
         return fileDownloadinfo
     }

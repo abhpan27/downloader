@@ -13,6 +13,7 @@ import Crashlytics
 
 struct Constants {
     static let defaultSoundName = "Default"
+    static let encyptionKey = "#$%^$#@wer%$#(*&ghy^%$fgt*&^#$%f"
 }
 
 @NSApplicationMain

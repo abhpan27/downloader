@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0F0A731EB23CA90085350A /* AES256CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0F0A721EB23CA90085350A /* AES256CBC.swift */; };
 		8C10CE4F1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE4D1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.swift */; };
 		8C10CE501E87FED500A1E5F7 /* IDMDownloadCompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C10CE4E1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.xib */; };
 		8C10CE521E8803DD00A1E5F7 /* IDMFiledownloaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE511E8803DD00A1E5F7 /* IDMFiledownloaderView.swift */; };
@@ -103,6 +104,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C0F0A721EB23CA90085350A /* AES256CBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AES256CBC.swift; sourceTree = "<group>"; };
 		8C10CE4D1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMDownloadCompleteViewController.swift; sourceTree = "<group>"; };
 		8C10CE4E1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMDownloadCompleteViewController.xib; sourceTree = "<group>"; };
 		8C10CE511E8803DD00A1E5F7 /* IDMFiledownloaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMFiledownloaderView.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 		8C528B8C1E804ABB00076550 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				8C0F0A721EB23CA90085350A /* AES256CBC.swift */,
 				8C528B8D1E804AE300076550 /* IDMUtilities.swift */,
 				8C7F44CE1E844496008E7060 /* IDMFileHandler.swift */,
 				8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */,
@@ -737,6 +740,7 @@
 				8CA0C6FB1E7D3B20002EA6D6 /* IDMParentViewController.swift in Sources */,
 				8C7F44CD1E842157008E7060 /* ProgressUtils.swift in Sources */,
 				8CEDA8F01EAFBA7500D7AC78 /* IDMStartDownloadViewController.swift in Sources */,
+				8C0F0A731EB23CA90085350A /* AES256CBC.swift in Sources */,
 				8CE9F7891E7E70A4005034A3 /* IDMFileDownloadDataHelper.swift in Sources */,
 				8C1DC4FC1E8FB2E000CB819A /* IDMAnalyticsHelper.swift in Sources */,
 				8C7F44CA1E842157008E7060 /* BaseView.swift in Sources */,

@@ -19,6 +19,8 @@ struct ChunkDownloadData {
     var totalDownloaded:Int
     let downloadURL:String
     var isCompleted:Bool
+    let userName:String?
+    let password:String?
 }
 
 protocol SegmentDownloaderDelegate:class {
@@ -74,6 +76,13 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
     private func getURLRequestForDownloadTask() -> URLRequest {
         var urlRequestForChunkDownload = URLRequest(url: URL(string: downloadData.downloadURL)!)
         urlRequestForChunkDownload.addValue("bytes=\(getStartByteRange())-\(self.downloadData.endByte)", forHTTPHeaderField: "Range")
+        if self.downloadData.userName != nil && self.downloadData.password != nil {
+            let userPasswordString = "\(self.downloadData.userName!):\(self.downloadData.password!)"
+            let userPasswordData = userPasswordString.data(using: String.Encoding.utf8)
+            let base64EncodedCredential = userPasswordData!.base64EncodedString()
+            let authString = "Basic \(base64EncodedCredential)"
+            urlRequestForChunkDownload.addValue(authString, forHTTPHeaderField: "Authorization")
+        }
         Swift.print("UUID :\(self.downloadData.uniqueID) starting download from bytes=\(getStartByteRange())-\(self.downloadData.endByte)")
         return urlRequestForChunkDownload
     }

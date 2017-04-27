@@ -15,6 +15,8 @@ struct StartDownloadData{
     let downloadBookMarkData:Data?
     let numberOfSegements:Int
     let fileType:fileTypes
+    let userName:String?
+    let password:String?
 }
 
 protocol StartDownloadPopUpDelegate:class {
@@ -161,7 +163,9 @@ class IDMStartDownloadViewController: NSViewController {
                 return
         }
         let numberOFSegments = Int(numberOfSegmentsPopUp.titleOfSelectedItem!)!
-        let startDownloadData = StartDownloadData(fileName: self.fileNameTextField.stringValue,downloadURL:self.downloadURL, downloadLocation: self.downloadFolderTextField.stringValue, downloadBookMarkData: self.outOfSandBoxDirectoryURLData, numberOfSegements: numberOFSegments, fileType: fileType!)
+        let userName:String? = usernameTextField.stringValue.isEmpty ? nil : usernameTextField.stringValue
+        let passWord:String? = passwordTextField.stringValue.isEmpty ? nil : passwordTextField.stringValue
+        let startDownloadData = StartDownloadData(fileName: self.fileNameTextField.stringValue,downloadURL:self.downloadURL, downloadLocation: self.downloadFolderTextField.stringValue, downloadBookMarkData: self.outOfSandBoxDirectoryURLData, numberOfSegements: numberOFSegments, fileType: fileType!, userName:userName,password:passWord)
         delegate?.startDownloadWithDownloadData(data:startDownloadData)
     }
     
