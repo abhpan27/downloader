@@ -41,6 +41,9 @@
                             <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Zar-mm-9ui">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                             </buttonCell>
                             <connections>
                                 <action selector="didSelectedAddDowload:" target="-2" id="Lnl-ff-aIM"/>

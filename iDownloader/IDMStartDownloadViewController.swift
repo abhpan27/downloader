@@ -67,6 +67,7 @@ class IDMStartDownloadViewController: NSViewController {
         fileType = IDMFileTypeHelper().getFileType(fileExtension: fileExtension)
         fileNameTextField.stringValue = fileName
         downloadFolderTextField.stringValue = IDMSettingsManager.shared.defaultDownloadPath
+        outOfSandBoxDirectoryURLData = IDMSettingsManager.shared.defaultBookMarkData
         setUpNoOfSegments()
         setUpUsernameAndPassword()
     }
@@ -135,7 +136,7 @@ class IDMStartDownloadViewController: NSViewController {
             let bookmarkData = try newFileURL.bookmarkData(options: URL.BookmarkCreationOptions.withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             self.outOfSandBoxDirectoryURLData = bookmarkData
             self.downloadFolderTextField.stringValue = newFileURL.path
-            IDMSettingsManager.shared.setLastUsedBookmarkData(bookMark: bookmarkData)
+            IDMSettingsManager.shared.setValueForDefaultBookMark(bookMark: bookmarkData)
         }catch  {
             Swift.print(error)
         }
