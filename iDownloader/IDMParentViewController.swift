@@ -122,7 +122,7 @@ extension IDMParentViewController: StartDownloadPopUpDelegate {
         startDownloadWindowController = IDMStartDownloadWindowController(windowNibName: "IDMStartDownloadWindowController")
         startDownloadWindowController?.contentViewController = IDMStartDownloadViewController(downloadURL:downloadURL, delegate:self)
         let withSize:NSSize = NSSize(width: 475, height: 275)
-        let rect = self.startDownloadWindowController!.window!.getRectOfWindowInMiddle((NSApp.delegate as! AppDelegate).window, withSize:withSize)
+        let rect = NSMakeRect(self.view.window!.frame.minX + 220, self.view.window!.frame.maxY - (375) , 475, 275)
         self.startDownloadWindowController!.window!.setFrame(rect, display: true)
         self.startDownloadWindowController!.window!.makeKeyAndOrderFront(self)
         

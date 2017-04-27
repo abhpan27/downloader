@@ -9,13 +9,12 @@
 import Cocoa
 
 internal enum SettingsToolBarState{
-    case generalSettings, schedulerSettings, tagsSettings, authSettings
+    case generalSettings, schedulerSettings, tagsSettings
 }
 class IDMSettingsContainer: NSViewController {  
     @IBOutlet weak var generalSettingsButton: NSButton!
     @IBOutlet weak var schdulerSettingsButton: NSButton!
     @IBOutlet weak var tagsSettingsButton: NSButton!
-    @IBOutlet weak var authorizationSettingsButton: NSButton!
     @IBOutlet weak var settingsContainerView: NSView!
     var currentSubController:NSViewController?
     
@@ -34,7 +33,6 @@ class IDMSettingsContainer: NSViewController {
         generalSettingsButton.image = NSImage(named:"GeneralSettings")!
         schdulerSettingsButton.image = NSImage(named: "schedulerSettings")!
         tagsSettingsButton.image = NSImage(named: "tagsSettings")!
-        authorizationSettingsButton.image = NSImage(named: "AuthSettings")!
         for subview in self.settingsContainerView.subviews {
             subview.removeFromSuperview()
         }
@@ -58,16 +56,9 @@ class IDMSettingsContainer: NSViewController {
         currentSubController = nil
     }
     
-    @IBAction func didSelectedAuthorizationSettings(_ sender: Any) {
-        switchToSettingsState(state: SettingsToolBarState.authSettings)
-        currentSubController = nil
-    }
-    
     private func switchToSettingsState(state:SettingsToolBarState){
         setInitialButtonsState()
         switch state{
-        case .authSettings:
-            authorizationSettingsButton.image = NSImage(named: "AuthSettingsBlue")
         case .generalSettings:
             generalSettingsButton.image = NSImage(named: "GeneralSettingsBlue")
         case .tagsSettings:
