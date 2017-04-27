@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "schedulerSettingsBlue.png",
+      "filename" : "GeneralSettingsWhite.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "schedulerSettingsBlue@2x.png",
+      "filename" : "GeneralSettingsWhite@2x.png",
       "scale" : "2x"
     },
     {

@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDownloader/IDMParentViewController.swift"
-            timestampString = "514839206.495306"
+            timestampString = "515006411.855397"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "slideCloseNavBar()"
             landmarkType = "7">
          </BreakpointContent>

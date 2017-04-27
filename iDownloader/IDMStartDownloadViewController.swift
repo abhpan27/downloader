@@ -99,7 +99,7 @@ class IDMStartDownloadViewController: NSViewController {
             return
         }
         let currentWindowRect = self.view.window!.frame
-        let newWindowHeight:CGFloat = shouldIncrease ? 325 : 275
+        let newWindowHeight:CGFloat = shouldIncrease ? 300 : 225
         let newMinY = currentWindowRect.minY + (currentWindowRect.height - newWindowHeight)
         let newRect = NSMakeRect(currentWindowRect.minX, newMinY, currentWindowRect.width, newWindowHeight)
         self.view.window?.setFrame(newRect, display: false, animate: true)
@@ -135,6 +135,7 @@ class IDMStartDownloadViewController: NSViewController {
             let bookmarkData = try newFileURL.bookmarkData(options: URL.BookmarkCreationOptions.withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             self.outOfSandBoxDirectoryURLData = bookmarkData
             self.downloadFolderTextField.stringValue = newFileURL.path
+            IDMSettingsManager.shared.setLastUsedBookmarkData(bookMark: bookmarkData)
         }catch  {
             Swift.print(error)
         }
@@ -162,14 +163,23 @@ class IDMStartDownloadViewController: NSViewController {
                 IDMUtilities.shared.showError(title: "Invalid File name", information: "Please enter a valid file name")
                 return
         }
+        
+        if authCheckBox.state == NSOnState {
+            guard !usernameTextField.stringValue.isEmpty else {
+                 IDMUtilities.shared.showError(title: "User name is empty", information: "Please enter user name")
+                return
+            }
+            
+            guard !usernameTextField.stringValue.isEmpty else {
+                IDMUtilities.shared.showError(title: "Password is empty", information: "Please enter password")
+                return
+            }
+        }
         let numberOFSegments = Int(numberOfSegmentsPopUp.titleOfSelectedItem!)!
         let userName:String? = usernameTextField.stringValue.isEmpty ? nil : usernameTextField.stringValue
         let passWord:String? = passwordTextField.stringValue.isEmpty ? nil : passwordTextField.stringValue
         let startDownloadData = StartDownloadData(fileName: self.fileNameTextField.stringValue,downloadURL:self.downloadURL, downloadLocation: self.downloadFolderTextField.stringValue, downloadBookMarkData: self.outOfSandBoxDirectoryURLData, numberOfSegements: numberOFSegments, fileType: fileType!, userName:userName,password:passWord)
         delegate?.startDownloadWithDownloadData(data:startDownloadData)
     }
-    
-    
-    
     
 }

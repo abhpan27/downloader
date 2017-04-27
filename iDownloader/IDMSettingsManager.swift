@@ -49,6 +49,14 @@ final class IDMSettingsManager {
     }
     
     var defaultDownloadPath:String {
+        if let lastUsedBookmarkData = UserDefaults.standard.value(forKey:  SettingsKeys.lastUsedDownloadBookmarkData) as? Data
+        {
+            if let bookMarkURL = IDMFileHandler().getURLFromBookMarkData(bookmarkData: lastUsedBookmarkData){
+                let pathWithoutSystemLink = bookMarkURL.urlAfterResolvingSytemLink.path
+                return pathWithoutSystemLink
+            }
+        }
+        
         if let defaultBookMarkData = UserDefaults.standard.value(forKey:  SettingsKeys.defaultBookMarkData) as? Data {
             if let bookMarkURL = IDMFileHandler().getURLFromBookMarkData(bookmarkData: defaultBookMarkData){
                 let pathWithoutSystemLink = bookMarkURL.urlAfterResolvingSytemLink.path
@@ -58,6 +66,7 @@ final class IDMSettingsManager {
         
         return IDMFileManager.shared.defaultDownloadURL.path
     }
+    
     
     var defaultNumberOfSegments:Int {
         let segmentCounts = UserDefaults.standard.value(forKey: SettingsKeys.noOfSegmennts) as? Int ?? 6
@@ -72,6 +81,11 @@ final class IDMSettingsManager {
     
     final func setValueForDefaultBookMark(bookMark:Data){
         UserDefaults.standard.set(bookMark, forKey: SettingsKeys.defaultBookMarkData)
+        UserDefaults.standard.synchronize()
+    }
+    
+    final func setLastUsedBookmarkData(bookMark:Data) {
+        UserDefaults.standard.set(bookMark, forKey: SettingsKeys.lastUsedDownloadBookmarkData)
         UserDefaults.standard.synchronize()
     }
     

@@ -16,6 +16,7 @@ struct SettingsKeys {
     static let isFreshInstall = "FreshInstall"
     static let hasAlreadyRatedApp = "hasAlreadyRatedApp"
     static let hasSeletectedNotAskRatings = "hasSeletectedNotAskRatings"
+    static let lastUsedDownloadBookmarkData = "lastUsedDownloadBookmarkData"
 }
 
 class IDMSettingsController: NSViewController {
