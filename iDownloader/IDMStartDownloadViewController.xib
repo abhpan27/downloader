@@ -14,7 +14,7 @@
                 <outlet property="fileNameTextField" destination="2co-JY-zhg" id="x6b-82-Pud"/>
                 <outlet property="numberOfSegmentsPopUp" destination="jr4-u4-cT0" id="eCN-8m-IQo"/>
                 <outlet property="passowrdTitle" destination="NGi-YY-lW8" id="oVW-Mw-mLk"/>
-                <outlet property="passwordTextField" destination="Mzm-iv-kvZ" id="sIn-JK-W1b"/>
+                <outlet property="passwordTextField" destination="GWu-oo-HzU" id="2E1-8c-UXw"/>
                 <outlet property="userNameTitle" destination="S0n-6d-ipy" id="pEg-dR-zwk"/>
                 <outlet property="usernameTextField" destination="Tfm-1U-0z8" id="RKu-xL-7TO"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -51,17 +51,6 @@
                         <constraint firstAttribute="width" constant="250" id="kHV-tG-Qo2"/>
                     </constraints>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" bezelStyle="round" id="fAU-wZ-Dj3">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mzm-iv-kvZ">
-                    <rect key="frame" x="175" y="129" width="250" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="250" id="mcE-Pu-k5T"/>
-                    </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="none" bezelStyle="round" id="3Tg-B5-eJG">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -181,9 +170,21 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <secureTextField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWu-oo-HzU">
+                    <rect key="frame" x="175" y="129" width="250" height="22"/>
+                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" usesSingleLineMode="YES" bezelStyle="round" id="GhH-8h-tAI">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <allowedInputSourceLocales>
+                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                        </allowedInputSourceLocales>
+                    </secureTextFieldCell>
+                </secureTextField>
             </subviews>
             <constraints>
                 <constraint firstItem="s8r-aJ-8Fn" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="5" id="1de-I3-bL5"/>
+                <constraint firstItem="GWu-oo-HzU" firstAttribute="leading" secondItem="Tfm-1U-0z8" secondAttribute="leading" id="2Qi-Kv-KdT"/>
                 <constraint firstItem="Mf3-kc-SOB" firstAttribute="trailing" secondItem="Mak-vV-a30" secondAttribute="trailing" id="4i6-zf-akx"/>
                 <constraint firstItem="Tfm-1U-0z8" firstAttribute="leading" secondItem="S0n-6d-ipy" secondAttribute="trailing" constant="8" id="5en-hl-7iN"/>
                 <constraint firstAttribute="bottom" secondItem="v9M-o1-PYh" secondAttribute="bottom" constant="20" id="7VL-QJ-oU6"/>
@@ -191,6 +192,7 @@ DQ
                 <constraint firstItem="s8r-aJ-8Fn" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="9PN-q6-K2w"/>
                 <constraint firstItem="Eq6-DH-aow" firstAttribute="leading" secondItem="i1o-1Y-vR2" secondAttribute="trailing" constant="8" id="BOQ-Qe-8Bw"/>
                 <constraint firstItem="NGi-YY-lW8" firstAttribute="trailing" secondItem="S0n-6d-ipy" secondAttribute="trailing" id="CzZ-VP-cWs"/>
+                <constraint firstItem="GWu-oo-HzU" firstAttribute="trailing" secondItem="Tfm-1U-0z8" secondAttribute="trailing" id="DSU-ht-FTP"/>
                 <constraint firstItem="Mak-vV-a30" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="105" id="FKD-dw-nrm"/>
                 <constraint firstItem="2co-JY-zhg" firstAttribute="centerY" secondItem="Mak-vV-a30" secondAttribute="centerY" id="G94-c9-pih"/>
                 <constraint firstItem="lhs-b9-zcq" firstAttribute="top" secondItem="n3t-Nu-K5Y" secondAttribute="bottom" constant="8" id="HWv-T8-hye"/>
@@ -201,9 +203,9 @@ DQ
                 <constraint firstItem="Lpc-n3-9GY" firstAttribute="leading" secondItem="v9M-o1-PYh" secondAttribute="trailing" constant="20" id="TuU-Yl-2ko"/>
                 <constraint firstItem="cUa-bn-F8g" firstAttribute="trailing" secondItem="Mf3-kc-SOB" secondAttribute="trailing" id="WiI-9f-Ifq"/>
                 <constraint firstItem="2co-JY-zhg" firstAttribute="trailing" secondItem="n3t-Nu-K5Y" secondAttribute="trailing" id="b7b-un-ThD"/>
-                <constraint firstItem="Mzm-iv-kvZ" firstAttribute="leading" secondItem="NGi-YY-lW8" secondAttribute="trailing" constant="8" id="dUp-jq-Q1e"/>
                 <constraint firstItem="jr4-u4-cT0" firstAttribute="leading" secondItem="i1o-1Y-vR2" secondAttribute="leading" id="ebc-eo-HOU"/>
                 <constraint firstItem="NGi-YY-lW8" firstAttribute="top" secondItem="S0n-6d-ipy" secondAttribute="bottom" constant="13" id="gsk-Ld-RRQ"/>
+                <constraint firstItem="GWu-oo-HzU" firstAttribute="centerY" secondItem="NGi-YY-lW8" secondAttribute="centerY" id="hHQ-t6-BYm"/>
                 <constraint firstItem="S0n-6d-ipy" firstAttribute="trailing" secondItem="cUa-bn-F8g" secondAttribute="trailing" id="iNd-GE-iJQ"/>
                 <constraint firstItem="S0n-6d-ipy" firstAttribute="centerY" secondItem="Tfm-1U-0z8" secondAttribute="centerY" id="ilR-oi-jh1"/>
                 <constraint firstItem="n3t-Nu-K5Y" firstAttribute="top" secondItem="jr4-u4-cT0" secondAttribute="bottom" constant="12" id="kn7-hB-VWt"/>
@@ -211,7 +213,6 @@ DQ
                 <constraint firstItem="2co-JY-zhg" firstAttribute="leading" secondItem="Mak-vV-a30" secondAttribute="trailing" constant="8" id="lDI-eA-eWL"/>
                 <constraint firstAttribute="bottom" secondItem="Lpc-n3-9GY" secondAttribute="bottom" constant="20" id="oCV-R7-hDh"/>
                 <constraint firstItem="i1o-1Y-vR2" firstAttribute="leading" secondItem="Mf3-kc-SOB" secondAttribute="trailing" constant="8" id="pcJ-hg-S0j"/>
-                <constraint firstItem="NGi-YY-lW8" firstAttribute="centerY" secondItem="Mzm-iv-kvZ" secondAttribute="centerY" id="qCZ-Zx-S6V"/>
                 <constraint firstItem="S0n-6d-ipy" firstAttribute="top" secondItem="lhs-b9-zcq" secondAttribute="bottom" constant="13" id="rB8-rK-mH6"/>
                 <constraint firstItem="2Z6-6t-1Fx" firstAttribute="leading" secondItem="jr4-u4-cT0" secondAttribute="trailing" constant="8" id="tam-Fs-Wqr"/>
                 <constraint firstItem="cUa-bn-F8g" firstAttribute="leading" secondItem="n3t-Nu-K5Y" secondAttribute="leading" id="uQN-7U-Io4"/>

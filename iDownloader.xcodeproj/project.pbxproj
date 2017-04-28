@@ -53,6 +53,8 @@
 		8CA1A2351E898551008651B5 /* IDMSlideBarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1A2341E898551008651B5 /* IDMSlideBarRowView.swift */; };
 		8CA1A2371E898CE5008651B5 /* IDMSideBarMousExitDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1A2361E898CE5008651B5 /* IDMSideBarMousExitDetectionView.swift */; };
 		8CA1A2391E899B0B008651B5 /* IDMMenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1A2381E899B0B008651B5 /* IDMMenuHelper.swift */; };
+		8CA4C49A1EB3822800B274DD /* IDMSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA4C4981EB3822800B274DD /* IDMSettingsViewController.swift */; };
+		8CA4C49B1EB3822800B274DD /* IDMSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CA4C4991EB3822800B274DD /* IDMSettingsViewController.xib */; };
 		8CA83AED1E7EF0F000E030EB /* IDMSegmentDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA83AEC1E7EF0F000E030EB /* IDMSegmentDownloader.swift */; };
 		8CBFC7641E8AA04200D1BBB3 /* IDMDragLinkDetectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBFC7631E8AA04200D1BBB3 /* IDMDragLinkDetectorView.swift */; };
 		8CC5BAD51EACAA4F00792FC3 /* IDMRatingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC5BAD41EACAA4F00792FC3 /* IDMRatingsHelper.swift */; };
@@ -153,6 +155,8 @@
 		8CA1A2341E898551008651B5 /* IDMSlideBarRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSlideBarRowView.swift; sourceTree = "<group>"; };
 		8CA1A2361E898CE5008651B5 /* IDMSideBarMousExitDetectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSideBarMousExitDetectionView.swift; sourceTree = "<group>"; };
 		8CA1A2381E899B0B008651B5 /* IDMMenuHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMMenuHelper.swift; sourceTree = "<group>"; };
+		8CA4C4981EB3822800B274DD /* IDMSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSettingsViewController.swift; sourceTree = "<group>"; };
+		8CA4C4991EB3822800B274DD /* IDMSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMSettingsViewController.xib; sourceTree = "<group>"; };
 		8CA83AEC1E7EF0F000E030EB /* IDMSegmentDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSegmentDownloader.swift; sourceTree = "<group>"; };
 		8CBFC7631E8AA04200D1BBB3 /* IDMDragLinkDetectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMDragLinkDetectorView.swift; sourceTree = "<group>"; };
 		8CC5BAD41EACAA4F00792FC3 /* IDMRatingsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMRatingsHelper.swift; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 		8C1731FD1EAE588500322C87 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8CA4C4931EB381EF00B274DD /* Scheduler */,
 				8C1732021EAE75B900322C87 /* General settings */,
 				8C1731FE1EAE58C200322C87 /* IDMSettingsContainer.swift */,
 				8C1731FF1EAE58C200322C87 /* IDMSettingsContainer.xib */,
@@ -422,6 +427,15 @@
 				8CA1A2321E895B25008651B5 /* IDMSettingsManager.swift */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		8CA4C4931EB381EF00B274DD /* Scheduler */ = {
+			isa = PBXGroup;
+			children = (
+				8CA4C4981EB3822800B274DD /* IDMSettingsViewController.swift */,
+				8CA4C4991EB3822800B274DD /* IDMSettingsViewController.xib */,
+			);
+			name = Scheduler;
 			sourceTree = "<group>";
 		};
 		8CC5BAD61EACAC4A00792FC3 /* Ratings Controller */ = {
@@ -635,6 +649,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C6754531E7CFC390044FFA5 /* Assets.xcassets in Resources */,
+				8CA4C49B1EB3822800B274DD /* IDMSettingsViewController.xib in Resources */,
 				8CEDA8F51EAFBECA00D7AC78 /* IDMStartDownloadWindowController.xib in Resources */,
 				8C10CE501E87FED500A1E5F7 /* IDMDownloadCompleteViewController.xib in Resources */,
 				8CA0C7041E7D3CAA002EA6D6 /* IDMSideBarController.xib in Resources */,
@@ -694,6 +709,7 @@
 				8CDB78CB1E7D466D00314F52 /* NSColorExtension.swift in Sources */,
 				8CDB78D01E7D51D200314F52 /* IDMMouseTrackingButton.swift in Sources */,
 				8C7C90C81E98EB72000C10A2 /* IDMAppDelegateExtension.swift in Sources */,
+				8CA4C49A1EB3822800B274DD /* IDMSettingsViewController.swift in Sources */,
 				8CA0C7031E7D3CAA002EA6D6 /* IDMSideBarController.swift in Sources */,
 				8CA0C70A1E7D3D5A002EA6D6 /* IDMMailWindowController.swift in Sources */,
 				8CBFC7641E8AA04200D1BBB3 /* IDMDragLinkDetectorView.swift in Sources */,

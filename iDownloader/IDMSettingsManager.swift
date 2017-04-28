@@ -36,6 +36,20 @@ final class IDMSettingsManager {
         return true
     }
     
+    var shouldRunSchedulerDaily:Bool {
+        if let shouldRunSchedulerDaily = UserDefaults.standard.value(forKey: SettingsKeys.shouldRunSchedulerDaily) as? Bool{
+            return shouldRunSchedulerDaily
+        }
+        return true
+    }
+    
+    var defaultSheduledWeekDays:[Int]{
+        if let weekDays = UserDefaults.standard.value(forKey: SettingsKeys.scheduledWeekDays) as? [Int]{
+            return weekDays
+        }
+        return [1,2,3,4,5,6,7]
+    }
+    
     var defaultBookMarkData: Data? {
         if let defaultBookMarkData = UserDefaults.standard.value(forKey:  SettingsKeys.defaultBookMarkData) as? Data{
             return defaultBookMarkData
@@ -65,9 +79,30 @@ final class IDMSettingsManager {
         return segmentCounts
     }
     
+    var defaultSchedulerStartDate:Date {
+        var defaultValueForWeekDayStartAt = (10 * 60) // 10AM
+        if let startMintuesFromMidNight = UserDefaults.standard.value(forKey: SettingsKeys.schedulerStartTime) as? Int {
+            defaultValueForWeekDayStartAt = startMintuesFromMidNight
+        }
+         return IDMUtilities.shared.getDateFromMinutesFromMidNight(defaultValueForWeekDayStartAt)
+    }
+    
+    var defaultSchedulerStopDate:Date {
+        var defaultValueForWeekDayStartAt = (22 * 60) // 10PM
+        if let startMintuesFromMidNight = UserDefaults.standard.value(forKey: SettingsKeys.schedulerStopTime) as? Int {
+            defaultValueForWeekDayStartAt = startMintuesFromMidNight
+        }
+        return IDMUtilities.shared.getDateFromMinutesFromMidNight(defaultValueForWeekDayStartAt)
+    }
+    
     
     final func setDefaultValueForShouldShowNotification(value:Bool){
         UserDefaults.standard.set(value, forKey: SettingsKeys.shouldShowNotificationOnDownload)
+        UserDefaults.standard.synchronize()
+    }
+    
+    final func setDefaultValueForShouldRunSchedulerDaily(value:Bool){
+        UserDefaults.standard.set(value, forKey: SettingsKeys.shouldRunSchedulerDaily)
         UserDefaults.standard.synchronize()
     }
     
@@ -100,6 +135,21 @@ final class IDMSettingsManager {
     final func setAlreadyRated() {
         UserDefaults.standard.set(1, forKey:   SettingsKeys.hasAlreadyRatedApp)
         UserDefaults.standard.synchronize()
+    }
+    
+    final func setSchedulerWeekDays(weekDays:[Int]){
+        UserDefaults.standard.set(weekDays, forKey:   SettingsKeys.scheduledWeekDays)
+        UserDefaults.standard.synchronize()
+    }
+    
+    final func setStartSchedulerTime(time:Date){
+        let hrs = IDMUtilities.shared.getMinutesFromMidnightForDate(time)
+        UserDefaults.standard.set(hrs, forKey: SettingsKeys.schedulerStartTime)
+    }
+    
+    final func setStopSchedulerTime(time:Date) {
+        let hrs = IDMUtilities.shared.getMinutesFromMidnightForDate(time)
+        UserDefaults.standard.set(hrs, forKey: SettingsKeys.schedulerStopTime)
     }
     
 }

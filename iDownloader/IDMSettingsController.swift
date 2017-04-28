@@ -16,6 +16,10 @@ struct SettingsKeys {
     static let isFreshInstall = "FreshInstall"
     static let hasAlreadyRatedApp = "hasAlreadyRatedApp"
     static let hasSeletectedNotAskRatings = "hasSeletectedNotAskRatings"
+    static let shouldRunSchedulerDaily = "shouldRunSchedulerDaily"
+    static let scheduledWeekDays = "scheduledWeekDays"
+    static let schedulerStartTime = "schedulerStartTime"
+    static let schedulerStopTime = "schedulerStopTime"
 }
 
 class IDMSettingsController: NSViewController {

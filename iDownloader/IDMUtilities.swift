@@ -90,4 +90,25 @@ final class IDMUtilities {
         myPopup.addButton(withTitle: "Cancel")
         return myPopup.runModal() == NSAlertFirstButtonReturn
     }
+    
+    final func getMinutesFromMidnightForDate(_ date:Date) -> Int{
+        let calendar = Calendar.current
+        let unitFlags: NSCalendar.Unit = [.hour, .minute, .second]
+        let components:DateComponents = (calendar as NSCalendar).components(unitFlags, from: date)
+        let minutesFromMidNight = (components.hour)!*60 + (components.minute)!
+        return minutesFromMidNight
+    }
+    
+    final func getDateFromMinutesFromMidNight(_ minutesFromMidnight:Int) -> Date{
+        let date = Date()
+        let calendar = Calendar.current
+        let unitFlags: NSCalendar.Unit = [.hour, .minute, .second, NSCalendar.Unit.day, NSCalendar.Unit.year, NSCalendar.Unit.month]
+        var components:DateComponents = (calendar as NSCalendar).components(unitFlags, from: date)
+        let hours = (minutesFromMidnight / 60)
+        let minutes = (minutesFromMidnight % 60)
+        components.hour = hours
+        components.minute = minutes
+        let dateToReturn = calendar.date(from: components)
+        return dateToReturn!
+    }
 }

@@ -54,7 +54,8 @@ class IDMSettingsContainer: NSViewController {
     
     @IBAction func didSelectedSchedulerSettings(_ sender: Any) {
         switchToSettingsState(state: SettingsToolBarState.schedulerSettings)
-        currentSubController = nil
+        currentSubController = IDMSettingsViewController()
+        self.settingsContainerView.addFittingSubView(subView: currentSubController!.view)
     }
     
     private func switchToSettingsState(state:SettingsToolBarState){
