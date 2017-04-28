@@ -17,6 +17,7 @@ struct StartDownloadData{
     let fileType:fileTypes
     let userName:String?
     let password:String?
+    let isScheduled:Bool
 }
 
 protocol StartDownloadPopUpDelegate:class {
@@ -153,6 +154,14 @@ class IDMStartDownloadViewController: NSViewController {
     
     
     @IBAction func didSelectedStartDownload(_ sender: Any) {
+        fireDelegateMethodAfterValidation(isScheduled: false)
+    }
+    
+    @IBAction func didSelectedScheduleDownload(_ sender: Any) {
+        fireDelegateMethodAfterValidation(isScheduled: true)
+    }
+    
+    private func fireDelegateMethodAfterValidation(isScheduled:Bool) {
         guard !self.fileNameTextField.stringValue.isEmpty
             else {
                 IDMUtilities.shared.showError(title: "Invalid File name", information: "Please enter a valid file name")
@@ -167,7 +176,7 @@ class IDMStartDownloadViewController: NSViewController {
         
         if authCheckBox.state == NSOnState {
             guard !usernameTextField.stringValue.isEmpty else {
-                 IDMUtilities.shared.showError(title: "User name is empty", information: "Please enter user name")
+                IDMUtilities.shared.showError(title: "User name is empty", information: "Please enter user name")
                 return
             }
             
@@ -179,8 +188,10 @@ class IDMStartDownloadViewController: NSViewController {
         let numberOFSegments = Int(numberOfSegmentsPopUp.titleOfSelectedItem!)!
         let userName:String? = usernameTextField.stringValue.isEmpty ? nil : usernameTextField.stringValue
         let passWord:String? = passwordTextField.stringValue.isEmpty ? nil : passwordTextField.stringValue
-        let startDownloadData = StartDownloadData(fileName: self.fileNameTextField.stringValue,downloadURL:self.downloadURL, downloadLocation: self.downloadFolderTextField.stringValue, downloadBookMarkData: self.outOfSandBoxDirectoryURLData, numberOfSegements: numberOFSegments, fileType: fileType!, userName:userName,password:passWord)
-        delegate?.startDownloadWithDownloadData(data:startDownloadData)
+        let startDownloadData = StartDownloadData(fileName: self.fileNameTextField.stringValue,downloadURL:self.downloadURL, downloadLocation: self.downloadFolderTextField.stringValue, downloadBookMarkData: self.outOfSandBoxDirectoryURLData, numberOfSegements: numberOFSegments, fileType: fileType!, userName:userName,password:passWord, isScheduled:isScheduled)
+         delegate?.startDownloadWithDownloadData(data:startDownloadData)
+       
     }
+    
     
 }

@@ -46,6 +46,7 @@ final class IDMCoreDataHelper {
             //encrypt it
             fileDownloadData.username = fileDownloadInfo.userName?.encrypted
             fileDownloadData.password = fileDownloadInfo.password?.encrypted
+            fileDownloadData.isScheduled = fileDownloadInfo.isScheduled
             var segmentsSet = Set<SegmentDownloadData>()
             for chunkDownloadInfo in fileDownloadInfo.chuckDownloadData {
                 let segmentData = SegmentDownloadData(context: context)
@@ -126,6 +127,7 @@ final class IDMCoreDataHelper {
                 fileDownloadData.runningStatus = fileDownloadInfo.runningStatus.rawValue
                 fileDownloadData.downloadStartTime = fileDownloadInfo.startTimeStamp
                 fileDownloadData.downloadEndTime = fileDownloadInfo.endTimeStamp
+                fileDownloadData.isScheduled = fileDownloadInfo.isScheduled
                 for segment in fileDownloadData.segments! {
                     let segmentData = segment as! SegmentDownloadData
                     if let indexOfChunkInfo = fileDownloadInfo.chuckDownloadData.index(where: { (chunk) -> Bool in
@@ -187,7 +189,7 @@ final class IDMCoreDataHelper {
                         }
                     }
                     
-                    let fileDownloadInfo =  FileDownloadDataInfo(uniqueID: fileDownloadData.fileDownloadID! , name: fileDownloadData.fileName!, downloadURL: fileDownloadData.fileDownloadURL!, isResumeSupported: fileDownloadData.isResumable, type: fileTypes(rawValue: fileDownloadData.fileType!)!, startTimeStamp: fileDownloadData.downloadStartTime, endTimeStamp: fileDownloadData.downloadEndTime, diskDownloadLocation: fileDownloadData.diskDownloadURL!, diskDownloadBookmarkData: fileDownloadData.diskDownloadBookMark as Data?, runningStatus: downloadRunningStatus(rawValue:fileDownloadData.runningStatus!)! , totalSize: fileDownloadData.totalSize!.intValue, chuckDownloadData: segmentArray, totalDownloaded: fileDownloadData.totalDownloaded!.intValue, currentSpeed: 0, isNewDownload: false, userName:userName, password:password)
+                    let fileDownloadInfo =  FileDownloadDataInfo(uniqueID: fileDownloadData.fileDownloadID! , name: fileDownloadData.fileName!, downloadURL: fileDownloadData.fileDownloadURL!, isResumeSupported: fileDownloadData.isResumable, type: fileTypes(rawValue: fileDownloadData.fileType!)!, startTimeStamp: fileDownloadData.downloadStartTime, endTimeStamp: fileDownloadData.downloadEndTime, diskDownloadLocation: fileDownloadData.diskDownloadURL!, diskDownloadBookmarkData: fileDownloadData.diskDownloadBookMark as Data?, runningStatus: downloadRunningStatus(rawValue:fileDownloadData.runningStatus!)! , totalSize: fileDownloadData.totalSize!.intValue, chuckDownloadData: segmentArray, totalDownloaded: fileDownloadData.totalDownloaded!.intValue, currentSpeed: 0, isNewDownload: false, userName:userName, password:password, isScheduled:fileDownloadData.isScheduled)
                     fileDownloadInfoArray.append(fileDownloadInfo)
                 }
                 runInMainThread {

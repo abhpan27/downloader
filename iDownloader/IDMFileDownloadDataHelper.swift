@@ -30,6 +30,7 @@ struct FileDownloadDataInfo{
     var isNewDownload:Bool
     let userName:String?
     let password:String?
+    var isScheduled:Bool
 }
 
 protocol FileDownloaderDelegate:class {
@@ -111,12 +112,17 @@ final class IDMFileDownloadDataHelper{
                             return
                     }
                     if error == nil {
-                        blockSelf.startSegmentDownloads()
+                        if !blockSelf.fileDownloadData.isScheduled{
+                            blockSelf.startSegmentDownloads()
+                        }
                     }
                 })
                 return
             }
-             blockSelf.startSegmentDownloads()
+            if !blockSelf.fileDownloadData.isScheduled{
+                blockSelf.startSegmentDownloads()
+            }
+            
             
         }
     }

@@ -128,11 +128,10 @@ extension IDMParentViewController: StartDownloadPopUpDelegate {
     }
     
     func startDownloadWithDownloadData(data: StartDownloadData) {
-        self.downloadListController.startNewDownload(fileName: data.fileName, downloadURL: data.downloadURL, downloadLocation: data.downloadLocation, downloadLocationBookMark: data.downloadBookMarkData, noOfThreads: data.numberOfSegements, fileType: data.fileType, userName: data.userName, password: data.password)
+        self.downloadListController.startNewDownload(fileName: data.fileName, downloadURL: data.downloadURL, downloadLocation: data.downloadLocation, downloadLocationBookMark: data.downloadBookMarkData, noOfThreads: data.numberOfSegements, fileType: data.fileType, userName: data.userName, password: data.password, isScheduled:data.isScheduled)
         self.startDownloadWindowController?.close()
         self.startDownloadWindowController = nil
     }
-    
     
     private func showErorr(title:String, message:String) {
         let alert =  NSAlert()

@@ -153,6 +153,9 @@ DQ
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="didSelectedScheduleDownload:" target="-2" id="Lfv-zn-Us6"/>
+                    </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8r-aJ-8Fn">
                     <rect key="frame" x="189" y="331" width="103" height="18"/>

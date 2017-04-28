@@ -157,6 +157,7 @@
 		8CA1A2381E899B0B008651B5 /* IDMMenuHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMMenuHelper.swift; sourceTree = "<group>"; };
 		8CA4C4981EB3822800B274DD /* IDMSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSettingsViewController.swift; sourceTree = "<group>"; };
 		8CA4C4991EB3822800B274DD /* IDMSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMSettingsViewController.xib; sourceTree = "<group>"; };
+		8CA4C49C1EB3A0A900B274DD /* iDownloader v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "iDownloader v2.xcdatamodel"; sourceTree = "<group>"; };
 		8CA83AEC1E7EF0F000E030EB /* IDMSegmentDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSegmentDownloader.swift; sourceTree = "<group>"; };
 		8CBFC7631E8AA04200D1BBB3 /* IDMDragLinkDetectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMDragLinkDetectorView.swift; sourceTree = "<group>"; };
 		8CC5BAD41EACAA4F00792FC3 /* IDMRatingsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMRatingsHelper.swift; sourceTree = "<group>"; };
@@ -1050,9 +1051,10 @@
 		8C67544F1E7CFC390044FFA5 /* iDownloader.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8CA4C49C1EB3A0A900B274DD /* iDownloader v2.xcdatamodel */,
 				8C6754501E7CFC390044FFA5 /* iDownloader.xcdatamodel */,
 			);
-			currentVersion = 8C6754501E7CFC390044FFA5 /* iDownloader.xcdatamodel */;
+			currentVersion = 8CA4C49C1EB3A0A900B274DD /* iDownloader v2.xcdatamodel */;
 			path = iDownloader.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

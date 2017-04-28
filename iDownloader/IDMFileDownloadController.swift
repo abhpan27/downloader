@@ -74,7 +74,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
     
     final func createFileDataHelperAndBeginDownload(fileDownloadInfo:FileDownloadDataInfo, shouldForceStartPauseDownload:Bool){
         self.fileDownloadHelper = IDMFileDownloadDataHelper(delegate: self, fileDownloadInfo: fileDownloadInfo)
-        if fileDownloadInfo.runningStatus == .running || fileDownloadInfo.runningStatus == .paused{
+        if (fileDownloadInfo.runningStatus == .running || fileDownloadInfo.runningStatus == .paused){
             self.fileDownloadHelper?.startDownloading(shouldForceStartPauseDownload: shouldForceStartPauseDownload)
         }
         self.addControllerInList()
@@ -93,13 +93,13 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
         var imageForFirstButton = NSImage(named: "RowPause")!
         
         if self.fileDownloadHelper!.fileDownloadData.runningStatus == .running {
+            resetRunningStatus()
             color = NSColor(IDMr: 65, g: 117, b: 5)
             progressView.foreground = NSColor(IDMr: 65, g: 117, b: 5)
             
-            
         }else if fileDownloadHelper!.fileDownloadData.runningStatus == .paused {
-            color = NSColor(IDMr: 74, g: 144, b: 226)
             imageForFirstButton = NSImage(named: "rowResume")!
+            color = NSColor(IDMr: 74, g: 144, b: 226)
                         
         }else if fileDownloadHelper!.fileDownloadData.runningStatus == .failed {
             color = NSColor(IDMr: 208, g: 2, b: 27)
@@ -130,6 +130,10 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
         }
         
         if fileDownloadHelper!.fileDownloadData.runningStatus == .paused {
+            if fileDownloadHelper!.fileDownloadData.isScheduled{
+                showScheduledUI()
+                return
+            }
             self.timeRemainingLabel.isHidden = true
             self.speedLabel.stringValue = "Paused currently"
         }
@@ -139,6 +143,13 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
     private func showRetryingText() {
         speedLabel.stringValue = "Speed - Retrying...."
         timeRemainingLabel.stringValue = "Time Remaining - Calculating..."
+    }
+    
+    private func resetRunningStatus() {
+        fileCompletionImageContainer.isHidden = true
+        progressView.isHidden = false
+        timeRemainingLabel.isHidden = false
+        percentDownloadedlabel.isHidden = false
     }
     
     private func showCompletedUI() {
@@ -157,7 +168,38 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
         fileNameLabel.stringValue = self.fileDownloadHelper!.fileDownloadData.name
     }
     
+    private func showScheduledUI() {
+        progressView.isHidden = true
+        timeRemainingLabel.isHidden = true
+        percentDownloadedlabel.isHidden = true
+        speedLabel.stringValue =  "Download is scheduled to run with scheduler"
+        downloadedLabel.stringValue = "Go to Settings -> Scheduler to change scheduler time"
+        fileCompletionImageContainer.isHidden = false
+        fileCompletionImage.image = NSImage(named:"ScheduledDownload")
+        fileCompletionImageContainer.layer?.cornerRadius =  fileCompletionImageContainer.frame.height/2
+        fileNameLabel.stringValue = self.fileDownloadHelper!.fileDownloadData.name
+    }
+    
     @IBAction func didSelectedFirstButton(_ sender: Any) {
+        if fileDownloadHelper!.fileDownloadData.isScheduled {
+            self.fileDownloadHelper!.fileDownloadData.isScheduled = false
+            self.fileDownloadHelper!.saveFileDownloadInfoInDB { [weak self]
+                (error) in
+                guard let blockSelf = self
+                    else{
+                        return
+                }
+                runInMainThread {
+                    blockSelf.checkAndPerformResumeDownload()
+                }
+                
+            }
+        }else {
+            checkAndPerformResumeDownload()
+        }
+    }
+    
+    private func checkAndPerformResumeDownload() {
         if self.fileDownloadHelper!.fileDownloadData.runningStatus == .running {
             pauseDownload(completion: nil)
         }else if self.fileDownloadHelper!.fileDownloadData.runningStatus == .failed {
