@@ -40,6 +40,8 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
     @IBOutlet weak var downloadedLabel: NSTextField!
     @IBOutlet weak var percentDownloadedlabel: NSTextField!
     var uiUpdateTimer:Timer?
+    var startScheduledDownloadTimer:Timer?
+    var stopScheduledDownloadTimer:Timer?
     let KB = 1024
     
     
@@ -70,7 +72,10 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
         self.fileCompletionImageContainer.layer?.borderWidth = 1.0
         self.fileCompletionImageContainer.layer?.borderColor = NSColor(IDMr: 155, g: 155, b: 155).cgColor
         container.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(IDMFileDownloadController.checkAndScheduleScheduleTimers), name: NSNotification.Name(rawValue: "SchedulerTimeChanged"), object: nil)
+         checkAndScheduleScheduleTimers()
     }
+
     
     final func createFileDataHelperAndBeginDownload(fileDownloadInfo:FileDownloadDataInfo, shouldForceStartPauseDownload:Bool){
         self.fileDownloadHelper = IDMFileDownloadDataHelper(delegate: self, fileDownloadInfo: fileDownloadInfo)
@@ -173,7 +178,7 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
         timeRemainingLabel.isHidden = true
         percentDownloadedlabel.isHidden = true
         speedLabel.stringValue =  "Download is scheduled to run with scheduler"
-        downloadedLabel.stringValue = "Go to Settings -> Scheduler to change scheduler time"
+        downloadedLabel.stringValue = "Next scheduled run on: \(IDMUtilities.shared.getNextScheduledStartDate().representableDate)"
         fileCompletionImageContainer.isHidden = false
         fileCompletionImage.image = NSImage(named:"ScheduledDownload")
         fileCompletionImageContainer.layer?.cornerRadius =  fileCompletionImageContainer.frame.height/2
@@ -282,6 +287,93 @@ class IDMFileDownloadController: NSViewController, FileDownloaderDelegate, IDMFi
                 }
             }
             completion?()
+        })
+    }
+    
+    //MARK:Start stop scheduled downloads 
+    final func checkAndScheduleScheduleTimers() {
+        guard self.fileDownloadHelper!.fileDownloadData.isScheduled
+            else{
+                return
+        }
+        setUpContentView()
+        if (IDMUtilities.shared.getNextScheduledStopDate().timeIntervalSince1970 < Date().timeIntervalSince1970){
+            self.pauseDownload(completion: { 
+                [weak self]
+                in
+                guard let blockSelf = self
+                    else{
+                        return
+                }
+                blockSelf.addStartTimer()
+            })
+        }else if(IDMUtilities.shared.getNextScheduledStartDate().timeIntervalSince1970 > Date().timeIntervalSince1970) {
+            self.pauseDownload(completion: {
+                [weak self]
+                in
+                guard let blockSelf = self
+                    else{
+                        return
+                }
+                blockSelf.addStartTimer()
+            })
+        }else {
+            addStartTimer()
+        }
+     }
+    
+    
+    final func addStartTimer() {
+        self.startScheduledDownloadTimer?.invalidate()
+        self.stopScheduledDownloadTimer?.invalidate()
+        let nextStartTimerDate = IDMUtilities.shared.getNextScheduledStartDate()
+        self.startScheduledDownloadTimer = Timer(fire: nextStartTimerDate, interval: 1.0, repeats: false, block: {[weak self] (timer) in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            blockSelf.startScheduledDownload()
+        })
+        RunLoop.current.add(self.startScheduledDownloadTimer!, forMode: RunLoopMode.commonModes)
+    }
+    
+    final func addStopTimer() {
+        let nextStopTimerDate = IDMUtilities.shared.getNextScheduledStopDate()
+        self.stopScheduledDownloadTimer = Timer(fire: nextStopTimerDate, interval: 1.0, repeats: false, block: {[weak self] (timer) in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            blockSelf.stopScheduledDownload()
+        })
+        RunLoop.current.add(self.stopScheduledDownloadTimer!, forMode: RunLoopMode.commonModes)
+    }
+    
+    final func startScheduledDownload() {
+        resumeDownload(completion: {
+            [weak self]
+            in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            runInMainThread {
+                blockSelf.addStopTimer()
+            }
+        })
+    }
+    
+    final func stopScheduledDownload() {
+        pauseDownload(completion: {
+            [weak self]
+            in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            runInMainThread {
+                blockSelf.checkAndScheduleScheduleTimers()
+            }
         })
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0655E11EB44E5800490CDF /* IDMDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0655E01EB44E5800490CDF /* IDMDateExtension.swift */; };
 		8C0F0A731EB23CA90085350A /* AES256CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0F0A721EB23CA90085350A /* AES256CBC.swift */; };
 		8C10CE4F1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE4D1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.swift */; };
 		8C10CE501E87FED500A1E5F7 /* IDMDownloadCompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C10CE4E1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.xib */; };
@@ -106,6 +107,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C0655E01EB44E5800490CDF /* IDMDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMDateExtension.swift; sourceTree = "<group>"; };
 		8C0F0A721EB23CA90085350A /* AES256CBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AES256CBC.swift; sourceTree = "<group>"; };
 		8C10CE4D1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMDownloadCompleteViewController.swift; sourceTree = "<group>"; };
 		8C10CE4E1E87FED500A1E5F7 /* IDMDownloadCompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMDownloadCompleteViewController.xib; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				8CDB78D71E7D972E00314F52 /* IDMStringExtension.swift */,
 				8C49D19B1E87FC9600DD3362 /* NSWindowExtension.swift */,
 				8C10CE551E881B3E00A1E5F7 /* IDMScrollViewExtension.swift */,
+				8C0655E01EB44E5800490CDF /* IDMDateExtension.swift */,
 			);
 			name = "Cocoa Extensions";
 			sourceTree = "<group>";
@@ -704,6 +707,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C0655E11EB44E5800490CDF /* IDMDateExtension.swift in Sources */,
 				8CA0C6F61E7D397F002EA6D6 /* IDMAppController.swift in Sources */,
 				8C7F44CF1E844496008E7060 /* IDMFileHandler.swift in Sources */,
 				8C3879C81E87FB61002F5D69 /* IDMWindowController.swift in Sources */,

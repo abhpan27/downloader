@@ -46,10 +46,12 @@ class IDMSettingsViewController: NSViewController {
         arrayOfWeekDays.contains(5) ? (thursdayCheckbox.state = NSOnState) : (thursdayCheckbox.state = NSOffState)
         arrayOfWeekDays.contains(6) ? (fridayCheckBox.state = NSOnState) : (fridayCheckBox.state = NSOffState)
         arrayOfWeekDays.contains(7) ? (saturdayCheckbox.state = NSOnState) : (saturdayCheckbox.state = NSOffState)
-        
+        setStartAndStopDefaultValue()
+    }
+    
+    private func setStartAndStopDefaultValue() {
         startTimeDatePicker.dateValue = IDMSettingsManager.shared.defaultSchedulerStartDate
         stopTimePicker.dateValue = IDMSettingsManager.shared.defaultSchedulerStopDate
-     
     }
     
     override func viewDidAppear() {
@@ -72,19 +74,23 @@ class IDMSettingsViewController: NSViewController {
         let picker = sender as! NSDatePicker
         guard stopTimePicker.dateValue > picker.dateValue else{
             IDMUtilities.shared.showError(title: "Oops!!", information: "Scheduler stop time should not be smaller than scheduler start time")
+            setStartAndStopDefaultValue()
             return
         }
         IDMSettingsManager.shared.setStartSchedulerTime(time: picker.dateValue)
+        postSchedulerChangeNotification()
     }
     
     @IBAction func didChangedStopTime(_ sender: Any) {
         let picker = sender as! NSDatePicker
         guard startTimeDatePicker.dateValue < picker.dateValue else{
             IDMUtilities.shared.showError(title: "Oops!!", information: "Scheduler stop time should not be smaller than scheduler start time")
+            setStartAndStopDefaultValue()
             return
         }
         
         IDMSettingsManager.shared.setStopSchedulerTime(time: picker.dateValue)
+        postSchedulerChangeNotification()
     }
     
     @IBAction func didChangedRunDaily(_ sender: Any) {
@@ -96,6 +102,7 @@ class IDMSettingsViewController: NSViewController {
             IDMSettingsManager.shared.setDefaultValueForShouldRunSchedulerDaily(value: false)
             weekDaysContainer.isHidden = false
         }
+        postSchedulerChangeNotification()
     }
     
     @IBAction func didChangedSunday(_ sender: Any) {
@@ -140,9 +147,12 @@ class IDMSettingsViewController: NSViewController {
         }
         
         IDMSettingsManager.shared.setSchedulerWeekDays(weekDays: arrayOfItems)
+        postSchedulerChangeNotification()
     }
     
-    
+    private func postSchedulerChangeNotification() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SchedulerTimeChanged"), object: nil)
+    }
     
     
 }

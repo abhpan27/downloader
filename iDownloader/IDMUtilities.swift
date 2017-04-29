@@ -111,4 +111,63 @@ final class IDMUtilities {
         let dateToReturn = calendar.date(from: components)
         return dateToReturn!
     }
+    
+    final func getNextScheduledStartDate() -> Date {
+        let currentDate = Date()
+        let startTimeDate = IDMSettingsManager.shared.defaultSchedulerStartDate
+        let shouldRunDaily = IDMSettingsManager.shared.shouldRunSchedulerDaily
+        let hrsOfStartTime = startTimeDate.getHrs()
+        let minsOfStartTime = startTimeDate.getMinutes()
+        let dateWithHrsAndMins = Date().changeHrsAndMins(hrs: hrsOfStartTime, mins: minsOfStartTime)
+        let stopDate = getNextScheduledStopDate().timeIntervalSince1970
+        
+        if shouldRunDaily {
+            if stopDate > currentDate.timeIntervalSince1970 &&  stopDate > dateWithHrsAndMins.timeIntervalSince1970 {
+                return dateWithHrsAndMins
+            }
+            return dateWithHrsAndMins.addDay(day: 1)
+        }
+        
+        let weekDaysToRun = IDMSettingsManager.shared.defaultSheduledWeekDays
+        let todayWeekDay = currentDate.dayNumberOfWeek()!
+        if weekDaysToRun.contains(todayWeekDay) && stopDate > currentDate.timeIntervalSince1970 && dateWithHrsAndMins.timeIntervalSince1970 < stopDate{
+            return dateWithHrsAndMins
+        }
+        
+        let nextWeekDay = getNextWeekDayAfterDayFromSettings(day: todayWeekDay)
+        return dateWithHrsAndMins.getDateForDayAfterCurrentDate(nextWeekDay)
+    }
+    
+    final func getNextScheduledStopDate() -> Date{
+        let currentDate = Date()
+        let stopTimeDate = IDMSettingsManager.shared.defaultSchedulerStopDate
+        let shouldRunDaily = IDMSettingsManager.shared.shouldRunSchedulerDaily
+        let hrsOfStopTime = stopTimeDate.getHrs()
+        let minsOfStopTime = stopTimeDate.getMinutes()
+        let dateWithHrsAndMins = Date().changeHrsAndMins(hrs: hrsOfStopTime, mins: minsOfStopTime)
+        
+        if shouldRunDaily {
+            return dateWithHrsAndMins
+        }
+        
+        let weekDaysToRun = IDMSettingsManager.shared.defaultSheduledWeekDays
+        let todayWeekDay = currentDate.dayNumberOfWeek()!
+        if weekDaysToRun.contains(todayWeekDay){
+            return dateWithHrsAndMins
+        }
+        
+        let nextWeekDay = getNextWeekDayAfterDayFromSettings(day: todayWeekDay)
+        return dateWithHrsAndMins.getDateForDayAfterCurrentDate(nextWeekDay)
+    }
+    
+    private func getNextWeekDayAfterDayFromSettings(day:Int) -> Int{
+        let weekDaysToRun = IDMSettingsManager.shared.defaultSheduledWeekDays.sorted()
+        for item in weekDaysToRun {
+            if item > day{
+                return item
+            }
+        }
+        
+        return weekDaysToRun.first!
+    }
 }

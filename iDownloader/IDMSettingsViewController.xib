@@ -99,7 +99,7 @@
                     </connections>
                 </button>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="h4h-mr-LGB">
-                    <rect key="frame" x="55" y="159" width="371" height="40"/>
+                    <rect key="frame" x="54" y="159" width="374" height="40"/>
                     <subviews>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="st2-IC-CPd">
                             <rect key="frame" x="5" y="11" width="46" height="18"/>
@@ -132,8 +132,8 @@
                             </connections>
                         </button>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="jPQ-vM-WBX">
-                            <rect key="frame" x="169" y="11" width="47" height="18"/>
-                            <buttonCell key="cell" type="check" title="wed" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ysy-Ns-P6W">
+                            <rect key="frame" x="169" y="11" width="50" height="18"/>
+                            <buttonCell key="cell" type="check" title="Wed" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ysy-Ns-P6W">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -142,7 +142,7 @@
                             </connections>
                         </button>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="wwY-nr-2wd">
-                            <rect key="frame" x="224" y="11" width="46" height="18"/>
+                            <rect key="frame" x="227" y="11" width="46" height="18"/>
                             <buttonCell key="cell" type="check" title="Thu" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="wWA-jc-heg">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -152,7 +152,7 @@
                             </connections>
                         </button>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="hZJ-S1-AvN">
-                            <rect key="frame" x="278" y="11" width="38" height="18"/>
+                            <rect key="frame" x="281" y="11" width="38" height="18"/>
                             <buttonCell key="cell" type="check" title="Fri" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xY6-71-cVf">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -162,7 +162,7 @@
                             </connections>
                         </button>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="lJP-iK-Nh1">
-                            <rect key="frame" x="324" y="11" width="42" height="18"/>
+                            <rect key="frame" x="327" y="11" width="42" height="18"/>
                             <buttonCell key="cell" type="check" title="Sat" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="pZC-7E-JPc">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>

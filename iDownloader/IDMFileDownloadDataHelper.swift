@@ -366,6 +366,7 @@ extension IDMFileDownloadDataHelper:SegmentDownloaderDelegate {
         if isAllSegmentsCompletedDownload {
             if self.updateFileExtension() {
                 self.fileDownloadData.runningStatus = .completed
+                self.fileDownloadData.isScheduled = false
                 self.fileDownloadData.endTimeStamp = Date().timeIntervalSince1970
                 self.saveFileDownloadInfoInDB(completion: { [weak self]
                     (error)
