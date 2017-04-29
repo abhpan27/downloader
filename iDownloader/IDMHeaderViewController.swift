@@ -21,6 +21,7 @@ class IDMHeaderViewController: NSViewController, IDMProViewClickProtocol{
     @IBOutlet weak var addDownloadContainer: NSView!
     @IBOutlet weak var addButton: NSButton!
     weak var headerActionDelgate:HeaderActionDelegate?
+    var proWindowController:IDMProWindowController?
     
     init(headerDelegate:HeaderActionDelegate){
         self.headerActionDelgate = headerDelegate
@@ -81,7 +82,17 @@ class IDMHeaderViewController: NSViewController, IDMProViewClickProtocol{
     }
     
     func didClickedProView() {
-        //
+        showProWindow()
+    }
+    
+    final func showProWindow(){
+        proWindowController?.close()
+        proWindowController = nil
+        proWindowController = IDMProWindowController(windowNibName: "IDMProWindowController")
+        proWindowController?.contentViewController = IDMProDemoController()
+        let rect = NSMakeRect(self.view.window!.frame.minX + 220, self.view.window!.frame.maxY - (625) , 475, 550)
+        self.proWindowController!.window!.setFrame(rect, display: true)
+        self.proWindowController!.window!.makeKeyAndOrderFront(self)
     }
     
 }
