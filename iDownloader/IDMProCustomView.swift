@@ -8,10 +8,15 @@
 
 import Cocoa
 
+protocol IDMProViewClickProtocol:class {
+    func didClickedProView()
+}
+
 class IDMProCustomView: NSView {
     
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var imageView: NSImageView!
+    weak var delegate:IDMProViewClickProtocol?
 
     override func viewDidMoveToWindow() {
         self.wantsLayer = true
@@ -54,6 +59,10 @@ class IDMProCustomView: NSView {
         self.layer?.backgroundColor = NSColor.clear.cgColor
         changeTextColor(NSColor(IDMr: 78, g: 146, b: 223))
         self.imageView.image = NSImage(named:"rowRocket")
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        delegate?.didClickedProView()
     }
 
     

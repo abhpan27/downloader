@@ -13,8 +13,10 @@
                 <outlet property="addButton" destination="S4A-ot-xN1" id="AcT-r6-e8P"/>
                 <outlet property="addDownloadContainer" destination="f3k-JC-V2l" id="uds-fb-vtk"/>
                 <outlet property="downloadLinkTextField" destination="Ofm-o4-b5K" id="JeA-qP-0Gb"/>
+                <outlet property="procustomView" destination="FIg-0p-W7T" id="dD7-zK-dc5"/>
                 <outlet property="titleLabel" destination="5NH-dY-FVv" id="24J-cN-gVE"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="widthOfProView" destination="V6d-fq-8SJ" id="Rva-xo-2jF"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -109,7 +111,7 @@ DQ
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="rowRocket" id="pKa-8a-JHj"/>
                                 </imageView>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Myc-zJ-oc9">
-                                    <rect key="frame" x="27" y="12" width="51" height="17"/>
+                                    <rect key="frame" x="29" y="12" width="51" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Go Pro!" id="05L-z1-qOC">
                                         <font key="font" metaFont="systemMedium" size="13"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -121,9 +123,9 @@ DQ
                                 <constraint firstAttribute="height" constant="36" id="4i1-vi-hFR"/>
                                 <constraint firstItem="Bte-LU-opE" firstAttribute="top" secondItem="FIg-0p-W7T" secondAttribute="top" constant="3" id="9wx-AV-QpN"/>
                                 <constraint firstItem="Myc-zJ-oc9" firstAttribute="centerY" secondItem="FIg-0p-W7T" secondAttribute="centerY" constant="-2" id="M85-P6-B57"/>
-                                <constraint firstItem="Myc-zJ-oc9" firstAttribute="leading" secondItem="Bte-LU-opE" secondAttribute="trailing" constant="-5" id="V3f-C0-1VC"/>
-                                <constraint firstAttribute="trailing" secondItem="Myc-zJ-oc9" secondAttribute="trailing" constant="7" id="YL2-h5-3h4"/>
+                                <constraint firstAttribute="trailing" secondItem="Myc-zJ-oc9" secondAttribute="trailing" constant="5" id="YL2-h5-3h4"/>
                                 <constraint firstItem="Bte-LU-opE" firstAttribute="leading" secondItem="FIg-0p-W7T" secondAttribute="leading" constant="2" id="gYN-E3-mSc"/>
+                                <constraint firstAttribute="width" constant="83" id="pWS-8C-c54"/>
                                 <constraint firstAttribute="bottom" secondItem="Bte-LU-opE" secondAttribute="bottom" id="wkX-pl-v7X"/>
                             </constraints>
                             <connections>
@@ -133,6 +135,7 @@ DQ
                         </customView>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="width" constant="94" id="V6d-fq-8SJ"/>
                         <constraint firstAttribute="trailing" secondItem="FIg-0p-W7T" secondAttribute="trailing" constant="5" id="a7a-7h-Bgk"/>
                         <constraint firstItem="FIg-0p-W7T" firstAttribute="top" secondItem="Imp-02-HRl" secondAttribute="top" constant="8" id="eyJ-NF-hgK"/>
                         <constraint firstItem="FIg-0p-W7T" firstAttribute="leading" secondItem="Imp-02-HRl" secondAttribute="leading" constant="6" id="jtq-Iq-YIU"/>

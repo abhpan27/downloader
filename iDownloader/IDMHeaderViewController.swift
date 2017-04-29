@@ -12,8 +12,10 @@ protocol HeaderActionDelegate:class{
     func didSelectedStartDownloadFromHeader(downloadUrl:String)
 }
 
-class IDMHeaderViewController: NSViewController{
+class IDMHeaderViewController: NSViewController, IDMProViewClickProtocol{
 
+    @IBOutlet weak var widthOfProView: NSLayoutConstraint!
+    @IBOutlet weak var procustomView: IDMProCustomView!
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var downloadLinkTextField: NSTextField!
     @IBOutlet weak var addDownloadContainer: NSView!
@@ -37,6 +39,7 @@ class IDMHeaderViewController: NSViewController{
         addDownloadContainer?.layer?.borderWidth = 1.0
         addDownloadContainer.layer?.cornerRadius =  5
         addDownloadContainer?.layer?.borderColor = NSColor(IDMr: 178, g: 164, b: 164).cgColor
+        procustomView.delegate = self
     }
     
     @IBAction func didSelectedAddDowload(_ sender: Any) {
@@ -67,6 +70,18 @@ class IDMHeaderViewController: NSViewController{
         alert.messageText = title
         alert.informativeText = message
         alert.runModal()
+    }
+    
+    private func hideProView() {
+        widthOfProView.constant = 0
+    }
+    
+    private func showProView() {
+        widthOfProView.constant = 94
+    }
+    
+    func didClickedProView() {
+        //
     }
     
 }
