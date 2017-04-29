@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IDMHeaderViewController" customModule="iDownloader" customModuleProvider="target">
@@ -23,10 +24,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="f3k-JC-V2l">
-                    <rect key="frame" x="30" y="24" width="420" height="35"/>
+                    <rect key="frame" x="30" y="24" width="326" height="35"/>
                     <subviews>
                         <box boxType="custom" borderType="none" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="EgK-6Z-ogj">
-                            <rect key="frame" x="386" y="0.0" width="1" height="35"/>
+                            <rect key="frame" x="292" y="0.0" width="1" height="35"/>
                             <view key="contentView" id="ETh-ue-T4N">
                                 <rect key="frame" x="0.0" y="0.0" width="1" height="35"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,7 +38,7 @@
                             <color key="fillColor" red="0.69803921568627447" green="0.64313725490196072" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                         </box>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S4A-ot-xN1" customClass="IDMAddDownloadButton" customModule="iDownloader" customModuleProvider="target">
-                            <rect key="frame" x="387" y="0.0" width="33" height="35"/>
+                            <rect key="frame" x="293" y="0.0" width="33" height="35"/>
                             <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Zar-mm-9ui">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -50,7 +51,7 @@ DQ
                             </connections>
                         </button>
                         <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofm-o4-b5K">
-                            <rect key="frame" x="11" y="8" width="371" height="19"/>
+                            <rect key="frame" x="11" y="8" width="277" height="19"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" focusRingType="none" placeholderString="Add download link here" id="6hs-kb-lnv">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,18 +94,68 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Imp-02-HRl">
+                    <rect key="frame" x="356" y="17" width="94" height="50"/>
+                    <subviews>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="FIg-0p-W7T" customClass="IDMProCustomView" customModule="iDownloader" customModuleProvider="target">
+                            <rect key="frame" x="6" y="6" width="83" height="36"/>
+                            <subviews>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bte-LU-opE">
+                                    <rect key="frame" x="2" y="0.0" width="32" height="33"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="32" id="A6q-sk-1nt"/>
+                                        <constraint firstAttribute="height" constant="33" id="dMK-wJ-vFs"/>
+                                    </constraints>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="rowRocket" id="pKa-8a-JHj"/>
+                                </imageView>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Myc-zJ-oc9">
+                                    <rect key="frame" x="27" y="12" width="51" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Go Pro!" id="05L-z1-qOC">
+                                        <font key="font" metaFont="systemMedium" size="13"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="4i1-vi-hFR"/>
+                                <constraint firstItem="Bte-LU-opE" firstAttribute="top" secondItem="FIg-0p-W7T" secondAttribute="top" constant="3" id="9wx-AV-QpN"/>
+                                <constraint firstItem="Myc-zJ-oc9" firstAttribute="centerY" secondItem="FIg-0p-W7T" secondAttribute="centerY" constant="-2" id="M85-P6-B57"/>
+                                <constraint firstItem="Myc-zJ-oc9" firstAttribute="leading" secondItem="Bte-LU-opE" secondAttribute="trailing" constant="-5" id="V3f-C0-1VC"/>
+                                <constraint firstAttribute="trailing" secondItem="Myc-zJ-oc9" secondAttribute="trailing" constant="7" id="YL2-h5-3h4"/>
+                                <constraint firstItem="Bte-LU-opE" firstAttribute="leading" secondItem="FIg-0p-W7T" secondAttribute="leading" constant="2" id="gYN-E3-mSc"/>
+                                <constraint firstAttribute="bottom" secondItem="Bte-LU-opE" secondAttribute="bottom" id="wkX-pl-v7X"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="imageView" destination="Bte-LU-opE" id="PWG-xN-hN4"/>
+                                <outlet property="titleLabel" destination="Myc-zJ-oc9" id="M4e-nC-RVQ"/>
+                            </connections>
+                        </customView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="FIg-0p-W7T" secondAttribute="trailing" constant="5" id="a7a-7h-Bgk"/>
+                        <constraint firstItem="FIg-0p-W7T" firstAttribute="top" secondItem="Imp-02-HRl" secondAttribute="top" constant="8" id="eyJ-NF-hgK"/>
+                        <constraint firstItem="FIg-0p-W7T" firstAttribute="leading" secondItem="Imp-02-HRl" secondAttribute="leading" constant="6" id="jtq-Iq-YIU"/>
+                        <constraint firstAttribute="height" constant="50" id="sBl-LS-MY8"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
                 <constraint firstItem="o35-SN-lYv" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="0mb-0Y-UmI"/>
                 <constraint firstAttribute="bottom" secondItem="o35-SN-lYv" secondAttribute="bottom" id="7d6-Tb-lGs"/>
                 <constraint firstItem="f3k-JC-V2l" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="A0L-ab-eOo"/>
+                <constraint firstAttribute="trailing" secondItem="Imp-02-HRl" secondAttribute="trailing" constant="30" id="H0F-TX-exI"/>
                 <constraint firstItem="f3k-JC-V2l" firstAttribute="top" secondItem="5NH-dY-FVv" secondAttribute="bottom" constant="7" id="LA2-g9-WLp"/>
                 <constraint firstItem="5NH-dY-FVv" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Wfu-2X-PR6"/>
+                <constraint firstItem="Imp-02-HRl" firstAttribute="centerY" secondItem="f3k-JC-V2l" secondAttribute="centerY" id="Y1m-io-T2y"/>
                 <constraint firstItem="5NH-dY-FVv" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="5" id="bid-UU-t2O"/>
-                <constraint firstItem="f3k-JC-V2l" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="hwH-jm-dE6"/>
+                <constraint firstItem="Imp-02-HRl" firstAttribute="leading" secondItem="f3k-JC-V2l" secondAttribute="trailing" id="eow-fD-ZbG"/>
                 <constraint firstAttribute="trailing" secondItem="o35-SN-lYv" secondAttribute="trailing" id="vKM-8C-PM5"/>
             </constraints>
             <point key="canvasLocation" x="138" y="50.5"/>
         </customView>
     </objects>
+    <resources>
+        <image name="rowRocket" width="29" height="29"/>
+    </resources>
 </document>

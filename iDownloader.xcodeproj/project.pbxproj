@@ -87,6 +87,7 @@
 		8CEDA8F11EAFBA7500D7AC78 /* IDMStartDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEDA8EF1EAFBA7500D7AC78 /* IDMStartDownloadViewController.xib */; };
 		8CEDA8F41EAFBECA00D7AC78 /* IDMStartDownloadWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEDA8F21EAFBECA00D7AC78 /* IDMStartDownloadWindowController.swift */; };
 		8CEDA8F51EAFBECA00D7AC78 /* IDMStartDownloadWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEDA8F31EAFBECA00D7AC78 /* IDMStartDownloadWindowController.xib */; };
+		8CEF37D01EB4F6CD00F596D0 /* IDMProCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEF37CF1EB4F6CD00F596D0 /* IDMProCustomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +196,7 @@
 		8CEDA8EF1EAFBA7500D7AC78 /* IDMStartDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMStartDownloadViewController.xib; sourceTree = "<group>"; };
 		8CEDA8F21EAFBECA00D7AC78 /* IDMStartDownloadWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMStartDownloadWindowController.swift; sourceTree = "<group>"; };
 		8CEDA8F31EAFBECA00D7AC78 /* IDMStartDownloadWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMStartDownloadWindowController.xib; sourceTree = "<group>"; };
+		8CEF37CF1EB4F6CD00F596D0 /* IDMProCustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMProCustomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,6 +330,7 @@
 			children = (
 				8CA0C6FD1E7D3C72002EA6D6 /* IDMHeaderViewController.swift */,
 				8CA0C6FE1E7D3C72002EA6D6 /* IDMHeaderViewController.xib */,
+				8CEF37CF1EB4F6CD00F596D0 /* IDMProCustomView.swift */,
 			);
 			name = HeaderController;
 			sourceTree = "<group>";
@@ -759,6 +762,7 @@
 				8C10CE521E8803DD00A1E5F7 /* IDMFiledownloaderView.swift in Sources */,
 				8CDB78D41E7D549600314F52 /* FoundationExtension.swift in Sources */,
 				8CA0C6FB1E7D3B20002EA6D6 /* IDMParentViewController.swift in Sources */,
+				8CEF37D01EB4F6CD00F596D0 /* IDMProCustomView.swift in Sources */,
 				8C7F44CD1E842157008E7060 /* ProgressUtils.swift in Sources */,
 				8CEDA8F01EAFBA7500D7AC78 /* IDMStartDownloadViewController.swift in Sources */,
 				8C0F0A731EB23CA90085350A /* AES256CBC.swift in Sources */,
