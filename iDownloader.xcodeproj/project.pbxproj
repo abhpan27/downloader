@@ -25,6 +25,7 @@
 		8C3723B41E9BC0D200F16E20 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3723B31E9BC0D200F16E20 /* Reachability.m */; };
 		8C3879C81E87FB61002F5D69 /* IDMWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3879C61E87FB61002F5D69 /* IDMWindowController.swift */; };
 		8C3879C91E87FB61002F5D69 /* IDMWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C3879C71E87FB61002F5D69 /* IDMWindowController.xib */; };
+		8C3F46981EB5EDAB00A142C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3F46971EB5EDAB00A142C8 /* StoreKit.framework */; };
 		8C49D19C1E87FC9600DD3362 /* NSWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49D19B1E87FC9600DD3362 /* NSWindowExtension.swift */; };
 		8C528B8E1E804AE300076550 /* IDMUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C528B8D1E804AE300076550 /* IDMUtilities.swift */; };
 		8C528B901E804CE100076550 /* IDMFlippedViewOfScollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C528B8F1E804CE100076550 /* IDMFlippedViewOfScollView.swift */; };
@@ -133,6 +134,7 @@
 		8C3723B31E9BC0D200F16E20 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		8C3879C61E87FB61002F5D69 /* IDMWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMWindowController.swift; sourceTree = "<group>"; };
 		8C3879C71E87FB61002F5D69 /* IDMWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMWindowController.xib; sourceTree = "<group>"; };
+		8C3F46971EB5EDAB00A142C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8C49D19B1E87FC9600DD3362 /* NSWindowExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSWindowExtension.swift; sourceTree = "<group>"; };
 		8C528B891E8037ED00076550 /* iDownloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDownloader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C528B8D1E804AE300076550 /* IDMUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMUtilities.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				8CE9F7851E7E6A23005034A3 /* SystemConfiguration.framework in Frameworks */,
 				8C1DC4FA1E8FAF7800CB819A /* Crashlytics.framework in Frameworks */,
 				8C1DC4F91E8FAF7800CB819A /* Fabric.framework in Frameworks */,
+				8C3F46981EB5EDAB00A142C8 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +541,7 @@
 		8CE9F7831E7E6A23005034A3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C3F46971EB5EDAB00A142C8 /* StoreKit.framework */,
 				8C1DC4F71E8FAF7800CB819A /* Fabric.framework */,
 				8C1DC4F81E8FAF7800CB819A /* Crashlytics.framework */,
 				8CE9F7841E7E6A23005034A3 /* SystemConfiguration.framework */,
@@ -637,6 +641,9 @@
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
