@@ -12,12 +12,13 @@ struct SettingsKeys {
     static let shouldShowNotificationOnDownload = "shouldShowNotificationOnDownload"
     static let notificationSound = "notificationSound"
     static let defaultBookMarkData = "defaultBookMarkData"
-    static let noOfSegmennts = "noOfSegmennts"
+    static let noOfSegmennts = "numberOfSegments"
     static let isFreshInstall = "FreshInstall"
     static let hasAlreadyRatedApp = "hasAlreadyRatedApp"
     static let hasSeletectedNotAskRatings = "hasSeletectedNotAskRatings"
     static let shouldRunSchedulerDaily = "shouldRunSchedulerDaily"
     static let scheduledWeekDays = "scheduledWeekDays"
+    static let userDeviceIDHash = "userDeviceIDHash"
     static let schedulerStartTime = "schedulerStartTime"
     static let schedulerStopTime = "schedulerStopTime"
 }
@@ -147,7 +148,19 @@ class IDMSettingsController: NSViewController {
         let popUpButton = sender as! NSPopUpButton
         if let title = popUpButton.titleOfSelectedItem{
             if let value = Int(title){
-                IDMSettingsManager.shared.setDefaultNumberOfSegments(segments: value)
+                checkAndSetUpNumberOfSegments(forNumberOfSegemnts: value)
+            }
+        }
+    }
+    
+    private func checkAndSetUpNumberOfSegments(forNumberOfSegemnts:Int) {
+        if IAPHelper.shared.isProductPurchased(Constants.productInAppID){
+            IDMSettingsManager.shared.setDefaultNumberOfSegments(segments: forNumberOfSegemnts)
+        }else {
+            if forNumberOfSegemnts <= Constants.defaultNumberOfSegments {
+                IDMSettingsManager.shared.setDefaultNumberOfSegments(segments: forNumberOfSegemnts)
+            }else {
+                (NSApp.delegate as! AppDelegate).appController.parentController.headerController.showProWindow()
             }
         }
         setUpNoOfSegments()

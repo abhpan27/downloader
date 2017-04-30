@@ -41,6 +41,10 @@ class IDMHeaderViewController: NSViewController, IDMProViewClickProtocol{
         addDownloadContainer.layer?.cornerRadius =  5
         addDownloadContainer?.layer?.borderColor = NSColor(IDMr: 178, g: 164, b: 164).cgColor
         procustomView.delegate = self
+        checkAndHideProButton()
+        NotificationCenter.default.addObserver(self, selector: #selector(IDMHeaderViewController.handlePurchasedNotification),
+                                               name: NSNotification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification),
+                                               object: nil)
     }
     
     @IBAction func didSelectedAddDowload(_ sender: Any) {
@@ -49,6 +53,23 @@ class IDMHeaderViewController: NSViewController, IDMProViewClickProtocol{
     
     final func setTitle(tileString:String){
         self.titleLabel.stringValue = tileString
+    }
+    
+    final func handlePurchasedNotification() {
+        runInMainThread {
+            self.hideProView()
+            self.proWindowController?.close()
+            self.proWindowController = nil
+            self.showErorr(title: "Thank you!", message: "You have now access to iDownloader pro. Experience the speed :)")
+        }
+    }
+    
+    private func checkAndHideProButton() {
+        if IAPHelper.shared.isProductPurchased(Constants.productInAppID){
+            self.hideProView()
+        }else{
+            self.showProView()
+        }
     }
     
     private func checkAndStartDownload() {

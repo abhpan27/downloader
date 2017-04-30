@@ -17,6 +17,8 @@
 		8C10CE591E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C10CE581E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift */; };
 		8C1732001EAE58C200322C87 /* IDMSettingsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1731FE1EAE58C200322C87 /* IDMSettingsContainer.swift */; };
 		8C1732011EAE58C200322C87 /* IDMSettingsContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C1731FF1EAE58C200322C87 /* IDMSettingsContainer.xib */; };
+		8C18D47C1EB5A50D00C225DA /* IDMIAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C18D47B1EB5A50D00C225DA /* IDMIAPHelper.swift */; };
+		8C18D47E1EB5A60000C225DA /* IDMStoreKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C18D47D1EB5A60000C225DA /* IDMStoreKitExtension.swift */; };
 		8C1DC4F91E8FAF7800CB819A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1DC4F71E8FAF7800CB819A /* Fabric.framework */; };
 		8C1DC4FA1E8FAF7800CB819A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C1DC4F81E8FAF7800CB819A /* Crashlytics.framework */; };
 		8C1DC4FC1E8FB2E000CB819A /* IDMAnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */; };
@@ -122,6 +124,8 @@
 		8C10CE581E8846D700A1E5F7 /* IDMLocalNotificationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMLocalNotificationHelper.swift; sourceTree = "<group>"; };
 		8C1731FE1EAE58C200322C87 /* IDMSettingsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMSettingsContainer.swift; sourceTree = "<group>"; };
 		8C1731FF1EAE58C200322C87 /* IDMSettingsContainer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IDMSettingsContainer.xib; sourceTree = "<group>"; };
+		8C18D47B1EB5A50D00C225DA /* IDMIAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMIAPHelper.swift; sourceTree = "<group>"; };
+		8C18D47D1EB5A60000C225DA /* IDMStoreKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMStoreKitExtension.swift; sourceTree = "<group>"; };
 		8C1DC4F71E8FAF7800CB819A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		8C1DC4F81E8FAF7800CB819A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDMAnalyticsHelper.swift; sourceTree = "<group>"; };
@@ -282,6 +286,7 @@
 				8C7F44CE1E844496008E7060 /* IDMFileHandler.swift */,
 				8C1DC4FB1E8FB2E000CB819A /* IDMAnalyticsHelper.swift */,
 				8CC5BAD41EACAA4F00792FC3 /* IDMRatingsHelper.swift */,
+				8C18D47B1EB5A50D00C225DA /* IDMIAPHelper.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 				8C49D19B1E87FC9600DD3362 /* NSWindowExtension.swift */,
 				8C10CE551E881B3E00A1E5F7 /* IDMScrollViewExtension.swift */,
 				8C0655E01EB44E5800490CDF /* IDMDateExtension.swift */,
+				8C18D47D1EB5A60000C225DA /* IDMStoreKitExtension.swift */,
 			);
 			name = "Cocoa Extensions";
 			sourceTree = "<group>";
@@ -751,6 +757,7 @@
 				8C528B901E804CE100076550 /* IDMFlippedViewOfScollView.swift in Sources */,
 				8C10CE561E881B3E00A1E5F7 /* IDMScrollViewExtension.swift in Sources */,
 				8CDB78CE1E7D4F8500314F52 /* IDMAddDownloadButton.swift in Sources */,
+				8C18D47C1EB5A50D00C225DA /* IDMIAPHelper.swift in Sources */,
 				8CC5BAD51EACAA4F00792FC3 /* IDMRatingsHelper.swift in Sources */,
 				8C7F44CB1E842157008E7060 /* CircularProgressView.swift in Sources */,
 				8CE9F7921E7E81D2005034A3 /* IDMCoreDataHelper.swift in Sources */,
@@ -795,6 +802,7 @@
 				8C7F44CA1E842157008E7060 /* BaseView.swift in Sources */,
 				8C1732001EAE58C200322C87 /* IDMSettingsContainer.swift in Sources */,
 				8C528B8E1E804AE300076550 /* IDMUtilities.swift in Sources */,
+				8C18D47E1EB5A60000C225DA /* IDMStoreKitExtension.swift in Sources */,
 				8C3723B41E9BC0D200F16E20 /* Reachability.m in Sources */,
 				8CDB78E71E7E3EC900314F52 /* IDMAddDownloadPopUP.swift in Sources */,
 			);

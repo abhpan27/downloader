@@ -14,6 +14,8 @@ import Crashlytics
 struct Constants {
     static let defaultSoundName = "Default"
     static let encyptionKey = "#$%^$#@wer%$#(*&ghy^%$fgt*&^#$%f"
+    static let productInAppID = "com.abhishek.idownloader.morethreads"
+    static let defaultNumberOfSegments = 5
 }
 
 @NSApplicationMain

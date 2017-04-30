@@ -16,6 +16,9 @@ final class IDMAnalyticsHelper {
     let freshInstallKey = "Fresh Install"
     let locale = "Locale"
     let newDownload = "New Download"
+    let launchedProWindow = "Launched pro window"
+    let clickedBuy = "Clicked buy pro"
+    let purchaseCompleted = "Completed purchase"
     
     final func checkAndLogFreshInstall() {
         if IDMSettingsManager.shared.isFreshInstall {
@@ -28,5 +31,20 @@ final class IDMAnalyticsHelper {
     
     final func LogNewDownloadStart() {
         Answers.logCustomEvent(withName: newDownload)
+    }
+    
+    final func logLaunchedProWindow() {
+        Answers.logCustomEvent(withName: launchedProWindow, customAttributes: [
+            locale: Locale.current.regionCode as Any])
+    }
+    
+    final func logLaunchedClickedBuy() {
+        Answers.logCustomEvent(withName: clickedBuy, customAttributes: [
+            locale: Locale.current.regionCode as Any])
+    }
+    
+    final func logPurchaseCompleted() {
+        Answers.logCustomEvent(withName: purchaseCompleted, customAttributes: [
+            locale: Locale.current.regionCode as Any])
     }
 }

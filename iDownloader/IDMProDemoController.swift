@@ -7,9 +7,12 @@
 //
 
 import Cocoa
+import StoreKit
 
 class IDMProDemoController: NSViewController {
 
+    @IBOutlet weak var bigProgressIndicator: NSProgressIndicator!
+    @IBOutlet weak var buttonProgressIndicator: NSProgressIndicator!
     @IBOutlet weak var percentDemp: NSTextField!
     @IBOutlet weak var progressView: CircularProgressView!
     @IBOutlet weak var segmentTitle: NSTextField!
@@ -18,17 +21,33 @@ class IDMProDemoController: NSViewController {
     @IBOutlet weak var supportDevelopemtDescription: NSTextField!
     @IBOutlet weak var flagImage: NSImageView!
     @IBOutlet weak var buyProButton: IDMCustomGreenButton!
+    @IBOutlet weak var priceLable: NSTextField!
+    @IBOutlet weak var progressIndicator: NSProgressIndicator!
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         progressView.foreground = NSColor(IDMr: 65, g: 117, b: 5)
         percentDemp.textColor = NSColor(IDMr: 65, g: 117, b: 5)
+        setProductDetails()
+        NotificationCenter.default.addObserver(self, selector: #selector(IDMProDemoController.pruchaseFail),
+                                               name: NSNotification.Name(rawValue: IAPHelper.IAPHelperDidFailNotification),
+                                               object: nil)
+        IDMAnalyticsHelper.shared.logLaunchedProWindow()
     }
     
     override func viewDidAppear() {
         resetViewState()
         runAnimation()
+    }
+    
+    final func pruchaseFail() {
+        runInMainThread {
+            self.bigProgressIndicator.stopAnimation(self)
+            self.bigProgressIndicator.isHidden = true
+        }
+      
     }
     
     final func resetViewState() {
@@ -61,5 +80,72 @@ class IDMProDemoController: NSViewController {
                 self.progressView.progress = 1
                 self.percentDemp.stringValue = "100 %"
         })
+    }
+    
+    private func setProductDetails() {
+        if let product = IAPHelper.shared.moreThreadsProduct{
+            progressIndicator.isHidden = true
+            buttonProgressIndicator.isHidden = true
+            progressIndicator.stopAnimation(self)
+            buttonProgressIndicator.stopAnimation(self)
+            self.priceLable.isHidden = false
+            let price = product.localizedPrice()
+            self.priceLable.stringValue = "for one time purchase of " + price
+            self.buyProButton.title = "Buy iDownloader pro for " + price
+            self.buyProButton.changeTextColor(NSColor(IDMr: 86, g: 173, b: 104))
+            self.buyProButton.layoutSubtreeIfNeeded()
+        }else {
+            getListOfProducts()
+        }
+    }
+    
+    @IBAction func didSelectedBuyPro(_ sender: Any) {
+        IDMAnalyticsHelper.shared.logLaunchedClickedBuy()
+        bigProgressIndicator.isHidden = false
+        bigProgressIndicator.startAnimation(self)
+        if let iapProduct = IAPHelper.shared.moreThreadsProduct {
+             IAPHelper.shared.buyProduct(iapProduct)
+        }else {
+            bigProgressIndicator.isHidden = true
+            bigProgressIndicator.stopAnimation(self)
+            IDMUtilities.shared.showError(title: "Oops!!", information: "Fetching product details, just wait a moment please")
+        }
+       
+    }
+    
+    @IBAction func didSelectedRestorePurchase(_ sender: Any) {
+        bigProgressIndicator.isHidden = false
+        bigProgressIndicator.startAnimation(self)
+        IAPHelper.shared.restorePurchases()
+    }
+    
+    
+    final func getListOfProducts() {
+        priceLable.isHidden = true
+        progressIndicator.isHidden = false
+        buttonProgressIndicator.isHidden = false
+        progressIndicator.startAnimation(self)
+        buttonProgressIndicator.startAnimation(self)
+        IAPHelper.shared.requestProducts { [weak self]
+            (success, productArray)
+            in
+            guard let blockSelf = self
+                else{
+                    return
+            }
+            runInMainThread {
+                blockSelf.progressIndicator.isHidden = true
+                blockSelf.buttonProgressIndicator.isHidden = true
+                blockSelf.progressIndicator.stopAnimation(blockSelf)
+                blockSelf.buttonProgressIndicator.stopAnimation(blockSelf)
+                if success{
+                    IAPHelper.shared.moreThreadsProduct = productArray!.last!
+                    blockSelf.setProductDetails()
+                }else {
+                    IDMUtilities.shared.showError(title: "Oops!!", information: "Product details can't be fetched from server currently. Please try after sometime")
+                }
+            }
+            
+        }
     }
 }

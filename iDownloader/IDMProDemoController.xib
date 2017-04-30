@@ -9,9 +9,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IDMProDemoController" customModule="iDownloader" customModuleProvider="target">
             <connections>
+                <outlet property="bigProgressIndicator" destination="U2b-hZ-0ms" id="tdg-cJ-MhQ"/>
+                <outlet property="buttonProgressIndicator" destination="y6y-lP-fpN" id="iIE-E2-zwu"/>
                 <outlet property="buyProButton" destination="qES-dc-hFc" id="Ldi-xs-Lcc"/>
                 <outlet property="flagImage" destination="iO7-pt-eeJ" id="vD6-5n-S8b"/>
                 <outlet property="percentDemp" destination="7w3-9T-3kU" id="A5c-3G-8ET"/>
+                <outlet property="priceLable" destination="dkk-0p-wzv" id="UfG-tv-H1D"/>
+                <outlet property="progressIndicator" destination="Bia-wB-cIR" id="ZKT-wz-oKG"/>
                 <outlet property="progressView" destination="CbK-E5-yF2" id="kok-7U-Q0G"/>
                 <outlet property="segmentDescription" destination="7Vi-1G-Sad" id="EPH-yL-grV"/>
                 <outlet property="segmentTitle" destination="qEb-7c-plh" id="ldB-oN-gpq"/>
@@ -71,15 +75,15 @@
                     </userDefinedRuntimeAttributes>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEb-7c-plh">
-                    <rect key="frame" x="188" y="321" width="197" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="More segments to boost speed" id="aqB-ka-ndG">
+                    <rect key="frame" x="188" y="321" width="201" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="More segments to boost speed!" id="aqB-ka-ndG">
                         <font key="font" metaFont="systemMedium" size="13"/>
                         <color key="textColor" red="0.30980392159999998" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7Vi-1G-Sad">
-                    <rect key="frame" x="178" y="251" width="217" height="64"/>
+                    <rect key="frame" x="178" y="251" width="221" height="64"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="With pro, you can break downloads into maximum 15 segments. This will ensure that every bit of internet bandwidth is utilized." id="qk9-P6-kBU">
                         <font key="font" metaFont="system" size="12"/>
                         <color key="textColor" red="0.30980392159999998" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -103,7 +107,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="H5V-W2-lEd">
-                    <rect key="frame" x="70" y="92" width="182" height="80"/>
+                    <rect key="frame" x="60" y="108" width="202" height="64"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="DN0-Fr-Gjk">
                         <font key="font" metaFont="system" size="12"/>
                         <string key="title">If you like iDownloader and want to see it around for a long time, You can support the development of iDownloader by buying pro. </string>
@@ -112,11 +116,14 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qES-dc-hFc" customClass="IDMCustomGreenButton" customModule="iDownloader" customModuleProvider="target">
-                    <rect key="frame" x="204" y="52" width="72" height="32"/>
-                    <buttonCell key="cell" type="bevel" title="Buy Pro for" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="o9E-tl-hju">
+                    <rect key="frame" x="175" y="52" width="130" height="32"/>
+                    <buttonCell key="cell" type="bevel" title="Buy iDownloader Pro" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="o9E-tl-hju">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="didSelectedBuyPro:" target="-2" id="Ejo-hT-dnj"/>
+                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="chA-TF-DoM" customClass="IDMCustomGreenButton" customModule="iDownloader" customModuleProvider="target">
                     <rect key="frame" x="185" y="8" width="111" height="32"/>
@@ -124,31 +131,59 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="didSelectedRestorePurchase:" target="-2" id="b28-5N-y8s"/>
+                    </connections>
                 </button>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkk-0p-wzv">
+                    <rect key="frame" x="223" y="369" width="35" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="price" id="YwL-dt-zdy">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" red="0.30980392159999998" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Bia-wB-cIR">
+                    <rect key="frame" x="232" y="369" width="16" height="16"/>
+                </progressIndicator>
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="y6y-lP-fpN">
+                    <rect key="frame" x="232" y="60" width="16" height="16"/>
+                </progressIndicator>
+                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="U2b-hZ-0ms">
+                    <rect key="frame" x="224" y="248" width="32" height="32"/>
+                </progressIndicator>
             </subviews>
             <constraints>
                 <constraint firstItem="qEb-7c-plh" firstAttribute="leading" secondItem="CbK-E5-yF2" secondAttribute="trailing" constant="40" id="1VO-Wv-OPb"/>
                 <constraint firstItem="dCl-W5-aIm" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="3M7-an-8wl"/>
                 <constraint firstItem="qES-dc-hFc" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="5hO-P0-Oji"/>
+                <constraint firstItem="dkk-0p-wzv" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="6hf-PE-27L"/>
                 <constraint firstItem="CbK-E5-yF2" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="40" id="AXV-bi-fwQ"/>
                 <constraint firstItem="34k-qM-rGq" firstAttribute="top" secondItem="dCl-W5-aIm" secondAttribute="bottom" constant="8" id="CIr-4w-ua5"/>
                 <constraint firstItem="7Vi-1G-Sad" firstAttribute="top" secondItem="qEb-7c-plh" secondAttribute="bottom" constant="6" id="DS8-ba-3lh"/>
+                <constraint firstItem="Bia-wB-cIR" firstAttribute="top" secondItem="34k-qM-rGq" secondAttribute="bottom" constant="3" id="DZF-ed-Fvn"/>
                 <constraint firstItem="iO7-pt-eeJ" firstAttribute="top" secondItem="7Vi-1G-Sad" secondAttribute="bottom" constant="40" id="F0v-OX-ZAn"/>
                 <constraint firstItem="dCl-W5-aIm" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="JYc-09-6aa"/>
                 <constraint firstItem="CbK-E5-yF2" firstAttribute="top" secondItem="34k-qM-rGq" secondAttribute="bottom" constant="43" id="K3L-Qh-4Qd"/>
                 <constraint firstItem="7Vi-1G-Sad" firstAttribute="leading" secondItem="qEb-7c-plh" secondAttribute="leading" constant="-10" id="LS1-SL-Ego"/>
+                <constraint firstItem="y6y-lP-fpN" firstAttribute="centerY" secondItem="qES-dc-hFc" secondAttribute="centerY" id="MKw-2s-ihL"/>
+                <constraint firstItem="U2b-hZ-0ms" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Rx4-Fu-Yf9"/>
                 <constraint firstItem="qEb-7c-plh" firstAttribute="top" secondItem="34k-qM-rGq" secondAttribute="bottom" constant="50" id="Ybm-Ig-DFF"/>
                 <constraint firstAttribute="trailing" secondItem="iO7-pt-eeJ" secondAttribute="trailing" constant="85" id="a9X-wY-wry"/>
+                <constraint firstItem="Bia-wB-cIR" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="bCJ-KB-CXf"/>
                 <constraint firstItem="iO7-pt-eeJ" firstAttribute="leading" secondItem="Ynu-G6-WZL" secondAttribute="trailing" constant="60" id="dbK-zA-ge5"/>
                 <constraint firstItem="Ynu-G6-WZL" firstAttribute="top" secondItem="CbK-E5-yF2" secondAttribute="bottom" constant="40" id="f2n-fb-BuL"/>
                 <constraint firstAttribute="bottom" secondItem="chA-TF-DoM" secondAttribute="bottom" constant="8" id="fNg-s7-X5a"/>
                 <constraint firstItem="7Vi-1G-Sad" firstAttribute="trailing" secondItem="qEb-7c-plh" secondAttribute="trailing" constant="10" id="iu9-tT-fIF"/>
                 <constraint firstItem="chA-TF-DoM" firstAttribute="top" secondItem="qES-dc-hFc" secondAttribute="bottom" constant="12" id="j6u-kR-ujw"/>
                 <constraint firstItem="34k-qM-rGq" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="lqH-pc-31g"/>
-                <constraint firstItem="H5V-W2-lEd" firstAttribute="trailing" secondItem="Ynu-G6-WZL" secondAttribute="trailing" constant="15" id="phA-35-vQ8"/>
-                <constraint firstItem="H5V-W2-lEd" firstAttribute="leading" secondItem="Ynu-G6-WZL" secondAttribute="leading" constant="-15" id="tyd-GQ-fNP"/>
+                <constraint firstItem="dkk-0p-wzv" firstAttribute="top" secondItem="34k-qM-rGq" secondAttribute="bottom" constant="2" id="nUo-Un-CkW"/>
+                <constraint firstItem="H5V-W2-lEd" firstAttribute="trailing" secondItem="Ynu-G6-WZL" secondAttribute="trailing" constant="25" id="phA-35-vQ8"/>
+                <constraint firstItem="H5V-W2-lEd" firstAttribute="leading" secondItem="Ynu-G6-WZL" secondAttribute="leading" constant="-25" id="tyd-GQ-fNP"/>
                 <constraint firstItem="chA-TF-DoM" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="uO4-iC-gfV"/>
+                <constraint firstItem="y6y-lP-fpN" firstAttribute="centerX" secondItem="qES-dc-hFc" secondAttribute="centerX" id="wC7-5r-0Lx"/>
                 <constraint firstItem="H5V-W2-lEd" firstAttribute="top" secondItem="Ynu-G6-WZL" secondAttribute="bottom" constant="6" id="wTJ-Fg-040"/>
+                <constraint firstItem="U2b-hZ-0ms" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="xXi-QU-OV8"/>
             </constraints>
             <point key="canvasLocation" x="139" y="296.5"/>
         </customView>

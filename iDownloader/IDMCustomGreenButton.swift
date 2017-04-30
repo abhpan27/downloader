@@ -88,7 +88,7 @@ class IDMCustomGreenButton: NSButton {
         }
     }
     
-    fileprivate func changeTextColor(_ toColor:NSColor){
+    final func changeTextColor(_ toColor:NSColor){
         let title = self.title
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.center

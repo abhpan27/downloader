@@ -145,7 +145,25 @@ class IDMStartDownloadViewController: NSViewController {
     }
     
     @IBAction func didChangedNumberOfSegments(_ sender: Any) {
-        
+        let popUpButton = sender as! NSPopUpButton
+        if let title = popUpButton.titleOfSelectedItem{
+            if let value = Int(title){
+                checkAndSetUpNumberOfSegments(forNumberOfSegemnts: value)
+            }
+        }
+    }
+    
+    private func checkAndSetUpNumberOfSegments(forNumberOfSegemnts:Int) {
+        if IAPHelper.shared.isProductPurchased(Constants.productInAppID){
+            IDMSettingsManager.shared.setDefaultNumberOfSegments(segments: forNumberOfSegemnts)
+        }else {
+            if forNumberOfSegemnts <= Constants.defaultNumberOfSegments {
+                IDMSettingsManager.shared.setDefaultNumberOfSegments(segments: forNumberOfSegemnts)
+            }else {
+                (NSApp.delegate as! AppDelegate).appController.parentController.headerController.showProWindow()
+            }
+        }
+        setUpNoOfSegments()
     }
     
     @IBAction func didChangedAuthenticationRequired(_ sender: Any) {

@@ -57,6 +57,15 @@ final class IDMSettingsManager {
         return nil
     }
     
+    var pruchasedID:String {
+        if let IDData = UserDefaults.standard.value(forKey:  SettingsKeys.userDeviceIDHash) as? Data {
+            if let stringID = String(data: IDData, encoding: String.Encoding.utf8){
+                return stringID.decrypted!
+            }
+        }
+        return "some random shit"
+    }
+    
     var defaultNotificationSound:String {
         let notificationSound = UserDefaults.standard.value(forKey: SettingsKeys.notificationSound) as? String ?? Constants.defaultSoundName
         return notificationSound
@@ -75,7 +84,10 @@ final class IDMSettingsManager {
     
     
     var defaultNumberOfSegments:Int {
-        let segmentCounts = UserDefaults.standard.value(forKey: SettingsKeys.noOfSegmennts) as? Int ?? 6
+        let segmentCounts = UserDefaults.standard.value(forKey: SettingsKeys.noOfSegmennts) as? Int ?? Constants.defaultNumberOfSegments
+        if !IAPHelper.shared.isProductPurchased(Constants.productInAppID) && segmentCounts > Constants.defaultNumberOfSegments{
+            return Constants.defaultNumberOfSegments
+        }
         return segmentCounts
     }
     
@@ -150,6 +162,13 @@ final class IDMSettingsManager {
     final func setStopSchedulerTime(time:Date) {
         let hrs = IDMUtilities.shared.getMinutesFromMidnightForDate(time)
         UserDefaults.standard.set(hrs, forKey: SettingsKeys.schedulerStopTime)
+    }
+    
+    final func setPurchasedProduct(identifier:String) {
+        let hash = identifier.encrypted!
+        let data = hash.data(using: String.Encoding.utf8)
+        UserDefaults.standard.set(data, forKey:   SettingsKeys.userDeviceIDHash)
+        UserDefaults.standard.synchronize()
     }
     
 }

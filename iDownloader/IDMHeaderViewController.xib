@@ -125,7 +125,7 @@ DQ
                                 <constraint firstItem="Myc-zJ-oc9" firstAttribute="centerY" secondItem="FIg-0p-W7T" secondAttribute="centerY" constant="-2" id="M85-P6-B57"/>
                                 <constraint firstAttribute="trailing" secondItem="Myc-zJ-oc9" secondAttribute="trailing" constant="5" id="YL2-h5-3h4"/>
                                 <constraint firstItem="Bte-LU-opE" firstAttribute="leading" secondItem="FIg-0p-W7T" secondAttribute="leading" constant="2" id="gYN-E3-mSc"/>
-                                <constraint firstAttribute="width" constant="83" id="pWS-8C-c54"/>
+                                <constraint firstAttribute="width" priority="999" constant="83" id="pWS-8C-c54"/>
                                 <constraint firstAttribute="bottom" secondItem="Bte-LU-opE" secondAttribute="bottom" id="wkX-pl-v7X"/>
                             </constraints>
                             <connections>
@@ -136,9 +136,9 @@ DQ
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="width" constant="94" id="V6d-fq-8SJ"/>
-                        <constraint firstAttribute="trailing" secondItem="FIg-0p-W7T" secondAttribute="trailing" constant="5" id="a7a-7h-Bgk"/>
+                        <constraint firstAttribute="trailing" secondItem="FIg-0p-W7T" secondAttribute="trailing" priority="999" constant="5" id="a7a-7h-Bgk"/>
                         <constraint firstItem="FIg-0p-W7T" firstAttribute="top" secondItem="Imp-02-HRl" secondAttribute="top" constant="8" id="eyJ-NF-hgK"/>
-                        <constraint firstItem="FIg-0p-W7T" firstAttribute="leading" secondItem="Imp-02-HRl" secondAttribute="leading" constant="6" id="jtq-Iq-YIU"/>
+                        <constraint firstItem="FIg-0p-W7T" firstAttribute="leading" secondItem="Imp-02-HRl" secondAttribute="leading" priority="999" constant="6" id="jtq-Iq-YIU"/>
                         <constraint firstAttribute="height" constant="50" id="sBl-LS-MY8"/>
                     </constraints>
                 </customView>
