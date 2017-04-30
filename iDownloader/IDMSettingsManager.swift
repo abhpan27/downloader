@@ -92,7 +92,7 @@ final class IDMSettingsManager {
     }
     
     var defaultSchedulerStartDate:Date {
-        var defaultValueForWeekDayStartAt = (10 * 60) // 10AM
+        var defaultValueForWeekDayStartAt = (22 * 60) // 10PM
         if let startMintuesFromMidNight = UserDefaults.standard.value(forKey: SettingsKeys.schedulerStartTime) as? Int {
             defaultValueForWeekDayStartAt = startMintuesFromMidNight
         }
@@ -100,7 +100,7 @@ final class IDMSettingsManager {
     }
     
     var defaultSchedulerStopDate:Date {
-        var defaultValueForWeekDayStartAt = (22 * 60) // 10PM
+        var defaultValueForWeekDayStartAt = (23 * 60) // 11PM
         if let startMintuesFromMidNight = UserDefaults.standard.value(forKey: SettingsKeys.schedulerStopTime) as? Int {
             defaultValueForWeekDayStartAt = startMintuesFromMidNight
         }
