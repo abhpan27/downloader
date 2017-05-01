@@ -12,7 +12,6 @@ import StoreKit
 class IDMProDemoController: NSViewController {
 
     @IBOutlet weak var bigProgressIndicator: NSProgressIndicator!
-    @IBOutlet weak var buttonProgressIndicator: NSProgressIndicator!
     @IBOutlet weak var percentDemp: NSTextField!
     @IBOutlet weak var progressView: CircularProgressView!
     @IBOutlet weak var segmentTitle: NSTextField!
@@ -85,9 +84,7 @@ class IDMProDemoController: NSViewController {
     private func setProductDetails() {
         if let product = IAPHelper.shared.moreThreadsProduct{
             progressIndicator.isHidden = true
-            buttonProgressIndicator.isHidden = true
             progressIndicator.stopAnimation(self)
-            buttonProgressIndicator.stopAnimation(self)
             self.priceLable.isHidden = false
             let price = product.localizedPrice()
             self.priceLable.stringValue = "for one time purchase of " + price
@@ -108,7 +105,7 @@ class IDMProDemoController: NSViewController {
         }else {
             bigProgressIndicator.isHidden = true
             bigProgressIndicator.stopAnimation(self)
-            IDMUtilities.shared.showError(title: "Oops!!", information: "Fetching product details, just wait a moment please")
+            getListOfProducts()
         }
        
     }
@@ -123,9 +120,7 @@ class IDMProDemoController: NSViewController {
     final func getListOfProducts() {
         priceLable.isHidden = true
         progressIndicator.isHidden = false
-        buttonProgressIndicator.isHidden = false
         progressIndicator.startAnimation(self)
-        buttonProgressIndicator.startAnimation(self)
         IAPHelper.shared.requestProducts { [weak self]
             (success, productArray)
             in
@@ -135,11 +130,9 @@ class IDMProDemoController: NSViewController {
             }
             runInMainThread {
                 blockSelf.progressIndicator.isHidden = true
-                blockSelf.buttonProgressIndicator.isHidden = true
                 blockSelf.progressIndicator.stopAnimation(blockSelf)
-                blockSelf.buttonProgressIndicator.stopAnimation(blockSelf)
-                if success{
-                    IAPHelper.shared.moreThreadsProduct = productArray!.last!
+                if let arrayOfProducts = productArray, arrayOfProducts.count > 0{
+                    IAPHelper.shared.moreThreadsProduct = arrayOfProducts.last!
                     blockSelf.setProductDetails()
                 }else {
                     IDMUtilities.shared.showError(title: "Oops!!", information: "Product details can't be fetched from server currently. Please try after sometime")
