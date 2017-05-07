@@ -70,6 +70,8 @@ final class IDMSegmentDownloader:NSObject, URLSessionDataDelegate{
         }
         setUpSession()
         downloadTask = session!.dataTask(with: getURLRequestForDownloadTask())
+        self.sessionInvalidateTaskCompletion = nil
+        self.deleteDownloadTaskCompletion = nil
         downloadTask!.resume()
     }
     
